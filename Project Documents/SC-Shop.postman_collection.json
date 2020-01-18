@@ -143,14 +143,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8003/users/{user}/cart",
+							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
 							"host": [
 								"localhost"
 							],
 							"port": "8003",
 							"path": [
 								"users",
-								"{user}",
+								"14335d51-265a-4e01-ad4d-306be659a48f",
 								"cart"
 							]
 						}
@@ -170,17 +170,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"firstName\": \"Sushant\",\r\n    \"lastName\": \"Ch\",\r\n    \"birthDate\": \"19800101\",\r\n    \"gender\": \"Male\"\r\n}"
+							"raw": "[\r\n    {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    },\r\n     {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    }\r\n]"
 						},
 						"url": {
-							"raw": "localhost:8003/users/{user}/cart",
+							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
 							"host": [
 								"localhost"
 							],
 							"port": "8003",
 							"path": [
 								"users",
-								"{user}",
+								"14335d51-265a-4e01-ad4d-306be659a48f",
 								"cart"
 							]
 						}
@@ -203,14 +203,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8003/users/{user}/cart",
+							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
 							"host": [
 								"localhost"
 							],
 							"port": "8003",
 							"path": [
 								"users",
-								"{user}",
+								"14335d51-265a-4e01-ad4d-306be659a48f",
 								"cart"
 							]
 						}
