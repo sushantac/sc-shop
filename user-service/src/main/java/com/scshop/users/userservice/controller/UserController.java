@@ -78,7 +78,7 @@ public class UserController {
 	 * @param id
 	 * @param user
 	 */
-	@RequestMapping(path = "/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/users/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateUser(@PathVariable UUID id, @RequestBody User user){
 		boolean is_present = userRepository.existsById(id);
 
