@@ -1,2 +1,2 @@
 # SC-Shop
-Project to explore microservice architecture by implementing simple basic APIs
+Project to explore microservice architecture by implementing some simple basic APIs
