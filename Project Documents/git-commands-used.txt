@@ -1,0 +1,21 @@
+git init
+git add .
+git commit -m "Added ..."
+git push -u origin master
+
+Before creating a new branch, pull the changes from upstream. Your master needs to be up to date.
+$ git pull
+
+Create the branch on your local machine and switch in this branch :
+$ git checkout -b [name_of_your_new_branch]
+
+Push the branch on github :
+$ git push origin [name_of_your_new_branch]
+
+git checkout -b sprint1-basic-apis
+git branch -a
+git push -u origin sprint1-basic-apis
+
+git log --oneline --color-words --decorate
+git log -r
+
