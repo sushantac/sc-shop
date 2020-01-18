@@ -27,6 +27,10 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
 	public List<User> getUsers(){
 		
@@ -35,6 +39,11 @@ public class UserController {
 		return users;
 	}
 	
+	/**
+	 * 	
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(path = "/users/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable UUID id){
 		
@@ -64,6 +73,11 @@ public class UserController {
 		return ResponseEntity.created(location).build();
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param user
+	 */
 	@RequestMapping(path = "/users", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateUser(@PathVariable UUID id, @RequestBody User user){
 		boolean is_present = userRepository.existsById(id);
@@ -76,6 +90,10 @@ public class UserController {
 		userRepository.save(user);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 */
 	@RequestMapping(path = "/users/{id}", method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable UUID id) {
 
