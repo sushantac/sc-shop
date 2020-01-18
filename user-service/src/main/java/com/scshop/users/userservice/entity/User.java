@@ -3,9 +3,15 @@ package com.scshop.users.userservice.entity;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class User {
@@ -14,16 +20,27 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 
+	@NotNull
+	@Length(max = 40)
 	private String firstName;
+	
+	@NotNull
+	@Length(max = 40)
 	private String lastName;
+	
+	@NotNull
+	@Past
 	private String birthDate;
-	private String gender;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 	
 	public User() {
 		
 	}	
 	
-	public User(UUID id, String firstName, String lastName, String birthDate, String gender) {
+	public User(UUID id, String firstName, String lastName, String birthDate, Gender gender) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -56,10 +73,10 @@ public class User {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
