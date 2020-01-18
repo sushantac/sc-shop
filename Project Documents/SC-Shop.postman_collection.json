@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "407676cc-9260-438c-8e1c-39b575d579d0",
+		"name": "SC-Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Adam\",\r\n    \"lastName\": \"Z\",\r\n    \"birthDate\": \"19800102\",\r\n    \"gender\": \"Male\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8001/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"firstName\": \"Sushant\",\r\n    \"lastName\": \"Ch\",\r\n    \"birthDate\": \"19800101\",\r\n    \"gender\": \"Male\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/users/{user}/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"users",
+								"{user}",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"firstName\": \"Sushant\",\r\n    \"lastName\": \"Ch\",\r\n    \"birthDate\": \"19800101\",\r\n    \"gender\": \"Male\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8003/users/{user}/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"users",
+								"{user}",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8003/users/{user}/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"users",
+								"{user}",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c48d4b8-3c5a-400d-88f5-bdb014563ce3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "51a5dc63-a533-42dc-9118-3d04d6274b77",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"SURFACE 3\",\r\n    \"brand\": \"Microsoft\",\r\n    \"category\": \"Electronics\",\r\n    \"subCategory\": \"Computers & Laptops\",\r\n    \"price\": 1999,\r\n    \"currency\": \"AUD\",\r\n    \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/surface-3.png\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8002/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"name\": \"LATITUDE E7450\",\r\n        \"brand\": \"Dell\",\r\n        \"category\": \"Electronics\",\r\n        \"subCategory\": \"Computers & Laptops\",\r\n        \"price\": 990.00,\r\n        \"currency\": \"AUD\",\r\n        \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/latitude-e7450.png\"\r\n    }"
+						},
+						"url": {
+							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bea2b26c-ae26-4407-a79f-ca1aca7a609c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "469e9669-6c74-432d-83fb-5de9f0f18c40",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
