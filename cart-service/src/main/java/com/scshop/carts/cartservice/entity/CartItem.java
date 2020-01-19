@@ -15,6 +15,9 @@ public class CartItem {
 	private UUID id;
 	private UUID userId;
 	private UUID productId;
+	
+	private String productName;
+	
 
 	private Integer quantity;
 
@@ -93,8 +96,16 @@ public class CartItem {
 
 	@Override
 	public String toString() {
-		return "CartItem [id=" + id + ", userId=" + userId + ", productId=" + productId + ", quantity=" + quantity
-				+ "]";
+		return "CartItem [id=" + id + ", userId=" + userId + ", productId=" + productId + ", productName=" + productName
+				+ ", quantity=" + quantity + "]";
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }
