@@ -33,7 +33,7 @@ public class User {
 	private String birthDate;
 	
 	@NotNull
-	@Enumerated(EnumType.STRING)
+	@Enumerated(value = EnumType.STRING)
 	private Gender gender;
 	
 	public User() {

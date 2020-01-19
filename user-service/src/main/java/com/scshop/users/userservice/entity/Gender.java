@@ -2,8 +2,8 @@ package com.scshop.users.userservice.entity;
 
 public enum Gender {
 
-	MALE("Male"), 
-	FEMALE("Female"); 
+	Male("Male"), 
+	Female("Female"); 
 
 	private final String name;
 
@@ -14,5 +14,7 @@ public enum Gender {
 	public String getName() {
 		return name;
 	}
+	
+	
 
 }
