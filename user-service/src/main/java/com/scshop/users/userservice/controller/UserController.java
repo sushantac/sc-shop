@@ -22,6 +22,7 @@ import com.scshop.users.userservice.exception.UserNotFoundException;
 
 
 @RestController
+@RequestMapping(path = "/api/v1")
 public class UserController {
 	
 	@Autowired

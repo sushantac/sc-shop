@@ -20,6 +20,7 @@ import com.scshop.products.productservice.entity.ProductRepository;
 import com.scshop.products.productservice.exception.ProductNotFoundException;
 
 @RestController
+@RequestMapping(path = "/api/v1")
 public class ProductController {
 
 	@Autowired

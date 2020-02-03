@@ -17,6 +17,7 @@ import com.scshop.carts.cartservice.entity.CartItem;
 import com.scshop.carts.cartservice.entity.CartItemRepository;
 
 @RestController
+@RequestMapping(path = "/api/v1")
 public class CartController {
 
 	@Autowired

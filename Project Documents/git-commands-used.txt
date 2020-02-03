@@ -54,6 +54,10 @@ git branch -a
 git push -u origin sprint1-basic-apis
   or 
 git push -u origin
+  or
+git push
+
+
 
 git log --oneline --color-words --decorate
 git log -r
