@@ -1,3 +1,3 @@
 # SC-Shop
 
-Project to explore microservice architecture 
+Project to explore microservice architecture  
