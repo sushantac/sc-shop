@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +17,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtConfig {
 
+	Logger logger = Logger.getLogger(JwtConfig.class.getName());
+	
 	public static final long TOKEN_VALIDITY_TIME = 1 * 60 * 60;
 
-	//@Value("${jwt.secretkey}")
-	private String SECRET_KEY = "secret_key";
+	@Value("${jwt.secretkey}")
+	private String SECRET_KEY;
 
 	// retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
