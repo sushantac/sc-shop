@@ -1,31 +1,46 @@
 package com.scshop.orders.orderservice.controller;
 
+import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.scshop.orders.orderservice.entity.Order;
+import com.scshop.orders.orderservice.entity.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
 
 @RestController
 @RequestMapping(path="/api/v1")
 public class OrderController {
 	
+	static Logger logger = Logger.getLogger(OrderController.class.toString());
+	
 	
 	@Autowired
 	OrderRepository orderRepository;
 	
 	
-	@RequestMapping(path = "/orders/{id}", method = RequestMethod.GET)
-	public Order getOrder(@PathVariable UUID id) {
+	@RequestMapping(path = "/orders", method = RequestMethod.GET)
+	public List<FinalOrder> getOrders() {
 		
-		Optional<Order> optional = orderRepository.findById(id);
+		return orderRepository.findAll();
+
+	}
+	
+	
+	@RequestMapping(path = "/orders/{id}", method = RequestMethod.GET)
+	public FinalOrder getOrder(@PathVariable UUID id) {
+		
+		Optional<FinalOrder> optional = orderRepository.findById(id);
 		
 		if(!optional.isPresent()) {
 			throw new RuntimeException("Order not found");
@@ -35,10 +50,14 @@ public class OrderController {
 	}
 	
 	@RequestMapping(path = "/orders", method = RequestMethod.POST)
-	public UUID generateOrder(@RequestBody Order order) {
-		Order savedOrder = orderRepository.save(order);
+	public ResponseEntity<Object> generateOrder(@RequestBody FinalOrder order) {
 		
-		return savedOrder.getId();
+		FinalOrder savedOrder = orderRepository.save(order);
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(savedOrder.getId()).toUri();
+
+		return ResponseEntity.created(location).build();
 	}
 	
 	
