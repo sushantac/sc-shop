@@ -337,15 +337,37 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
+							"raw": "http://localhost:8004/api/v1/orders/f81ac5cc-fa9c-43d5-a273-5edd05e31eb1",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8004",
 							"path": [
-								"users",
-								"14335d51-265a-4e01-ad4d-306be659a48f",
-								"cart"
+								"api",
+								"v1",
+								"orders",
+								"f81ac5cc-fa9c-43d5-a273-5edd05e31eb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"api",
+								"v1",
+								"orders"
 							]
 						}
 					},
@@ -399,7 +421,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n    \"userId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n    \r\n    \"shippingAddress\": {\r\n    \t\"id\": \"11335d51-265a-4e01-ad4d-306be659a48f\",\r\n    \t\"name\": \"Sushant Chanmanwar\"\r\n    },\r\n    \r\n    \"payment\": {\r\n    \t\"subTotal\": 4800,\r\n    \t\"shippingCharges\":20,\r\n    \t\"total\": 4820,\r\n    \t\"grandTotal\": 4820,\r\n    \t\"currency\": \"AUD\"\r\n    },\r\n\r\n    \"products\": [\r\n    \t {\r\n\t        \"name\": \"STUDIO XPS 16\",\r\n\t        \"brand\": \"Dell\",\r\n\t        \"price\": 2000.00,\r\n\t        \"currency\": \"AUD\",\r\n\t        \"imgUrl\": \"file://localhost/d$/ContentLibrary/s3.ap-southeast-2.amazonaws.com/laptop/Studio-XPS-16.jpg\",\r\n\t        \"quantity\": 2\r\n\t     },\r\n\t     \r\n\t     {\r\n\t        \"id\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n\t        \"name\": \"LATITUDE E7450\",\r\n\t        \"brand\": \"Dell\",\r\n\t        \"price\": 800.00,\r\n\t        \"currency\": \"AUD\",\r\n\t        \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/latitude-e7450.png\",\r\n\t        \"quantity\": 1\r\n\t     }\r\n\t     \r\n    ]\r\n    \r\n}",
+							"raw": "[\r\n    {\r\n        \"userId\": \"34335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"shippingAddress\": {\r\n            \"name\": \"Nick Jo\",\r\n            \"addressLine1\": \"2 Street\",\r\n            \"addressLine2\": null,\r\n            \"city\": \"Melbourne\",\r\n            \"state\": \"VIC\",\r\n            \"country\": \"AUSTRALIA\"\r\n        },\r\n        \"payment\": {\r\n            \"subTotal\": 500.00,\r\n            \"shippingCharges\": 20.00,\r\n            \"total\": 520.00,\r\n            \"grandTotal\": 520.00,\r\n            \"currency\": \"AUD\"\r\n        },\r\n        \"status\": \"PLACED\",\r\n        \"items\": [\r\n            {\r\n                \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n                \"productName\": \"LATITUDE E7450\",\r\n                \"quantity\": 2,\r\n                \"price\": 500.00,\r\n                \"currency\": \"AUD\",\r\n                \"imgUrl\": null\r\n            }\r\n        ]\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -407,12 +429,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8003/orders",
+							"raw": "localhost:8004/api/v1/orders",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8004",
 							"path": [
+								"api",
+								"v1",
 								"orders"
 							]
 						}
