@@ -1,0 +1,31 @@
+server:
+  port: 8000
+  
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: http://localhost:8001/api/v1/users
+          predicates:
+          - Path=/api/v1/users/**
+        - id: product-service
+          uri: http://localhost:8002/api/v1/products
+          predicates:
+          - Path=/api/v1/products/**
+        - id: cart-service
+          uri: http://localhost:8003/api/v1/carts
+          predicates:
+          - Path=/api/v1/carts/**
+        - id: order-service
+          uri: http://localhost:8004/api/v1/orders
+          predicates:
+          - Path=/api/v1/orders/**
+          
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8012/eureka/ 

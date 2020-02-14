@@ -19,7 +19,7 @@ import com.scshop.orders.orderservice.entity.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
 
 @RestController
-@RequestMapping(path="/api/v1")
+@RequestMapping(path="/api/v1/orders")
 public class OrderController {
 	
 	static Logger logger = Logger.getLogger(OrderController.class.toString());
@@ -29,7 +29,7 @@ public class OrderController {
 	OrderRepository orderRepository;
 	
 	
-	@RequestMapping(path = "/orders", method = RequestMethod.GET)
+	@RequestMapping(path = "", method = RequestMethod.GET)
 	public List<FinalOrder> getOrders() {
 		
 		return orderRepository.findAll();
@@ -37,7 +37,7 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping(path = "/orders/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public FinalOrder getOrder(@PathVariable UUID id) {
 		
 		Optional<FinalOrder> optional = orderRepository.findById(id);
@@ -49,7 +49,7 @@ public class OrderController {
 		return optional.get();
 	}
 	
-	@RequestMapping(path = "/orders", method = RequestMethod.POST)
+	@RequestMapping(path = "", method = RequestMethod.POST)
 	public ResponseEntity<Object> generateOrder(@RequestBody FinalOrder order) {
 		
 		FinalOrder savedOrder = orderRepository.save(order);
@@ -61,7 +61,7 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping(path = "/orders/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
 	public void cancelOrder(@PathVariable UUID id) {
 		
 		orderRepository.deleteById(id);

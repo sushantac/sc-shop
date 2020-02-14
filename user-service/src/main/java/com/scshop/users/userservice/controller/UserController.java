@@ -22,7 +22,7 @@ import com.scshop.users.userservice.exception.UserNotFoundException;
 
 
 @RestController
-@RequestMapping(path = "/api/v1")
+@RequestMapping(path = "/api/v1/users")
 public class UserController {
 	
 	@Autowired
@@ -32,7 +32,7 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(path = "/users", method = RequestMethod.GET)
+	@RequestMapping(path = "", method = RequestMethod.GET)
 	public List<User> getUsers(){
 		
 		List<User> users = userRepository.findAll();
@@ -45,7 +45,7 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(path = "/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable UUID id){
 		
 		Optional<User> optional = userRepository.findById(id);
@@ -63,7 +63,7 @@ public class UserController {
 	 * 
 	 * @param {@link User}
 	 */
-	@RequestMapping(path = "/users", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createUser(@RequestBody User user){
 		
 		User savedUser = userRepository.save(user);
@@ -79,7 +79,7 @@ public class UserController {
 	 * @param id
 	 * @param user
 	 */
-	@RequestMapping(path = "/users/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateUser(@PathVariable UUID id, @RequestBody User user){
 		boolean is_present = userRepository.existsById(id);
 
@@ -95,7 +95,7 @@ public class UserController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(path = "/users/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable UUID id) {
 
 		boolean is_present = userRepository.existsById(id);
