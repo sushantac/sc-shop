@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +24,9 @@ import com.scshop.products.productservice.exception.ProductNotFoundException;
 @RequestMapping(path = "/api/v1/products")
 public class ProductController {
 
+	
+	private static Logger logger = Logger.getLogger(ProductController.class.toString());
+	
 	@Autowired
 	ProductRepository productRepository;
 
@@ -34,6 +38,8 @@ public class ProductController {
 	public List<Product> getProducts() {
 
 		List<Product> products = productRepository.findAll();
+		
+		logger.info("######### Products loaded from here....");
 
 		return products;
 	}

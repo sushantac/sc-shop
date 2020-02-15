@@ -1,31 +1,73 @@
 server:
   port: 8000
   
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
 spring:
+  application:
+    name: api-gateway-service
   cloud:
+    config:
+        uri: http://localhost:8011
+    loadbalancer:
+      ribbon:
+        enabled: false
     gateway:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       routes:
         - id: user-service
-          uri: http://localhost:8001/api/v1/users
+          uri: lb://user-service
           predicates:
-          - Path=/api/v1/users/**
+          - Path=/externalGateway/api/*/users/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
         - id: product-service
-          uri: http://localhost:8002/api/v1/products
+          uri: lb://product-service
           predicates:
-          - Path=/api/v1/products/**
+          - Path=/externalGateway/api/*/products/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
         - id: cart-service
-          uri: http://localhost:8003/api/v1/carts
+          uri: lb://cart-service
           predicates:
-          - Path=/api/v1/carts/**
+          - Path=/externalGateway/api/*/carts/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
         - id: order-service
-          uri: http://localhost:8004/api/v1/orders
+          uri: lb://order-service
           predicates:
-          - Path=/api/v1/orders/**
+          - Path=/externalGateway/api/*/orders/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+
           
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8012/eureka/ 
+    healthcheck:
+      enabled: true
+      
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.web: DEBUG
+
