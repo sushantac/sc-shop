@@ -1,0 +1,52 @@
+version: "1"
+
+services:
+  config-service:
+    image: config-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/config-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8011:8011"
+  eureka-discovery-service:
+    image: eureka-discovery-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/eureka-discovery-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8012:8012"
+  auth-service:
+    image: auth-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/auth-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8001:8001"
+  user-service:
+    image: user-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/user-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8001:8001"
+  product-service:
+    image: product-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/product-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8001:8001"
+  cart-service:
+    image: cart-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/cart-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8001:8001"
+  order-service:
+    image: auth-service:0.1
+        build:
+             context: "D:/MyProject/GitRepository/SC-Shop/auth-service"
+             dockerfile: Dockerfile
+        ports:
+         - "8001:8001"
