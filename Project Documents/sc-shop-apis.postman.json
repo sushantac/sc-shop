@@ -100,12 +100,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8001/users",
+							"raw": "http://localhost:8000/externalGateway/api/v1/users",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8001",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"users"
 							]
 						}
@@ -118,12 +122,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8001",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"users",
 								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
@@ -147,12 +155,16 @@
 							"raw": "{\r\n    \"firstName\": \"Adam\",\r\n    \"lastName\": \"Z\",\r\n    \"birthDate\": \"19800102\",\r\n    \"gender\": \"Male\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8001/users",
+							"raw": "http://localhost:8000/externalGateway/api/v1/users",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8001",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"users"
 							]
 						}
@@ -175,12 +187,16 @@
 							"raw": "{\r\n   \"firstName\": \"Sushant\",\r\n    \"lastName\": \"Ch\",\r\n    \"birthDate\": \"19800101\",\r\n    \"gender\": \"Male\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8001",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"users",
 								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
@@ -204,12 +220,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8001/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8001",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"users",
 								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
@@ -229,15 +249,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8000",
 							"path": [
-								"users",
-								"14335d51-265a-4e01-ad4d-306be659a48f",
-								"cart"
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
 						}
 					},
@@ -259,15 +282,18 @@
 							"raw": "[\r\n    {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    },\r\n     {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    }\r\n]"
 						},
 						"url": {
-							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8000",
 							"path": [
-								"users",
-								"14335d51-265a-4e01-ad4d-306be659a48f",
-								"cart"
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
 						}
 					},
@@ -289,15 +315,18 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8003/users/14335d51-265a-4e01-ad4d-306be659a48f/cart",
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8000",
 							"path": [
-								"users",
-								"14335d51-265a-4e01-ad4d-306be659a48f",
-								"cart"
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
 							]
 						}
 					},
@@ -337,13 +366,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8004/api/v1/orders/f81ac5cc-fa9c-43d5-a273-5edd05e31eb1",
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders/f81ac5cc-fa9c-43d5-a273-5edd05e31eb1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8004",
+							"port": "8000",
 							"path": [
+								"externalGateway",
 								"api",
 								"v1",
 								"orders",
@@ -359,12 +389,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8004/api/v1/orders",
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8004",
+							"port": "8000",
 							"path": [
+								"externalGateway",
 								"api",
 								"v1",
 								"orders"
@@ -395,12 +427,16 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8003/orders",
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8003",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"orders"
 							]
 						}
@@ -421,7 +457,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"userId\": \"34335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"shippingAddress\": {\r\n            \"name\": \"Nick Jo\",\r\n            \"addressLine1\": \"2 Street\",\r\n            \"addressLine2\": null,\r\n            \"city\": \"Melbourne\",\r\n            \"state\": \"VIC\",\r\n            \"country\": \"AUSTRALIA\"\r\n        },\r\n        \"payment\": {\r\n            \"subTotal\": 500.00,\r\n            \"shippingCharges\": 20.00,\r\n            \"total\": 520.00,\r\n            \"grandTotal\": 520.00,\r\n            \"currency\": \"AUD\"\r\n        },\r\n        \"status\": \"PLACED\",\r\n        \"items\": [\r\n            {\r\n                \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n                \"productName\": \"LATITUDE E7450\",\r\n                \"quantity\": 2,\r\n                \"price\": 500.00,\r\n                \"currency\": \"AUD\",\r\n                \"imgUrl\": null\r\n            }\r\n        ]\r\n    }\r\n]",
+							"raw": "\r\n    {\r\n        \"userId\": \"44335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"shippingAddress\": {\r\n            \"name\": \"Sushant Chanmanwar\",\r\n            \"addressLine1\": \"1 Street\",\r\n            \"addressLine2\": null,\r\n            \"city\": \"Sydney\",\r\n            \"state\": \"NSW\",\r\n            \"country\": \"AUSTRALIA\"\r\n        },\r\n        \"payment\": {\r\n            \"subTotal\": 400.00,\r\n            \"shippingCharges\": 20.00,\r\n            \"total\": 420.00,\r\n            \"grandTotal\": 420.00,\r\n            \"currency\": \"AUD\"\r\n        },\r\n        \"status\": \"PLACED\",\r\n        \"items\": [\r\n            {\r\n                \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n                \"productName\": \"LATITUDE E7450\",\r\n                \"quantity\": 2,\r\n                \"price\": 1000.00,\r\n                \"currency\": \"AUD\",\r\n                \"imgUrl\": null\r\n            }\r\n        ]\r\n    }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,12 +465,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8004/api/v1/orders",
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8004",
+							"port": "8000",
 							"path": [
+								"externalGateway",
 								"api",
 								"v1",
 								"orders"
@@ -477,12 +515,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8002/api/v1/products",
+							"raw": "http://localhost:8000/externalGateway/api/v1/products",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8000",
 							"path": [
+								"externalGateway",
 								"api",
 								"v1",
 								"products"
@@ -497,12 +537,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"products",
 								"22335d51-265a-4e01-ad4d-306be659a48f"
 							]
@@ -526,12 +570,16 @@
 							"raw": "{\r\n    \"name\": \"SURFACE 3\",\r\n    \"brand\": \"Microsoft\",\r\n    \"category\": \"Electronics\",\r\n    \"subCategory\": \"Computers & Laptops\",\r\n    \"price\": 1999,\r\n    \"currency\": \"AUD\",\r\n    \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/surface-3.png\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8002/products",
+							"raw": "http://localhost:8000/externalGateway/api/v1/products",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"products"
 							]
 						}
@@ -554,12 +602,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"products",
 								"22335d51-265a-4e01-ad4d-306be659a48f"
 							]
@@ -583,12 +635,16 @@
 							"raw": " {\r\n        \"name\": \"STUDIO XPS 16\",\r\n        \"brand\": \"Dell\",\r\n        \"category\": \"Electronics\",\r\n        \"subCategory\": \"Computers & Laptops\",\r\n        \"price\": 2000.00,\r\n        \"currency\": \"AUD\",\r\n        \"imgUrl\": \"file://localhost/d$/ContentLibrary/s3.ap-southeast-2.amazonaws.com/laptop/Studio-XPS-16.jpg\"\r\n        \r\n    }\r\n    \r\n  "
 						},
 						"url": {
-							"raw": "localhost:8002/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8002",
+							"port": "8000",
 							"path": [
+								"externalGateway",
+								"api",
+								"v1",
 								"products",
 								"22335d51-265a-4e01-ad4d-306be659a48f"
 							]
