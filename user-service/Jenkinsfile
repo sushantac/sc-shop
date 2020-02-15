@@ -1,0 +1,35 @@
+node{
+    stage('SCM Checkout from GitHub'){
+        git 'https://github.com/sushantac/sc-shop'
+    }
+    
+    stage('MVN Package - user-service'){
+        def mvnHome = tool name: 'Apache Maven', type: 'maven'
+        def mvnCMD = "${mvnHome}\\bin\\mvn"
+        
+        //bat label: '', script: "\"${mvnCMD}\" clean package -f user-service\\pom.xml"
+        //bat label: '', script: "\"${mvnCMD}\" package -f user-service\\pom.xml"
+    }
+    
+    stage('Build Docker Image - user-service') {
+        bat label: '', script: 'docker build -t sushantac/user-service:0.0.1 --file user-service\\Dockerfile .'
+    }
+    
+    stage('Push to docker hub - user-service') {
+        withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPassword')]) {
+           bat label: '', script: "docker login -u sushantac -p Nanded-0000 -p ${dockerHubPassword}"
+        }
+
+        bat label: '', script: 'docker push sushantac/user-service:0.0.1'
+    }
+    
+    stage('Run container on Dev server'){
+        try{
+            bat label: '', script: 'docker stop user-service'
+        } catch(all) {
+        
+        }
+
+        bat label: '', script: 'docker run -p 8002:8082 --name user-service sushantac/user-service:0.0.1'
+    }
+}
