@@ -12,9 +12,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.scshop.orders.orderservice.entity.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderItem;
-import com.scshop.orders.orderservice.entity.OrderValidation;
-import com.scshop.orders.orderservice.entity.OrderValidationStatus;
 import com.scshop.orders.orderservice.entity.Product;
+import com.scshop.orders.orderservice.validation.OrderValidation;
+import com.scshop.orders.orderservice.validation.OrderValidationStatus;
 
 @Service
 public class OrderService {
@@ -29,6 +29,8 @@ public class OrderService {
 
 	public OrderValidation validate(FinalOrder order) {
 
+		//TODO Add validation for currency check!
+		
 		OrderValidation orderValidation = new OrderValidation();
 
 		if (order.getItems() == null || order.getItems().isEmpty() || order.getPayment().getGrandTotal().equals(0)) {
@@ -46,8 +48,16 @@ public class OrderService {
 					.retrieve().bodyToMono(Product.class).block();
 
 			if (product != null) {
-				calculatedGrandTotalPrice = calculatedGrandTotalPrice
-						.add(product.getPrice().multiply(new BigDecimal(orderItem.getQuantity())));
+				if (!orderItem.getPrice().equals(product.getPrice())) {
+					orderValidation.setStatus(OrderValidationStatus.PRODUCT_PRICE_CHANGED);
+					orderValidation.getInvalidOrderItems().add(orderItem);
+				} else if (orderItem.getQuantity() > product.getAvailableStock()) {
+					orderValidation.setStatus(OrderValidationStatus.PRODUCT_OUT_OF_STOCK);
+					orderValidation.getInvalidOrderItems().add(orderItem);
+				} else {
+					calculatedGrandTotalPrice = calculatedGrandTotalPrice
+							.add(product.getPrice().multiply(new BigDecimal(orderItem.getQuantity())));
+				}
 			} else {
 				orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);
 				orderValidation.getInvalidOrderItems().add(orderItem);
@@ -68,6 +78,8 @@ public class OrderService {
 
 		if (calculatedGrandTotalPrice.equals(order.getPayment().getGrandTotal())) {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_VALID);
+		} else {
+			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);
 		}
 
 		return orderValidation;

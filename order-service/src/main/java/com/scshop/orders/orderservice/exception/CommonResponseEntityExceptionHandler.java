@@ -16,14 +16,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-//	@ExceptionHandler(ProductNotFoundException.class)
-//	public final ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException ex,
-//			WebRequest request) {
-//		
-//		ExceptionMessage exceptionResponse = new ExceptionMessage(HttpStatus.NOT_FOUND, new Date(), ex.getMessage(),
-//				request.getDescription(false));
-//		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-//	}
+	@ExceptionHandler(OrderDetailsInvalidException.class)
+	public final ResponseEntity<Object> handleOrderDetailsInvalidException(OrderDetailsInvalidException ex,
+			WebRequest request) {
+		
+		ExceptionMessage exceptionResponse = new ExceptionMessage(HttpStatus.BAD_REQUEST, new Date(), ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

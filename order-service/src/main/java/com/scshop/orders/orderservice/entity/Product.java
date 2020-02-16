@@ -18,12 +18,14 @@ public class Product {
 	
 	private URL imgUrl;
 	
+	private Integer availableStock;
+	
 	public Product() {
 		
 	}
 	
 	public Product(UUID id, String name, String brand, String category, String subCategory, BigDecimal price,
-			Currency currency, URL imgUrl) {
+			Currency currency, URL imgUrl, Integer availableStock) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -33,6 +35,7 @@ public class Product {
 		this.price = price;
 		this.currency = currency;
 		this.imgUrl = imgUrl;
+		this.availableStock = availableStock;
 	}
 
 	public UUID getId() {
@@ -103,6 +106,7 @@ public class Product {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((availableStock == null) ? 0 : availableStock.hashCode());
 		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
@@ -123,6 +127,11 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
+		if (availableStock == null) {
+			if (other.availableStock != null)
+				return false;
+		} else if (!availableStock.equals(other.availableStock))
+			return false;
 		if (brand == null) {
 			if (other.brand != null)
 				return false;
@@ -166,7 +175,16 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", brand=" + brand + ", category=" + category + ", subCategory="
-				+ subCategory + ", price=" + price + ", currency=" + currency + ", imgUrl=" + imgUrl + "]";
+				+ subCategory + ", price=" + price + ", currency=" + currency + ", imgUrl=" + imgUrl
+				+ ", availableStock=" + availableStock + "]";
+	}
+
+	public Integer getAvailableStock() {
+		return availableStock;
+	}
+
+	public void setAvailableStock(Integer availableStock) {
+		this.availableStock = availableStock;
 	}	
 	
 	

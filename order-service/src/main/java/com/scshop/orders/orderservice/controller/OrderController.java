@@ -18,9 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.scshop.orders.orderservice.entity.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
 import com.scshop.orders.orderservice.entity.OrderStatus;
-import com.scshop.orders.orderservice.entity.OrderValidation;
-import com.scshop.orders.orderservice.entity.OrderValidationStatus;
+import com.scshop.orders.orderservice.exception.OrderDetailsInvalidException;
 import com.scshop.orders.orderservice.services.OrderService;
+import com.scshop.orders.orderservice.validation.OrderValidation;
+import com.scshop.orders.orderservice.validation.OrderValidationStatus;
 
 @RestController
 @RequestMapping(path = "/api/v1/orders")
@@ -64,7 +65,7 @@ public class OrderController {
 		OrderValidation orderValidation = orderService.validate(order);
 		
 		if(!OrderValidationStatus.ORDER_IS_VALID.equals(orderValidation.getStatus())) {
-			throw new RuntimeException("Order is not valid. Please check the order details and try again.");
+			throw new OrderDetailsInvalidException(orderValidation.getStatus().getDetails());
 		}
 		
 		order.setStatus(OrderStatus.INITIATED);
