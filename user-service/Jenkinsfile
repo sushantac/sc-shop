@@ -1,3 +1,5 @@
+//This is a script for local windows machine. Need to create a better declarative pipeline script for linux on aws
+
 node{
     stage('SCM Checkout from GitHub'){
         git 'https://github.com/sushantac/sc-shop'
@@ -7,8 +9,7 @@ node{
         def mvnHome = tool name: 'Apache Maven', type: 'maven'
         def mvnCMD = "${mvnHome}\\bin\\mvn"
         
-        //bat label: '', script: "\"${mvnCMD}\" clean package -f user-service\\pom.xml"
-        //bat label: '', script: "\"${mvnCMD}\" package -f user-service\\pom.xml"
+        bat label: '', script: "\"${mvnCMD}\" clean package -f user-service\\pom.xml"
     }
     
     stage('Build Docker Image - user-service') {
