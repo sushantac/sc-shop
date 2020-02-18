@@ -17,6 +17,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.scshop.orders.orderservice.entity.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
+import com.scshop.orders.orderservice.entity.OrderStatus;
+import com.scshop.orders.orderservice.exception.OrderDetailsInvalidException;
+import com.scshop.orders.orderservice.services.OrderService;
+import com.scshop.orders.orderservice.validation.OrderValidation;
+import com.scshop.orders.orderservice.validation.OrderValidationStatus;
 
 @RestController
 @RequestMapping(path = "/api/v1/orders")
@@ -27,6 +32,9 @@ public class OrderController {
 	@Autowired
 	OrderRepository orderRepository;
 
+	@Autowired
+	OrderService orderService;
+	
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public List<FinalOrder> getOrders() {
 
@@ -50,20 +58,45 @@ public class OrderController {
 	public ResponseEntity<Object> generateOrder(@RequestBody FinalOrder order) {
 
 		// # // Validate the incoming order data before committing it
-		// - validate if the totalPrice is correct by re-calculating it by fetching product item prices
+		// - validate if the totalPrice is correct by re-calculating it by fetching product item prices from product-service
 		// - validate if customer has enough balance in credits
 		// - validate if product inventory is available
-
+		
+		OrderValidation orderValidation = orderService.validate(order);
+		
+		if(!OrderValidationStatus.ORDER_IS_VALID.equals(orderValidation.getStatus())) {
+			throw new OrderDetailsInvalidException(orderValidation.getStatus().getDetails());
+		}
+		
+		order.setStatus(OrderStatus.INITIATED);
 		FinalOrder savedOrder = orderRepository.save(order);
 
-		// # // Send events using kafka (an event listener will cancel this order if any of the target events send failure event)
-		// - update products inventory 
-		// - update customer balance
-		// - create shipping record -- TODO
-		// - email notification -- TODO
+		
+		// -------------- TODO -------------- 
+		// ## order-service --> Send ORDER_INITIATED event on ORDER_TOPIC
+		// $$ Kafka Consumers listening to ORDER_TOPIC
+		// --- payment-service -> update customer balance
+		// --- product-service -> update product inventory 
+		// --- notification-service -> Send Order Initiated message/email to customer -- TODO later
+		// ------
+		//
+		// ## payment-service --> Send ORDER_PAYMENT_CONFIRMED event on ORDER_TOPIC if payment successful
+		// $$ Kafka Consumers listening to ORDER_TOPIC
+		// --- shipping-service -> Create shipping record -- TODO later
+		// --- order-service -> Change order status to CONFIRMED
+		// --- notification-service -> Send Order Confirmed message/email to customer -- TODO later
+		// ------
+		//
+		// ## payment-service --> Send ORDER_PAYMENT_FAILED event on ORDER_TOPIC if payment fails
+		// $$ Kafka Consumers listening to ORDER_TOPIC
+		// --- order-service -> Change order status to CANCELLED
+		// --- notification-service -> Send Order Cancelled message/email to customer -- TODO later
+		// ------
 		
 		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedOrder.getId())
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(savedOrder.getId())
 				.toUri();
 
 		return ResponseEntity.created(location).build();
@@ -71,9 +104,7 @@ public class OrderController {
 
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
 	public void cancelOrder(@PathVariable UUID id) {
-
 		orderRepository.deleteById(id);
-
 	}
 
 }
