@@ -1,0 +1,32 @@
+server:
+  port: ${port:8002}
+
+spring:
+  application:
+    name: user-service
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  cloud:
+    config:
+      uri: http://localhost:8011
+
+jwt:
+  secretkey: TheServerSecretKey
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8012/eureka/
+    healthcheck:
+      enabled: true
