@@ -1,0 +1,86 @@
+
+
+sudo chmod 666 /var/run/docker.sock
+
+sudo groupadd jenkins-data
+sudo usermod -a -G jenkins-data ec2-user
+
+sudo chgrp -R jenkins-data /var/lib/jenkins/workspace
+sudo chmod -R g+w /var/lib/jenkins/workspace
+
+sudo find /var/lib/jenkins/workspace -type d -exec chmod 2775 {} \;    
+sudo find /var/lib/jenkins/workspace -type f -exec chmod ug+rw {} \;
+
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+sudo add-apt-repository universe
+
+sudo apt-get update
+
+sudo apt-get install jenkins -y
+
+------------------------------------------------------
+
+
+sudo yum install java-1.8.0-openjdk
+
+sudo alternatives --config java
+
+
+
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+sudo yum install jenkins
+
+sudo systemctl start jenkins
+
+systemctl status jenkins
+
+sudo systemctl enable jenkins
+
+
+-------------------------------------
+
+curl -fsSL https://get.docker.com/ | sh
+
+sudo systemctl start docker
+
+sudo systemctl status docker
+
+
+sudo systemctl enable docker
+
+
+sudo chmod 666 /var/run/docker.sock
+
+sudo usermod -a -G docker jenkins
+
+---------------------------------------
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+
+chmod 777 /var/run/docker.sock
+
+--------------------------------------
+
+agent {
+    // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
+    dockerfile {
+        filename 'Dockerfile'
+        label 'sushantac/user-service'
+        additionalBuildArgs  '--build-arg version=0.0.2'
+    }
+}
+
+---------------------------------------
+
+
+git add .
+git commit -m "Added repo-per-service to make it easy for jenkins"
+git push
+
