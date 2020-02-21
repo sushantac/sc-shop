@@ -21,8 +21,8 @@ public class JwtConfig {
 	
 	public static final long TOKEN_VALIDITY_TIME = 1 * 60 * 60;
 
-	@Value("${jwt.secretkey}")
-	private String SECRET_KEY;
+	//@Value("${jwt.secretkey}")
+	private String SECRET_KEY = "ServerSecretKey";
 
 	// retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
