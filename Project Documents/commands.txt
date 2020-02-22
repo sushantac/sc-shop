@@ -84,3 +84,21 @@ git add .
 git commit -m "Added repo-per-service to make it easy for jenkins"
 git push
 
+-----------------------------------------------
+Clean up overlay2
+
+docker system prune --all
+
+
+
+
+
+------------------------------------------
+
+
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+
+dnf install docker-ce --nobest -y
+
+
+
