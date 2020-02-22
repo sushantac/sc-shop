@@ -56,7 +56,7 @@ services:
           eureka:
             condition: service_healthy
 
-            user:
+    user:
         image: sushantac/user-service:0.0.1
         ports:
          - "8001:8001"
