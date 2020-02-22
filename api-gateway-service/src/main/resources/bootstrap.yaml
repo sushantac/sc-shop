@@ -1,14 +1,9 @@
 server:
-  port: ${port:8002}
-
+  port: ${port:8000}
+  
 spring:
   application:
-    name: user-service
-  jpa:
-    show-sql: true
-  h2:
-    console:
-      enabled: true
+    name: api-gateway-service
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}

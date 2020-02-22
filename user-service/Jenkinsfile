@@ -1,18 +1,30 @@
-pipeline{
-  agent any
-  stages{
-    stage('build'){
-      sh 'echo "we are here build"'
+//This is a script for local windows machine. Need to create a better declarative pipeline script for linux on aws
+
+node{
+    stage('SCM Checkout from GitHub'){
+        git 'https://github.com/sushantac/scshop-user-service'
     }
     
-    stage('test'){
-      sh 'echo "we are here test"'
+    stage('MVN Package - user-service'){
+        def mvnHome = tool name: 'Apache Maven', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        
+        sh label: '', script: "\"${mvnCMD}\" clean package -f pom.xml"
     }
     
-    
-    stage('deploy'){
-      sh 'echo "we are here deploy"'
+    stage('Build Docker Image - user-service') {
+        sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 --file Dockerfile .'
     }
-  }
+    
+    stage('Push to docker hub - user-service') {
+	
+	    withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPassword')]) {
+            sh label: '', script: "docker login -u sushantac -p ${dockerHubPassword}"
+        }
+
+        sh label: '', script: 'docker push sushantac/user-service:0.0.1'
+    }
+
+
+    
 }
-  
