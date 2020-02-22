@@ -1,52 +1,122 @@
-version: "1"
+version: "2.1"
 
 services:
-  config-service:
-    image: config-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/config-service"
-             dockerfile: Dockerfile
+    
+    config:
+        image: sushantac/config-service:0.0.1
         ports:
          - "8011:8011"
-  eureka-discovery-service:
-    image: eureka-discovery-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/eureka-discovery-service"
-             dockerfile: Dockerfile
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+  
+    eureka:
+        image: sushantac/eureka-discovery-service:0.0.1
         ports:
          - "8012:8012"
-  auth-service:
-    image: auth-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/auth-service"
-             dockerfile: Dockerfile
+        restart: on-failure
+        environment:
+          - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+        
+        
+    api-gateway:
+        image: sushantac/api-gateway-service:0.0.1
+        ports:
+         - "8000:8000"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+         
+    auth:
+        image: sushantac/auth-service:0.0.1
+        ports:
+         - "8010:8010"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+
+            user:
+        image: sushantac/user-service:0.0.1
         ports:
          - "8001:8001"
-  user-service:
-    image: user-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/user-service"
-             dockerfile: Dockerfile
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+
+    product:
+        image: sushantac/product-service:0.0.1
         ports:
-         - "8001:8001"
-  product-service:
-    image: product-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/product-service"
-             dockerfile: Dockerfile
+         - "8002:8002"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+    
+    cart:
+        image: sushantac/cart-service:0.0.1
         ports:
-         - "8001:8001"
-  cart-service:
-    image: cart-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/cart-service"
-             dockerfile: Dockerfile
+         - "8003:8003"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+
+    order:
+        image: sushantac/order-service:0.0.1
         ports:
-         - "8001:8001"
-  order-service:
-    image: auth-service:0.1
-        build:
-             context: "D:/MyProject/GitRepository/SC-Shop/auth-service"
-             dockerfile: Dockerfile
-        ports:
-         - "8001:8001"
+         - "8004:8004"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+
+
+networks:
+  default:
+    driver: bridge
