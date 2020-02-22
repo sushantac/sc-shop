@@ -2,6 +2,6 @@
 
 Project to explore microservice architecture and related technologies
 
------> Created separate repos for each microservice. Refer repos starting with scshop-*.
+-----> Created separate repos for each microservics - repos starting with scshop-*.
 
-Will add changes as here as well as the project progresses.
+But will continue with this mono-repo for now.
