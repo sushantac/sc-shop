@@ -136,6 +136,11 @@ services:
         ports:
          - "9090:9090"
         restart: always
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
         volumes:
          - ./prometheus/:/etc/prometheus/
          - ./prometheus/data:/prometheus
@@ -157,7 +162,7 @@ services:
         volumes:
          - ./grafana/data:/var/lib/grafana
         depends_on:
-         prometheus:
+          prometheus:
            condition: service_started
         networks:
          - shopnet
