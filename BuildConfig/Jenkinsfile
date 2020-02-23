@@ -20,25 +20,25 @@ node{
         def mvnHome = tool name: 'Apache Maven', type: 'maven'
         def mvnCMD = "${mvnHome}/bin/mvn"
         
-        //sh label: '', script: "\"${mvnCMD}\" clean package -f config-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f eureka-discovery-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f api-gateway-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f auth-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
-		//sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
+        sh label: '', script: "\"${mvnCMD}\" clean package -f config-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f eureka-discovery-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f api-gateway-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f auth-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
     }
     
     stage('Build Docker Image - base-services') {
-        //sh label: '', script: 'docker build -t sushantac/config-service:0.0.1 			--file config-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/eureka-discovery-service:0.0.1 --file eureka-discovery-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/api-gateway-service:0.0.1 		--file api-gateway-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/auth-service:0.0.1 			--file auth-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 			--file user-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
-		//sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
+        sh label: '', script: 'docker build -t sushantac/config-service:0.0.1 			--file config-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/eureka-discovery-service:0.0.1 --file eureka-discovery-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/api-gateway-service:0.0.1 		--file api-gateway-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/auth-service:0.0.1 			--file auth-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 			--file user-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
     }
     
     stage('Push to docker hub - base-services') {
@@ -47,21 +47,21 @@ node{
             sh label: '', script: "docker login -u sushantac -p ${dockerHubPassword}"
         }
 
-        //sh label: '', script: 'docker push sushantac/config-service:0.0.1'
+        sh label: '', script: 'docker push sushantac/config-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/eureka-discovery-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/eureka-discovery-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/api-gateway-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/api-gateway-service:0.0.1'
 
-		//sh label: '', script: 'docker push sushantac/auth-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/auth-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/user-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/user-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/cart-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/cart-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/order-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/order-service:0.0.1'
 		
-		//sh label: '', script: 'docker push sushantac/product-service:0.0.1'
+		sh label: '', script: 'docker push sushantac/product-service:0.0.1'
 
     }
 
