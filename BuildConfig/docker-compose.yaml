@@ -122,9 +122,15 @@ services:
          - "9090:9090"
         restart: always
         volumes:
-         - BuildConfig/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+         - ./prometheus/:/etc/prometheus/
+         - ./prometheus/data:/prometheus
         command: 
-         - "--config.file=/etc/prometheus/prometheus.yml"
+         - '--config.file=/etc/prometheus/prometheus.yml'
+         - '--storage.tsdb.path=/prometheus'
+         - '--web.console.libraries=/etc/prometheus/console_libraries'
+         - '--web.console.templates=/etc/prometheus/consoles'
+         - '--storage.tsdb.retention=24h'
+         - '--web.enable-lifecycle'
         
     graphana:
         image: graphana/graphana
@@ -137,5 +143,5 @@ services:
 
 
 networks:
-  default:
+  shop-net:
     driver: bridge
