@@ -1,0 +1,152 @@
+//I know this is not efficient as it is building all projects. This is a Mono-Repo.
+//Hence need to add script to get the list of services for which code has changed anf build/deploy only those service
+//For now let's build everything. Also tried repo per microservice approach. Maybe will continue with it later. But this is good for overall developement for now
+
+node{
+    
+    stage('Clean up some space taken by docker'){
+        
+        try{	sh label: '', script: 'docker system prune --all --force'
+		} catch(all) {        }
+		
+    }
+    
+    stage('SCM Checkout from GitHub'){
+        git 'https://github.com/sushantac/sc-shop'
+    }
+    
+    stage('MVN Package - base-services'){
+        def mvnHome = tool name: 'Apache Maven', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        
+        sh label: '', script: "\"${mvnCMD}\" clean package -f config-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f eureka-discovery-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f api-gateway-service/pom.xml"
+    }
+    
+    stage('Build Docker Image - base-services') {
+        sh label: '', script: 'docker build -t sushantac/config-service:0.0.1 			--file config-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/eureka-discovery-service:0.0.1 --file eureka-discovery-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/api-gateway-service:0.0.1 		--file api-gateway-service/Dockerfile .'
+    }
+    
+    stage('Push to docker hub - base-services') {
+	
+	    withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPassword')]) {
+            sh label: '', script: "docker login -u sushantac -p ${dockerHubPassword}"
+        }
+
+        sh label: '', script: 'docker push sushantac/config-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/eureka-discovery-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/api-gateway-service:0.0.1'
+
+    }
+
+    stage('Run containers on Dev server - base-services'){
+        try{
+            sh label: '', script: 'docker stop config-service'
+        } catch(all) {        }
+        try{
+			sh label: '', script: 'docker stop eureka-discovery-service'
+        } catch(all) {        }
+        try{
+			sh label: '', script: 'docker stop api-gateway-service'
+		} catch(all) {        }
+        
+        
+        try{
+            sh label: '', script: 'docker rm config-service'
+		} catch(all) {}
+		try{
+		    sh label: '', script: 'docker rm eureka-discovery-service'
+		} catch(all) {}
+		try{	
+		    sh label: '', script: 'docker rm api-gateway-service'
+		} catch(all) {}
+
+        sh label: '', script: 'docker run -d -p 8011:8011 --name config-service sushantac/config-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8012:8012 --name eureka-discovery-service sushantac/eureka-discovery-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8000:8000 --name api-gateway-service sushantac/api-gateway-service:0.0.1'
+		
+    }
+	
+	stage('MVN Package - business-services'){
+        def mvnHome = tool name: 'Apache Maven', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        
+		sh label: '', script: "\"${mvnCMD}\" clean package -f auth-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
+
+    }
+	
+	stage('Build Docker Image - business-services') {
+        sh label: '', script: 'docker build -t sushantac/auth-service:0.0.1 			--file auth-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 			--file user-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
+		
+    }
+    
+    stage('Push to docker hub - business-services') {
+	
+	    withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPassword')]) {
+            sh label: '', script: "docker login -u sushantac -p ${dockerHubPassword}"
+        }
+
+		sh label: '', script: 'docker push sushantac/auth-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/user-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/cart-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/order-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/product-service:0.0.1'
+    }
+
+    stage('Run containers on Dev server - business-services'){
+        
+        try{	sh label: '', script: 'docker stop auth-service'
+		} catch(all) {        }
+        try{	sh label: '', script: 'docker stop user-service'
+		} catch(all) {        }
+        try{	sh label: '', script: 'docker stop cart-service'
+		} catch(all) {        }
+        try{	sh label: '', script: 'docker stop order-service'
+		} catch(all) {        }
+        try{	sh label: '', script: 'docker stop product-service'
+        } catch(all) {        }
+               
+        
+		try{
+		    sh label: '', script: 'docker rm auth-service'
+		} catch(all) {}
+		try{	
+		    sh label: '', script: 'docker rm user-service'
+		} catch(all) {}
+		try{	
+		    sh label: '', script: 'docker rm cart-service'
+		} catch(all) {}
+		try{
+		    sh label: '', script: 'docker rm order-service'
+		} catch(all) {}
+		try{
+		    sh label: '', script: 'docker rm product-service'
+	    } catch(all) {}
+		
+
+		sh label: '', script: 'docker run -d -p 8008:8008 --name auth-service sushantac/auth-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8003:8003 --name cart-service sushantac/cart-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8001:8001 --name user-service sushantac/user-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8004:8004 --name order-service sushantac/order-service:0.0.1'
+		sh label: '', script: 'docker run -d -p 8002:8002 --name product-service sushantac/product-service:0.0.1'
+		
+    }
+    
+}
