@@ -1,0 +1,173 @@
+version: "2.1"
+
+services:
+    
+    config:
+        image: sushantac/config-service:0.0.1
+        ports:
+         - "8011:8011"
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        networks:
+         - shopnet
+  
+    eureka:
+        image: sushantac/eureka-discovery-service:0.0.1
+        ports:
+         - "8012:8012"
+        restart: on-failure
+        environment:
+          - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+        networks:
+         - shopnet        
+        
+    api-gateway:
+        image: sushantac/api-gateway-service:0.0.1
+        ports:
+         - "8000:8000"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    auth:
+        image: sushantac/auth-service:0.0.1
+        ports:
+         - "8010:8010"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    user:
+        image: sushantac/user-service:0.0.1
+        ports:
+         - "8001:8001"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+        
+    product:
+        image: sushantac/product-service:0.0.1
+        ports:
+         - "8002:8002"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+          - shopnet
+         
+    cart:
+        image: sushantac/cart-service:0.0.1
+        ports:
+         - "8003:8003"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    order:
+        image: sushantac/order-service:0.0.1
+        ports:
+         - "8004:8004"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    prometheus:
+        image: prom/prometheus
+        ports:
+         - "9090:9090"
+        restart: on-failure
+        user:
+          root
+        healthcheck:
+          test: "exit 0"
+        volumes:
+         - prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+         - /var/local/sc-shop/prometheus/data:/prometheus
+        command: 
+         - '--config.file=/etc/prometheus/prometheus.yml'
+         - '--storage.tsdb.path=/prometheus'
+         - '--web.console.libraries=/etc/prometheus/console_libraries'
+         - '--web.console.templates=/etc/prometheus/consoles'
+         - '--storage.tsdb.retention=24h'
+         - '--web.enable-lifecycle'
+        networks:
+         - shopnet
+         
+    grafana:
+        image: grafana/grafana
+        ports:
+         - "3000:3000"
+        user:
+          root
+        restart: on-failure
+        volumes:
+         - /var/local/sc-shop/graphana:/var/lib/grafana
+        depends_on:
+          prometheus:
+           condition: service_healthy
+        networks:
+         - shopnet
+
+networks:
+  shopnet:
+    driver: bridge

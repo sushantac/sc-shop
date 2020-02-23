@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,8 +21,12 @@ import com.scshop.products.productservice.entity.ProductRepository;
 import com.scshop.products.productservice.exception.ProductNotFoundException;
 
 @RestController
+@RequestMapping(path = "/api/v1/products")
 public class ProductController {
 
+	
+	private static Logger logger = Logger.getLogger(ProductController.class.toString());
+	
 	@Autowired
 	ProductRepository productRepository;
 
@@ -29,10 +34,12 @@ public class ProductController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(path = "/products", method = RequestMethod.GET)
+	@RequestMapping(path = "", method = RequestMethod.GET)
 	public List<Product> getProducts() {
 
 		List<Product> products = productRepository.findAll();
+		
+		logger.info("######### Products loaded from here....");
 
 		return products;
 	}
@@ -42,7 +49,7 @@ public class ProductController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(path = "/products/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable UUID id) {
 
 		Optional<Product> optional = productRepository.findById(id);
@@ -60,7 +67,7 @@ public class ProductController {
 	 * 
 	 * @param {@link Product}
 	 */
-	@RequestMapping(path = "/products", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createProduct(@RequestBody Product product) {
 
 		Product savedProduct = productRepository.save(product);
@@ -76,7 +83,7 @@ public class ProductController {
 	 * @param id
 	 * @param product
 	 */
-	@RequestMapping(path = "/products/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		boolean is_present = productRepository.existsById(id);
 
@@ -92,7 +99,7 @@ public class ProductController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(path = "/products/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	public void deleteProduct(@PathVariable UUID id) {
 
 		boolean is_present = productRepository.existsById(id);

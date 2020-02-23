@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "407676cc-9260-438c-8e1c-39b575d579d0",
+		"name": "SC-Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get JWT Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcb97c97-fb69-4f7b-b9d3-8dba83dee5a1",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var token = jsonData.jwt;\r",
+									"pm.environment.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"sushant1\",\n\t\"password\": \"sushant\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8008/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Auth",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8008/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8008",
+							"path": [
+								"test"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Adam\",\r\n    \"lastName\": \"Z\",\r\n    \"birthDate\": \"19800102\",\r\n    \"gender\": \"Male\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"firstName\": \"Sushant\",\r\n    \"lastName\": \"Ch\",\r\n    \"birthDate\": \"19800101\",\r\n    \"gender\": \"Male\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/users/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"users",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    },\r\n     {\r\n        \"userId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"quantity\": 2\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/carts/14335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"carts",
+								"14335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c48d4b8-3c5a-400d-88f5-bdb014563ce3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "51a5dc63-a533-42dc-9118-3d04d6274b77",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders/f81ac5cc-fa9c-43d5-a273-5edd05e31eb1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"orders",
+								"f81ac5cc-fa9c-43d5-a273-5edd05e31eb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order-Ideal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\": \"14335d51-265a-4e01-ad4d-306be659a48f\",\r\n    \"userId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n    \r\n    \"createdDate\": \"2020-02-03\",\r\n    \r\n    \"shippingAddress\": {\r\n    \t\"name\": \"Sushant Chanmanwar\",\r\n    \t\"mobileNumber\": \"0431000000\",\r\n    \t\"postcode\": 2222,\r\n    \t\"addressLine1\": \"99 Station St\",\r\n    \t\"addressLine2\": \"Near Petrol Station\",\r\n    \t\"city\": \"Eastwood\",\r\n    \t\"state\": \"NSW\",\r\n    \t\"country\": \"Australia\"\r\n    },\r\n    \r\n    \"payment\": {\r\n    \t\"subTotal\": 4800,\r\n    \t\"shippingCharges\":20,\r\n    \t\"total\": 4820,\r\n    \t\"discount\": 10,\r\n    \t\"grandTotal\": 4810,\r\n    \t\"currency\": \"AUD\",\r\n    \t\r\n    \t\"paymentMethodId\": \"12123d51-265a-4e01-ad4d-306be659a48f\",\r\n    \t\"paymentAgency\": \"Visa\",\r\n    \t\"paymentMethodLastDigits\": \"2552\"\r\n    \t\r\n    },\r\n\r\n    \"products\": [\r\n    \t {\r\n    \t \t\"id\": \"12335d51-265a-4e01-ad4d-306be659a48f\",\r\n\t        \"name\": \"STUDIO XPS 16\",\r\n\t        \"price\": 2000.00,\r\n\t        \"currency\": \"AUD\",\r\n\t        \"imgUrl\": \"file://localhost/d$/ContentLibrary/s3.ap-southeast-2.amazonaws.com/laptop/Studio-XPS-16.jpg\",\r\n\t        \"quantity\": 2,\r\n\t        \r\n\t        \"sellerId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n\t        \"sellerName\": \"Dell Store\"\r\n\t        \r\n\t     },\r\n\t     \r\n\t     {\r\n\t        \"id\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n\t        \"name\": \"LATITUDE E7450\",\r\n\t        \"price\": 800.00,\r\n\t        \"currency\": \"AUD\",\r\n\t        \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/latitude-e7450.png\",\r\n\t        \"quantity\": 1,\r\n\t            \r\n\t        \"sellerId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n\t        \"sellerName\": \"Dell Store\"\r\n\t     }\r\n\t     \r\n    ]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order-Simple",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"userId\": \"44335d51-265a-4e01-ad4d-306be659a48f\",\r\n        \"shippingAddress\": {\r\n            \"name\": \"Sushant Chanmanwar\",\r\n            \"addressLine1\": \"1 Street\",\r\n            \"addressLine2\": null,\r\n            \"city\": \"Sydney\",\r\n            \"state\": \"NSW\",\r\n            \"country\": \"AUSTRALIA\"\r\n        },\r\n        \"payment\": {\r\n            \"subTotal\": 400.00,\r\n            \"shippingCharges\": 20.00,\r\n            \"total\": 420.00,\r\n            \"grandTotal\": 420.00,\r\n            \"currency\": \"AUD\"\r\n        },\r\n        \"status\": \"PLACED\",\r\n        \"items\": [\r\n            {\r\n                \"productId\": \"22335d51-265a-4e01-ad4d-306be659a48f\",\r\n                \"productName\": \"LATITUDE E7450\",\r\n                \"quantity\": 2,\r\n                \"price\": 1000.00,\r\n                \"currency\": \"AUD\",\r\n                \"imgUrl\": null\r\n            }\r\n        ]\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5c48d4b8-3c5a-400d-88f5-bdb014563ce3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "51a5dc63-a533-42dc-9118-3d04d6274b77",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"SURFACE 3\",\r\n    \"brand\": \"Microsoft\",\r\n    \"category\": \"Electronics\",\r\n    \"subCategory\": \"Computers & Laptops\",\r\n    \"price\": 1999,\r\n    \"currency\": \"AUD\",\r\n    \"imgUrl\": \"https://s3.ap-southeast-2.amazonaws.com/laptop/surface-3.png\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"name\": \"STUDIO XPS 16\",\r\n        \"brand\": \"Dell\",\r\n        \"category\": \"Electronics\",\r\n        \"subCategory\": \"Computers & Laptops\",\r\n        \"price\": 2000.00,\r\n        \"currency\": \"AUD\",\r\n        \"imgUrl\": \"file://localhost/d$/ContentLibrary/s3.ap-southeast-2.amazonaws.com/laptop/Studio-XPS-16.jpg\"\r\n        \r\n    }\r\n    \r\n  "
+						},
+						"url": {
+							"raw": "http://localhost:8000/externalGateway/api/v1/products/22335d51-265a-4e01-ad4d-306be659a48f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"externalGateway",
+								"api",
+								"v1",
+								"products",
+								"22335d51-265a-4e01-ad4d-306be659a48f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bea2b26c-ae26-4407-a79f-ca1aca7a609c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "469e9669-6c74-432d-83fb-5de9f0f18c40",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

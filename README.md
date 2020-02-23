@@ -1,2 +1,5 @@
 # SC-Shop
-Project to explore microservice architecture by implementing some simple basic APIs
+
+Project to explore microservice architecture and related technologies
+
+https://github.com/sushantac/sc-shop/tree/master/Project%20Documents
