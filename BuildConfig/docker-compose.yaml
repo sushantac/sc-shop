@@ -79,7 +79,7 @@ services:
             condition: service_healthy
         networks:
          - shopnet
-         
+        
     product:
         image: sushantac/product-service:0.0.1
         ports:
@@ -94,8 +94,8 @@ services:
             condition: service_healthy
           eureka:
             condition: service_healthy
-         networks:
-         - shopnet
+        networks:
+          - shopnet
          
     cart:
         image: sushantac/cart-service:0.0.1
