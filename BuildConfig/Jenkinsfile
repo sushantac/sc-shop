@@ -13,7 +13,7 @@ node{
     }
     
     stage('SCM Checkout from GitHub'){
-        //git 'https://github.com/sushantac/sc-shop'
+        git 'https://github.com/sushantac/sc-shop'
     }
     
     stage('MVN Package - base-services'){
