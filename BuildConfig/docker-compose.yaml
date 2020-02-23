@@ -141,7 +141,7 @@ services:
         healthcheck:
           test: "exit 0"
         volumes:
-         - prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+         - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
          - /var/local/sc-shop/prometheus/data:/prometheus
         command: 
          - '--config.file=/etc/prometheus/prometheus.yml'

@@ -13,12 +13,6 @@ spring:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh
-
 eureka:
   client:
     registerWithEureka: true
