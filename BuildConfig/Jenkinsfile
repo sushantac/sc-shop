@@ -67,11 +67,11 @@ node{
 
     stage('Stop all docker containers'){
  
-		sh label: '', script: 'docker-compose -f BuildConfig/docker-compose.yaml down'
+		sh label: '', script: '/usr/local/bin/docker-compose -f BuildConfig/docker-compose.yaml down'
     }
     
     stage('Start all docker containers'){
  
-		sh label: '', script: 'docker-compose -f BuildConfig/docker-compose.yaml up'
+		sh label: '', script: '/usr/local/bin/docker-compose -f BuildConfig/docker-compose.yaml up'
     }
 }
