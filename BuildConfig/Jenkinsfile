@@ -6,6 +6,7 @@ node{
     
     stage('Clean up some space taken by docker'){
         
+        //Less space on VM - so cleanup a bit - 
         try{	sh label: '', script: 'docker system prune --all --force'
 		} catch(all) {        }
 		
@@ -30,13 +31,13 @@ node{
     }
     
     stage('Build Docker Image - base-services') {
-        sh label: '', script: 'docker build -t sushantac/config-service:0.0.1 			--file config-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/eureka-discovery-service:0.0.1 --file eureka-discovery-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/api-gateway-service:0.0.1 		--file api-gateway-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/auth-service:0.0.1 			--file auth-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 			--file user-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
-		sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
+        //sh label: '', script: 'docker build -t sushantac/config-service:0.0.1 			--file config-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/eureka-discovery-service:0.0.1 --file eureka-discovery-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/api-gateway-service:0.0.1 		--file api-gateway-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/auth-service:0.0.1 			--file auth-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/user-service:0.0.1 			--file user-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
+		//sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
     }
     
@@ -46,19 +47,19 @@ node{
             sh label: '', script: "docker login -u sushantac -p ${dockerHubPassword}"
         }
 
-        sh label: '', script: 'docker push sushantac/config-service:0.0.1'
+        //sh label: '', script: 'docker push sushantac/config-service:0.0.1'
 		
-		sh label: '', script: 'docker push sushantac/eureka-discovery-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/eureka-discovery-service:0.0.1'
 		
-		sh label: '', script: 'docker push sushantac/api-gateway-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/api-gateway-service:0.0.1'
 
-		sh label: '', script: 'docker push sushantac/auth-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/auth-service:0.0.1'
 		
-		sh label: '', script: 'docker push sushantac/user-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/user-service:0.0.1'
 		
-		sh label: '', script: 'docker push sushantac/cart-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/cart-service:0.0.1'
 		
-		sh label: '', script: 'docker push sushantac/order-service:0.0.1'
+		//sh label: '', script: 'docker push sushantac/order-service:0.0.1'
 		
 		sh label: '', script: 'docker push sushantac/product-service:0.0.1'
 
