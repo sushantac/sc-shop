@@ -19,13 +19,13 @@ node{
         def mvnHome = tool name: 'Apache Maven', type: 'maven'
         def mvnCMD = "${mvnHome}/bin/mvn"
         
-        sh label: '', script: "\"${mvnCMD}\" clean package -f config-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f eureka-discovery-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f api-gateway-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f auth-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
+        //sh label: '', script: "\"${mvnCMD}\" clean package -f config-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f eureka-discovery-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f api-gateway-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f auth-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
 		sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
     }
     
