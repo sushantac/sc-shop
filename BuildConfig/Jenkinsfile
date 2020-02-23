@@ -27,7 +27,7 @@ node{
 		//sh label: '', script: "\"${mvnCMD}\" clean package -f user-service/pom.xml"
 		//sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
 		//sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
-		sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
+		//sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
     }
     
     stage('Build Docker Image - base-services') {
