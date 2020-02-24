@@ -161,7 +161,7 @@ services:
           root
         restart: on-failure
         volumes:
-         - /var/local/sc-shop/graphana:/var/lib/grafana
+         - /var/local/sc-shop/grafana:/var/lib/grafana
         depends_on:
           prometheus:
            condition: service_healthy
