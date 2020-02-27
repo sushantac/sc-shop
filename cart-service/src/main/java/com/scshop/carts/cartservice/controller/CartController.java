@@ -28,7 +28,7 @@ public class CartController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+	@RequestMapping(path = "{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CartItem> getCartItems(@PathVariable UUID userId) {
 
 		List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
@@ -44,7 +44,7 @@ public class CartController {
 	 * @param userId
 	 * @param cartItems
 	 */
-	@RequestMapping(path = "/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateCart(@PathVariable UUID userId, @RequestBody List<CartItem> cartItems) {
 
 		if (cartItems == null || cartItems.isEmpty()) {
@@ -85,7 +85,7 @@ public class CartController {
 	 * 
 	 * @param userId
 	 */
-	@RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "{userId}", method = RequestMethod.DELETE)
 	public void deleteCart(@PathVariable UUID userId) {
 
 		cartItemRepository.deleteByUserId(userId);

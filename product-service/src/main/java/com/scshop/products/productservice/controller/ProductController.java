@@ -20,6 +20,9 @@ import com.scshop.products.productservice.entity.Product;
 import com.scshop.products.productservice.entity.ProductRepository;
 import com.scshop.products.productservice.exception.ProductNotFoundException;
 
+import io.swagger.annotations.Api;
+
+@Api(value = "/api/v1/orders", produces = "application/json")
 @RestController
 @RequestMapping(path = "/api/v1/products")
 public class ProductController {
@@ -34,7 +37,7 @@ public class ProductController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(path = "", method = RequestMethod.GET)
+	@RequestMapping(path = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Product> getProducts() {
 
 		List<Product> products = productRepository.findAll();
@@ -49,7 +52,7 @@ public class ProductController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Product getProduct(@PathVariable UUID id) {
 
 		Optional<Product> optional = productRepository.findById(id);
@@ -83,7 +86,7 @@ public class ProductController {
 	 * @param id
 	 * @param product
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		boolean is_present = productRepository.existsById(id);
 
@@ -99,7 +102,7 @@ public class ProductController {
 	 * 
 	 * @param id
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public void deleteProduct(@PathVariable UUID id) {
 
 		boolean is_present = productRepository.existsById(id);
