@@ -1,1 +1,5 @@
 **/scshop-client/node_modules
+
+**/BuildConfig/elbk/elasticsearch
+**/BuildConfig/elbk/filebeat
+**/BuildConfig/elbk/logstash
