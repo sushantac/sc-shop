@@ -101,4 +101,4 @@ dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce
 dnf install docker-ce --nobest -y
 
 
-,'product:8002','cart:8003','order:8004','eureka:8012', 'api-gateway:8000', 'config':8011, 'auth':8010'
+,'product:8002','cart:8003','order:8004','eureka:8012', 'api-gateway:8000', 'config:8011', 'auth:8010'
