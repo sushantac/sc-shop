@@ -4,8 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(path = "/api/v1/orders")
 public class OrderController {
 
-	static Logger logger = Logger.getLogger(OrderController.class.toString());
+	final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 	@Autowired
 	OrderRepository orderRepository;
@@ -44,7 +45,9 @@ public class OrderController {
 	
 	@RequestMapping(path = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FinalOrder> getOrders() {
-
+		
+		logger.info("Fetching orders.....");
+		
 		return orderRepository.findAll();
 
 	}
@@ -60,6 +63,8 @@ public class OrderController {
 	@RequestMapping(path = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public FinalOrder getOrder(@PathVariable UUID id) {
 
+		logger.info("Fetching order for : " + id);
+		
 		Optional<FinalOrder> optional = orderRepository.findById(id);
 
 		if (!optional.isPresent()) {
@@ -72,6 +77,8 @@ public class OrderController {
 	@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> generateOrder(@RequestBody FinalOrder order) {
 
+		logger.info("Generating order : " + order);
+		
 		// # // Validate the incoming order data before committing it
 		// - validate if the totalPrice is correct by re-calculating it by fetching product item prices from product-service
 		// - validate if customer has enough balance in credits
@@ -119,6 +126,8 @@ public class OrderController {
 
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public void cancelOrder(@PathVariable UUID id) {
+		logger.info("Cancelling order for : " + id);
+		
 		orderRepository.deleteById(id);
 	}
 
