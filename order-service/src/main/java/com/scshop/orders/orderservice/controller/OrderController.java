@@ -93,29 +93,7 @@ public class OrderController {
 		order.setStatus(OrderStatus.INITIATED);
 		FinalOrder savedOrder = orderRepository.save(order);
 
-		
-		// -------------- TODO -------------- 
-		// ## order-service --> Send ORDER_INITIATED event on ORDER_TOPIC
-		// $$ Kafka Consumers listening to ORDER_TOPIC
-		// --- payment-service -> update customer balance
-		// --- product-service -> update product inventory 
-		// --- notification-service -> Send Order Initiated message/email to customer -- TODO later
-		// ------
-		//
-		// ## payment-service --> Send ORDER_PAYMENT_CONFIRMED event on ORDER_TOPIC if payment successful
-		// $$ Kafka Consumers listening to ORDER_TOPIC
-		// --- shipping-service -> Create shipping record -- TODO later
-		// --- order-service -> Change order status to CONFIRMED
-		// --- notification-service -> Send Order Confirmed message/email to customer -- TODO later
-		// ------
-		//
-		// ## payment-service --> Send ORDER_PAYMENT_FAILED event on ORDER_TOPIC if payment fails
-		// $$ Kafka Consumers listening to ORDER_TOPIC
-		// --- order-service -> Change order status to CANCELLED
-		// --- notification-service -> Send Order Cancelled message/email to customer -- TODO later
-		// ------
-		
-		
+		orderService.processOrder(savedOrder);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedOrder.getId())

@@ -1,9 +1,9 @@
 server:
-  port: ${port:8004}
+  port: ${port:8002}
 
 spring:
   application:
-    name: order-service
+    name: product-service
   jpa:
     show-sql: true
   h2:
@@ -24,7 +24,7 @@ spring:
         spring:
           json:
             trusted:
-              packages: com.scshop.orders.orderservice.entity
+              packages: "*"
     producer:
       bootstrap-servers: ${KAFKA_SERVER:35.244.88.249:9072}
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -45,11 +45,12 @@ eureka:
     healthcheck:
       enabled: true
 
-
+endpoints:
+  prometheus:
+    enabled: true
+    
 app:
   order:
-    shipping:
-      standard-charges: 20
     kafka:
       topic: 
         order-topic: order_topic
