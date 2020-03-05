@@ -1,42 +1,25 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-import com.scshop.products.productservice.entity.Currency;
+import com.scshop.application.common.enums.Currency;
 
 public class OrderItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-	
-	@Column(insertable = false, updatable = false)
+
 	private UUID orderId;
 
-	@NotNull
 	private UUID productId;
 
-	@NotNull
 	private String productName;
 
-	@NotNull
 	private Integer quantity;
 
-	@NotNull
 	private BigDecimal price;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
 	private Currency currency;
 
 	private URL imgUrl;

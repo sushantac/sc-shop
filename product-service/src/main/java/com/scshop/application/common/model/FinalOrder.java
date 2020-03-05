@@ -1,45 +1,24 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+import com.scshop.application.common.enums.OrderStatus;
 
-@Entity
 public class FinalOrder {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private UUID id;
-	
-	@NotNull
+
 	private UUID userId;
-	
-	@Embedded
+
 	private Address shippingAddress;
-		
-	@Embedded
+
 	private Payment payment;
-	
-	@NotNull
-	@Enumerated(EnumType.STRING)
+
 	private OrderStatus status;
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="orderId")
+
 	private Set<OrderItem> items;
-	
-	
+
 	public UUID getId() {
 		return id;
 	}
@@ -145,9 +124,5 @@ public class FinalOrder {
 		return "Order [id=" + id + ", userId=" + userId + ", shippingAddress=" + shippingAddress + ", items=" + items
 				+ ", payment=" + payment + ", status=" + status + "]";
 	}
-	
-	
-	
-	
-	
+
 }

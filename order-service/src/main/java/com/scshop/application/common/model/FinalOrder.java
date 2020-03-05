@@ -1,10 +1,11 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.scshop.application.common.enums.OrderStatus;
+
+@Entity
 public class FinalOrder {
 	
 	@Id

@@ -14,11 +14,11 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.scshop.orders.orderservice.entity.FinalOrder;
-import com.scshop.orders.orderservice.entity.OrderItem;
+import com.scshop.application.common.enums.OrderStatus;
+import com.scshop.application.common.model.FinalOrder;
+import com.scshop.application.common.model.OrderItem;
+import com.scshop.application.common.model.Product;
 import com.scshop.orders.orderservice.entity.OrderRepository;
-import com.scshop.orders.orderservice.entity.OrderStatus;
-import com.scshop.orders.orderservice.entity.Product;
 import com.scshop.orders.orderservice.validation.OrderValidation;
 import com.scshop.orders.orderservice.validation.OrderValidationStatus;
 

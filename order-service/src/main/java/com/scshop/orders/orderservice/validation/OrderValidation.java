@@ -3,7 +3,7 @@ package com.scshop.orders.orderservice.validation;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.scshop.orders.orderservice.entity.OrderItem;
+import com.scshop.application.common.model.OrderItem;
 
 public class OrderValidation {
 

@@ -3,3 +3,5 @@
 **/BuildConfig/elbk/elasticsearch
 **/BuildConfig/elbk/filebeat
 **/BuildConfig/elbk/logstash
+
+**/order-service/target

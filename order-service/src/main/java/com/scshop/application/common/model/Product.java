@@ -1,7 +1,8 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Currency;
 import java.util.UUID;
 
 public class Product {
