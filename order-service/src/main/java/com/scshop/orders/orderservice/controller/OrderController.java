@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.scshop.orders.orderservice.entity.FinalOrder;
+import com.scshop.application.common.enums.OrderStatus;
+import com.scshop.application.common.model.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
-import com.scshop.orders.orderservice.entity.OrderStatus;
 import com.scshop.orders.orderservice.exception.OrderDetailsInvalidException;
 import com.scshop.orders.orderservice.services.OrderService;
 import com.scshop.orders.orderservice.validation.OrderValidation;

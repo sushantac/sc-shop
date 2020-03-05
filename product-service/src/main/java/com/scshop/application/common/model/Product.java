@@ -1,4 +1,4 @@
-package com.scshop.products.productservice.entity;
+package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.scshop.application.common.enums.Currency;
 
 @Entity
 public class Product {

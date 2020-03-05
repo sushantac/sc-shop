@@ -1,4 +1,4 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.enums;
 
 public enum OrderStatus {
 	INITIATED, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, RETURNED, RETURN_REQUESTED, EXCHANGED, EXCHANGE_REQUESTED

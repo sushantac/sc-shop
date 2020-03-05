@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.scshop.products.productservice.entity.Product;
+import com.scshop.application.common.model.Product;
 import com.scshop.products.productservice.entity.ProductRepository;
 import com.scshop.products.productservice.exception.ProductNotFoundException;
 

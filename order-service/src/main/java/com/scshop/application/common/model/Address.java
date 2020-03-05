@@ -1,9 +1,11 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
+
+import com.scshop.application.common.enums.Country;
 
 @Embeddable
 public class Address {

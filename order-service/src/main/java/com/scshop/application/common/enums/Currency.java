@@ -1,4 +1,4 @@
-package com.scshop.products.productservice.entity;
+package com.scshop.application.common.enums;
 
 public enum Currency {
 

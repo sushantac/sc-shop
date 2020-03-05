@@ -1,27 +1,19 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
+import com.scshop.application.common.enums.Country;
 
 public class Address {
 
-	@NotNull
 	private String name;
 
-	@NotNull
 	private String addressLine1;
 
 	private String addressLine2;
 
-	@NotNull
 	private String city;
 
-	@NotNull
 	private String state;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
 	private Country country;
 
 	public String getName() {

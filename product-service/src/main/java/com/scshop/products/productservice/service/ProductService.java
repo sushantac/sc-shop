@@ -6,7 +6,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-import com.scshop.orders.orderservice.entity.FinalOrder;
+import com.scshop.application.common.model.FinalOrder;
 
 @Service
 public class ProductService {

@@ -1,67 +1,65 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
+import com.scshop.application.common.enums.Currency;
 
 /**
  * @author sushant
  *
  */
-@Embeddable
 public class Payment {
-	
-	@NotNull
+
 	private BigDecimal subTotal;
-	
-	@NotNull
+
 	private BigDecimal shippingCharges;
-	
-	@NotNull
+
 	private BigDecimal total;
-	
-	@NotNull
+
 	private BigDecimal grandTotal;
-	
-	@NotNull
-	@Enumerated(EnumType.STRING)
+
 	private Currency currency;
-	
-	
+
 	public BigDecimal getSubTotal() {
 		return subTotal;
 	}
+
 	public void setSubTotal(BigDecimal subTotal) {
 		this.subTotal = subTotal;
 	}
+
 	public BigDecimal getShippingCharges() {
 		return shippingCharges;
 	}
+
 	public void setShippingCharges(BigDecimal shippingCharges) {
 		this.shippingCharges = shippingCharges;
 	}
+
 	public BigDecimal getTotal() {
 		return total;
 	}
+
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+
 	public BigDecimal getGrandTotal() {
 		return grandTotal;
 	}
+
 	public void setGrandTotal(BigDecimal grandTotal) {
 		this.grandTotal = grandTotal;
 	}
+
 	public Currency getCurrency() {
 		return currency;
 	}
+
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,7 +71,7 @@ public class Payment {
 		result = prime * result + ((total == null) ? 0 : total.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -110,13 +108,11 @@ public class Payment {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Payment [subTotal=" + subTotal + ", shippingCharges=" + shippingCharges + ", total=" + total
 				+ ", grandTotal=" + grandTotal + ", currency=" + currency + "]";
 	}
-	
-	
-	
+
 }

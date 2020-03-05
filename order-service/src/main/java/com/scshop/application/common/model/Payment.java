@@ -1,17 +1,19 @@
-package com.scshop.orders.orderservice.entity;
+package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
-import com.scshop.products.productservice.entity.Currency;
+import com.scshop.application.common.enums.Currency;
 
 /**
  * @author sushant
  *
  */
+@Embeddable
 public class Payment {
 	
 	@NotNull
