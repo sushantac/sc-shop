@@ -11,7 +11,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-import com.scshop.application.common.model.FinalOrder;
+import com.scshop.application.common.model.OrderEvent;
 import com.scshop.application.common.model.OrderItem;
 import com.scshop.application.common.model.Product;
 import com.scshop.products.productservice.entity.ProductRepository;
@@ -25,12 +25,14 @@ public class ProductService {
 	ProductRepository productRepository;
 
 	@KafkaListener(topics = "${app.order.kafka.topic.order-topic}", groupId = "${spring.kafka.consumer.group-id}")
-	public void listen(@Payload FinalOrder order) {
+	public void listen(@Payload OrderEvent orderEvent) {
 
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- product-service -> update product inventory
 
-		Set<OrderItem> orderItems = order.getItems();
+		logger.info("Received new order event... " + orderEvent);
+		
+		Set<OrderItem> orderItems = orderEvent.getOrder().getItems();
 		Set<Product> productsToSave = new HashSet<>();
 		for (OrderItem orderItem : orderItems) {
 			Optional<Product> optional = productRepository.findById(orderItem.getProductId());
@@ -50,7 +52,7 @@ public class ProductService {
 		
 		productRepository.saveAll(productsToSave);
 		
-		logger.info(order.toString());
+		logger.info(orderEvent.toString());
 
 	}
 }

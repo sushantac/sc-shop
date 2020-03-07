@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.scshop.users.userservice.entity.User;
+import com.scshop.application.common.model.User;
 import com.scshop.users.userservice.entity.UserRepository;
 import com.scshop.users.userservice.exception.UserNotFoundException;
 

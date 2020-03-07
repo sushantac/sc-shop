@@ -19,14 +19,14 @@ public class Product {
 	
 	private URL imgUrl;
 	
-	private Integer availableStock;
+	private Integer availableInventory;
 	
 	public Product() {
 		
 	}
 	
 	public Product(UUID id, String name, String brand, String category, String subCategory, BigDecimal price,
-			Currency currency, URL imgUrl, Integer availableStock) {
+			Currency currency, URL imgUrl, Integer availableInventory) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -36,7 +36,7 @@ public class Product {
 		this.price = price;
 		this.currency = currency;
 		this.imgUrl = imgUrl;
-		this.availableStock = availableStock;
+		this.availableInventory = availableInventory;
 	}
 
 	public UUID getId() {
@@ -107,7 +107,7 @@ public class Product {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((availableStock == null) ? 0 : availableStock.hashCode());
+		result = prime * result + ((availableInventory == null) ? 0 : availableInventory.hashCode());
 		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
@@ -128,10 +128,10 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (availableStock == null) {
-			if (other.availableStock != null)
+		if (availableInventory == null) {
+			if (other.availableInventory != null)
 				return false;
-		} else if (!availableStock.equals(other.availableStock))
+		} else if (!availableInventory.equals(other.availableInventory))
 			return false;
 		if (brand == null) {
 			if (other.brand != null)
@@ -177,15 +177,15 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", brand=" + brand + ", category=" + category + ", subCategory="
 				+ subCategory + ", price=" + price + ", currency=" + currency + ", imgUrl=" + imgUrl
-				+ ", availableStock=" + availableStock + "]";
+				+ ", availableStock=" + availableInventory + "]";
 	}
 
-	public Integer getAvailableStock() {
-		return availableStock;
+	public Integer getAvailableInventory() {
+		return availableInventory;
 	}
 
-	public void setAvailableStock(Integer availableStock) {
-		this.availableStock = availableStock;
+	public void setAvailableInventory(Integer availableInventory) {
+		this.availableInventory = availableInventory;
 	}	
 	
 	

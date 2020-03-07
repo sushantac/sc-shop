@@ -1,0 +1,51 @@
+server:
+  port: ${port:8015}
+
+spring:
+  application:
+    name: email-service
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER:http://localhost:8011}
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_SERVER:localhost:9072}
+      group-id: group_id
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      bootstrap-servers: ${KAFKA_SERVER:localhost:9072}
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8012/eureka/}
+    healthcheck:
+      enabled: true
+
+endpoints:
+  prometheus:
+    enabled: true
+    
+app:
+  order:
+    kafka:
+      topic: 
+        order-topic: order_topic
