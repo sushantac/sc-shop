@@ -1,0 +1,14 @@
+server:
+  port: ${port:8012}
+  
+spring:
+  application:
+    name: eureka-discovery-service
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER:http://localhost:8011}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

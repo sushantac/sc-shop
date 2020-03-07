@@ -14,8 +14,10 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.scshop.application.common.enums.OrderEventType;
 import com.scshop.application.common.enums.OrderStatus;
 import com.scshop.application.common.model.FinalOrder;
+import com.scshop.application.common.model.OrderEvent;
 import com.scshop.application.common.model.OrderItem;
 import com.scshop.application.common.model.Product;
 import com.scshop.orders.orderservice.entity.OrderRepository;
@@ -29,24 +31,23 @@ public class OrderService {
 
 	@Value("${app.order.shipping.standard-charges}")
 	private Integer STANDARD_SHIPPING_CHARGES;
-	
+
 	@Value("${app.order.kafka.topic.order-topic}")
 	private String ORDER_TOPIC;
-		
+
 	@Autowired
-	private KafkaTemplate<String, FinalOrder> kafkaTemplate;
+	private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
 	@Autowired
 	WebClient.Builder loadBalancedWebClientBuilder;
 
 	@Autowired
 	OrderRepository orderRepository;
-	
-	
+
 	public OrderValidation validate(FinalOrder order) {
 
-		//TODO Add validation for currency check!
-		
+		// TODO Add validation for currency check!
+
 		OrderValidation orderValidation = new OrderValidation();
 
 		if (order.getItems() == null || order.getItems().isEmpty() || order.getPayment().getGrandTotal().equals(0)) {
@@ -67,7 +68,7 @@ public class OrderService {
 				if (!orderItem.getPrice().equals(product.getPrice())) {
 					orderValidation.setStatus(OrderValidationStatus.PRODUCT_PRICE_CHANGED);
 					orderValidation.getInvalidOrderItems().add(orderItem);
-				} else if (orderItem.getQuantity() > product.getAvailableStock()) {
+				} else if (orderItem.getQuantity() > product.getAvailableInventory()) {
 					orderValidation.setStatus(OrderValidationStatus.PRODUCT_OUT_OF_STOCK);
 					orderValidation.getInvalidOrderItems().add(orderItem);
 				} else {
@@ -98,83 +99,80 @@ public class OrderService {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);
 		}
 
-		//For now 
+		// For now
 		orderValidation.setStatus(OrderValidationStatus.ORDER_IS_VALID);
-		//---TODO REMOVE-LATER---
-		
+		// ---TODO REMOVE-LATER---
+
 		return orderValidation;
 
 	}
-	
 
 	public void processOrder(FinalOrder order) {
-		
-		// -------------- First-cut from TODO -------------- 
+
+		// -------------- First-cut from TODO --------------
 		// ## order-service --> Send ORDER with ORDER_INITIATED status on ORDER_TOPIC
 		// $$ Kafka Consumers listening to ORDER_TOPIC
-		// --- payment-service -> update customer balance  -- TODO later
-		// --- product-service -> update product inventory 
-		// --- notification-service -> Send Order Initiated message/email to customer -- TODO later
+		// --- payment-service -> update customer balance -- TODO later
+		// --- product-service -> update product inventory
+		// --- notification-service -> Send Order Initiated message/email to customer --
+		// TODO later
 		// -------------------------------------------------
+
+		OrderEvent orderEvent = new OrderEvent(order.getUserId(),order.getId(),order,OrderEventType.ORDER_INITIATED);
 		
-		ListenableFuture<SendResult<String, FinalOrder>> future = kafkaTemplate.send(ORDER_TOPIC, order.getId().toString(), order);
-		
+		ListenableFuture<SendResult<String, OrderEvent>> future = kafkaTemplate.send(ORDER_TOPIC,
+				order.getId().toString(), orderEvent);
+
 		logger.info("Sending new order notification on topic ORDER_TOPIC...");
-		future.addCallback(new ListenableFutureCallback<SendResult<String, FinalOrder>>() {
+		future.addCallback(new ListenableFutureCallback<SendResult<String, OrderEvent>>() {
 
 			@Override
-			public void onSuccess(SendResult<String, FinalOrder> result) {
+			public void onSuccess(SendResult<String, OrderEvent> result) {
 				logger.info("New order notification sent on topic ORDER_TOPIC!");
 				
+				order.setStatus(OrderStatus.INITIATED);
+				orderRepository.save(order);
 			}
 
 			@Override
 			public void onFailure(Throwable ex) {
 				logger.info("New order notification sent failed... Cancelling the order for now!");
 				ex.printStackTrace();
-				
-				
-				//TODO Should we cancel the order or something else?
+
+				// TODO Should we cancel the order or something else?
 				order.setStatus(OrderStatus.CANCELLED);
 				orderRepository.save(order);
 			}
 
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		// -------------- TODO -------------- 
+
+		// -------------- TODO --------------
 		// ## order-service --> Send ORDER_INITIATED event on ORDER_TOPIC
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- payment-service -> update customer balance
-		// --- product-service -> update product inventory 
-		// --- notification-service -> Send Order Initiated message/email to customer -- TODO later
+		// --- product-service -> update product inventory
+		// --- notification-service -> Send Order Initiated message/email to customer --
+		// TODO later
 		// ------
 		//
-		// ## payment-service --> Send ORDER_PAYMENT_CONFIRMED event on ORDER_TOPIC if payment successful
+		// ## payment-service --> Send ORDER_PAYMENT_CONFIRMED event on ORDER_TOPIC if
+		// payment successful
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- shipping-service -> Create shipping record -- TODO later
 		// --- order-service -> Change order status to CONFIRMED
-		// --- notification-service -> Send Order Confirmed message/email to customer -- TODO later
+		// --- notification-service -> Send Order Confirmed message/email to customer --
+		// TODO later
 		// ------
 		//
-		// ## payment-service --> Send ORDER_PAYMENT_FAILED event on ORDER_TOPIC if payment fails
+		// ## payment-service --> Send ORDER_PAYMENT_FAILED event on ORDER_TOPIC if
+		// payment fails
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- order-service -> Change order status to CANCELLED
-		// --- notification-service -> Send Order Cancelled message/email to customer -- TODO later
+		// --- notification-service -> Send Order Cancelled message/email to customer --
+		// TODO later
 		// ------
-		
-		
-		
-	
+
 	}
+
 
 }

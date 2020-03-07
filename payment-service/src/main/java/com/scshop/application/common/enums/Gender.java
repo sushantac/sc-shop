@@ -1,4 +1,4 @@
-package com.scshop.users.userservice.entity;
+package com.scshop.application.common.enums;
 
 public enum Gender {
 

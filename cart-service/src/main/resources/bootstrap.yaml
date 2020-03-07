@@ -1,0 +1,29 @@
+server:
+  port: ${port:8003}
+
+spring:
+  application:
+    name: cart-service
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER:http://localhost:8011}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8012/eureka/}
+    healthcheck:
+      enabled: true

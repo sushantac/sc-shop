@@ -90,7 +90,7 @@ public class OrderController {
 			throw new OrderDetailsInvalidException(orderValidation.getStatus().getDetails());
 		}
 		
-		order.setStatus(OrderStatus.INITIATED);
+		order.setStatus(OrderStatus.CREATED);
 		FinalOrder savedOrder = orderRepository.save(order);
 
 		orderService.processOrder(savedOrder);

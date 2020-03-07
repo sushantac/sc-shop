@@ -15,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.scshop.application.common.enums.InventoryStatus;
 import com.scshop.application.common.enums.OrderStatus;
+import com.scshop.application.common.enums.PaymentStatus;
 
 @Entity
 public class FinalOrder {
@@ -37,10 +39,34 @@ public class FinalOrder {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private PaymentStatus paymentStatus;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private InventoryStatus inventoryStatus;
+	
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="orderId")
 	private Set<OrderItem> items;
 	
+	public FinalOrder() { }
+	
+	public FinalOrder(UUID id, @NotNull UUID userId, Address shippingAddress, Payment payment,
+			@NotNull OrderStatus status, @NotNull PaymentStatus paymentStatus, @NotNull InventoryStatus inventoryStatus,
+			Set<OrderItem> items) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.shippingAddress = shippingAddress;
+		this.payment = payment;
+		this.status = status;
+		this.paymentStatus = paymentStatus;
+		this.inventoryStatus = inventoryStatus;
+		this.items = items;
+	}
 	
 	public UUID getId() {
 		return id;
@@ -95,8 +121,10 @@ public class FinalOrder {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inventoryStatus == null) ? 0 : inventoryStatus.hashCode());
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + ((payment == null) ? 0 : payment.hashCode());
+		result = prime * result + ((paymentStatus == null) ? 0 : paymentStatus.hashCode());
 		result = prime * result + ((shippingAddress == null) ? 0 : shippingAddress.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
@@ -117,6 +145,8 @@ public class FinalOrder {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (inventoryStatus != other.inventoryStatus)
+			return false;
 		if (items == null) {
 			if (other.items != null)
 				return false;
@@ -126,6 +156,8 @@ public class FinalOrder {
 			if (other.payment != null)
 				return false;
 		} else if (!payment.equals(other.payment))
+			return false;
+		if (paymentStatus != other.paymentStatus)
 			return false;
 		if (shippingAddress == null) {
 			if (other.shippingAddress != null)
@@ -146,6 +178,22 @@ public class FinalOrder {
 	public String toString() {
 		return "Order [id=" + id + ", userId=" + userId + ", shippingAddress=" + shippingAddress + ", items=" + items
 				+ ", payment=" + payment + ", status=" + status + "]";
+	}
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	public InventoryStatus getInventoryStatus() {
+		return inventoryStatus;
+	}
+
+	public void setInventoryStatus(InventoryStatus inventoryStatus) {
+		this.inventoryStatus = inventoryStatus;
 	}
 	
 	
