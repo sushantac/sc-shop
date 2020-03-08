@@ -37,7 +37,7 @@ public class PaymentService {
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- payment-service -> update customer balance
 
-		logger.info("Received new order event... " + orderEvent);
+		logger.info("\n\n ********** Received new order event... " + orderEvent + "********* \n\n");
 
 		Payment payment = orderEvent.getOrder().getPayment();
 

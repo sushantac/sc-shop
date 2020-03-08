@@ -30,7 +30,7 @@ public class ProductService {
 		// $$ Kafka Consumers listening to ORDER_TOPIC
 		// --- product-service -> update product inventory
 
-		logger.info("Received new order event... " + orderEvent);
+		logger.info("\n\n ********** Received new order event... " + orderEvent + "********* \n\n");
 		
 		Set<OrderItem> orderItems = orderEvent.getOrder().getItems();
 		Set<Product> productsToSave = new HashSet<>();
