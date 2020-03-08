@@ -87,7 +87,7 @@ public class UserController {
 			throw new UserNotFoundException("User not found for id: " + id);
 		}
 
-		user.setId(id);
+		//user.setId(id);
 		userRepository.save(user);
 	}
 	
