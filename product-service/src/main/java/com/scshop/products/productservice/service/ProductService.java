@@ -43,7 +43,7 @@ public class ProductService {
 
 	BiFunction<Integer, Integer, Integer> reduceInventoryFunction = (totalInvetory, inventoryToReduce) -> {
 		if ((totalInvetory - inventoryToReduce) < 0) {
-			throw new RuntimeException("Some products are out of stock");
+			throw new ProductOutOfStockException("Some products are out of stock");
 		}
 		return totalInvetory - inventoryToReduce;
 	};
@@ -130,9 +130,10 @@ public class ProductService {
 			productRepository.saveAll(productListToUpdate);
 
 		} catch (ProductOutOfStockException ex) {
-
-			// Send OrderEventType.ORDER_ITEMS_OUTOFSTOCK event on kafka topic
 			
+			logger.error("Some of the prducts are outofstock for order id: " + orderEvent.getOrderId());
+			
+			// Send OrderEventType.ORDER_ITEMS_OUTOFSTOCK event on kafka topic
 			orderEvent.setEventType(OrderEventType.ORDER_ITEMS_OUTOFSTOCK);
 
 			ListenableFuture<SendResult<String, OrderEvent>> future = kafkaTemplate.send(ORDER_TOPIC,
@@ -154,8 +155,7 @@ public class ProductService {
 							"ORDER_ITEMS_OUTOFSTOCK event send on ORDER_TOPIC FAILED for order id {0} and user id {1} ",
 							new Object[] { orderEvent.getOrderId(), orderEvent.getUserId() });
 
-					// TODO thinking what to do... kafka should retry..let's see
-
+					// TODO think what to do... kafka should retry or...let's see
 					ex.printStackTrace();
 				}
 
