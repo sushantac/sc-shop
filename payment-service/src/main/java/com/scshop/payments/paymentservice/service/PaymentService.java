@@ -97,7 +97,7 @@ public class PaymentService {
 
 		// Validate for Idempotency - Check if request already processed
 		Optional<PaymentReceived> optional = paymentRepository.findByOrderId(orderEvent.getOrderId());
-		if (optional.isPresent() && !PaymentStatus.PROCESSED.equals(optional.get().getStatus())) {
+		if (!optional.isPresent() || (optional.isPresent() && !PaymentStatus.PROCESSED.equals(optional.get().getStatus())) ) {
 
 			// Retrieve the user to check credit balance
 			User user = loadBalancedWebClientBuilder
@@ -186,7 +186,11 @@ public class PaymentService {
 
 		// Validate for Idempotency - Check if request already processed
 		Optional<PaymentReceived> optional = paymentRepository.findByOrderId(orderEvent.getOrderId());
-		if (optional.isPresent() && !PaymentStatus.RETURNED.equals(optional.get().getStatus())) {
+		if(!optional.isPresent()) {
+			throw new RuntimeException("Payment record is not present..... something is horribly wrong!");
+		}
+		
+		if (!PaymentStatus.RETURNED.equals(optional.get().getStatus())) {
 
 			Payment payment = orderEvent.getOrder().getPayment();
 

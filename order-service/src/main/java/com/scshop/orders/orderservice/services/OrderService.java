@@ -142,7 +142,7 @@ public class OrderService {
 
 			@Override
 			public void onFailure(Throwable ex) {
-				logger.info("New order notification sent failed... Cancelling the order for now!");
+				logger.info("New order notification send failed... Cancelling the order for now!");
 				ex.printStackTrace();
 
 				// TODO Should we cancel the order or something else?
