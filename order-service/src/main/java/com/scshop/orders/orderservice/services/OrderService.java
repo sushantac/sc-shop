@@ -1,7 +1,7 @@
 package com.scshop.orders.orderservice.services;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class OrderService {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);
 		}
 
-		Set<OrderItem> orderItems = order.getItems();
+		List<OrderItem> orderItems = order.getItems();
 
 		BigDecimal calculatedGrandTotalPrice = new BigDecimal(0);
 

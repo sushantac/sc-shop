@@ -3,7 +3,8 @@ package com.scshop.application.common.enums;
 public enum PaymentStatus {
 	INITIATED,
 	PROCESSED,
-	FAILED,
+	PAYMENT_FAILED,
 	RETURN_INITIATED,
-	RETURNED;
+	RETURNED,
+	RETURN_FAILED,
 }

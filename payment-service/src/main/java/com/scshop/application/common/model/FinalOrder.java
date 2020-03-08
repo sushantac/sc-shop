@@ -1,6 +1,6 @@
 package com.scshop.application.common.model;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import com.scshop.application.common.enums.InventoryStatus;
@@ -23,13 +23,13 @@ public class FinalOrder {
 
 	private InventoryStatus inventoryStatus;
 
-	private Set<OrderItem> items;
+	private List<OrderItem> items;
 
 	public FinalOrder() {
 	}
 
 	public FinalOrder(UUID id, UUID userId, Address shippingAddress, Payment payment, OrderStatus status,
-			PaymentStatus paymentStatus, InventoryStatus inventoryStatus, Set<OrderItem> items) {
+			PaymentStatus paymentStatus, InventoryStatus inventoryStatus, List<OrderItem> items) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -65,11 +65,11 @@ public class FinalOrder {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public Set<OrderItem> getItems() {
+	public List<OrderItem> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<OrderItem> items) {
+	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}
 

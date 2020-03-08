@@ -1,14 +1,14 @@
 package com.scshop.orders.orderservice.validation;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.scshop.application.common.model.OrderItem;
 
 public class OrderValidation {
 
 	private OrderValidationStatus status;
-	private Set<OrderItem> invalidOrderItems = new HashSet<>();
+	private List<OrderItem> invalidOrderItems = new ArrayList<>();
 
 	public OrderValidationStatus getStatus() {
 		return status;
@@ -18,11 +18,11 @@ public class OrderValidation {
 		this.status = status;
 	}
 
-	public Set<OrderItem> getInvalidOrderItems() {
+	public List<OrderItem> getInvalidOrderItems() {
 		return invalidOrderItems;
 	}
 
-	public void setInvalidOrderItems(Set<OrderItem> invalidOrderItems) {
+	public void setInvalidOrderItems(List<OrderItem> invalidOrderItems) {
 		this.invalidOrderItems = invalidOrderItems;
 	}
 	

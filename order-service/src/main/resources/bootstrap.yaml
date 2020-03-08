@@ -15,8 +15,8 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: ${KAFKA_SERVER:localhost:9072}
-      group-id: group_id1
-      auto-offset-reset: latest
+      group-id: order_group
+      auto-offset-reset: earliest
       enable-auto-commit: false
       key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -26,6 +26,7 @@ spring:
             trusted:
               packages: "*"
     producer:
+      acks: all
       bootstrap-servers: ${KAFKA_SERVER:localhost:9072}
       key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -52,4 +53,4 @@ app:
       standard-charges: 20
     kafka:
       topic: 
-        order-topic: order_topic
+        order-topic: order_topic2

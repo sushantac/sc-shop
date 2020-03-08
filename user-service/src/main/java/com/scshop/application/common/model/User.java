@@ -1,6 +1,7 @@
 package com.scshop.application.common.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -32,8 +33,7 @@ public class User {
 	private String lastName;
 	
 	@NotNull
-	@Past
-	private String birthDate;
+	private LocalDate birthDate;
 	
 	@NotNull
 	@Enumerated(value = EnumType.STRING)
@@ -44,7 +44,7 @@ public class User {
 	public User() { }	
 	
 	public User(UUID id, @NotNull @Length(max = 40) String firstName, @NotNull @Length(max = 40) String lastName,
-			@NotNull @Past String birthDate, @NotNull Gender gender, BigDecimal credits) {
+			@NotNull @Past LocalDate birthDate, @NotNull Gender gender, BigDecimal credits) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -72,10 +72,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	public Gender getGender() {
