@@ -84,6 +84,7 @@ public class OrderService {
 
 		}
 
+		// Return now if any validation failed
 		if (OrderValidationStatus.ORDER_IS_INVALID.equals(orderValidation.getStatus())
 				|| OrderValidationStatus.PRODUCT_OUT_OF_STOCK.equals(orderValidation.getStatus())
 				|| OrderValidationStatus.ORDER_IS_INVALID.equals(orderValidation.getStatus())) {
@@ -107,6 +108,11 @@ public class OrderService {
 
 	}
 
+	/**
+	 * Process the new order
+	 * 
+	 * @param order
+	 */
 	public void processOrder(FinalOrder order) {
 
 		// -------------- First-cut from TODO --------------
@@ -118,8 +124,8 @@ public class OrderService {
 		// TODO later
 		// -------------------------------------------------
 
-		OrderEvent orderEvent = new OrderEvent(order.getUserId(),order.getId(),order,OrderEventType.ORDER_INITIATED);
-		
+		OrderEvent orderEvent = new OrderEvent(order.getUserId(), order.getId(), order, OrderEventType.ORDER_INITIATED);
+
 		ListenableFuture<SendResult<String, OrderEvent>> future = kafkaTemplate.send(ORDER_TOPIC,
 				order.getId().toString(), orderEvent);
 
@@ -129,7 +135,7 @@ public class OrderService {
 			@Override
 			public void onSuccess(SendResult<String, OrderEvent> result) {
 				logger.info("New order notification sent on topic ORDER_TOPIC!");
-				
+
 				order.setStatus(OrderStatus.INITIATED);
 				orderRepository.save(order);
 			}
@@ -173,6 +179,5 @@ public class OrderService {
 		// ------
 
 	}
-
 
 }
