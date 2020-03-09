@@ -6,10 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserIdentityRepository extends JpaRepository<UserIdentity, UUID>{
+public interface UserIdentityRepository extends JpaRepository<UserIdentity, UUID> {
 
-	
 	UserIdentity findByUsername(String username);
-	
-	
+
 }

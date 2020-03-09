@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.scshop.application.common.model.Product;
-import com.scshop.products.productservice.entity.ProductRepository;
 import com.scshop.products.productservice.exception.ProductNotFoundException;
+import com.scshop.products.productservice.repository.ProductRepository;
 
 import io.swagger.annotations.Api;
 

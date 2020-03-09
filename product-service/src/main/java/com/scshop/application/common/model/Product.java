@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import com.scshop.application.common.enums.Currency;
 
@@ -35,14 +36,23 @@ public class Product {
 		this.imgUrl = imgUrl;
 	}
 
+	@NotNull
 	private String brand;
+	
+	@NotNull
 	private String category;
+	
+	@NotNull
 	private String subCategory;
+	
+	@NotNull
 	private BigDecimal price;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Currency currency;
 	
+	@NotNull
 	private Integer availableInventory;
 	
 	private URL imgUrl;
