@@ -2,7 +2,7 @@
     routerLink="/product"
     routerLinkActive="active"
     style="cursor: pointer;"
-    class="list-group-item nav-link top-buffer"
+    class="card nav-link top-buffer"
     
     >
    <div>
@@ -10,9 +10,9 @@
             <img [src]="product.imgUrl" alt="{{product.name}}" class="img-responsive" style="max-height: 70px;">
         </div>
         <div>
-            <p class="h6">{{product.name}}</p>
-            <p class="h6">{{product.brand}}</p>
-            <p class="currency">{{product.price}}</p>
+            <p class="font-weight-normal text-dark mt-0 mb-0">{{product.name}}</p>
+            <p class="small font-weight-bold text-black-50 mt-0 mb-0">{{product.brand}}</p>
+            <p class="small font-weight-bold text-dark mt-0 mb-0 currency">{{product.price}}</p>
         </div>
     </div>
 
