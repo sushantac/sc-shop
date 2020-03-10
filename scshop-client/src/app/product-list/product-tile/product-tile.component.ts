@@ -9,7 +9,7 @@ import { Product } from 'src/app/common/product.model';
 export class ProductTileComponent implements OnInit {
 
   @Input()
-  product:Product = new Product("Name", "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg", 200, "Brand");
+  product:Product = new Product();
 
   constructor() { }
 
