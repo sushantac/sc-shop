@@ -1,0 +1,19 @@
+<a 
+    routerLink="/product"
+    routerLinkActive="active"
+    style="cursor: pointer;"
+    class="list-group-item nav-link top-buffer"
+    
+    >
+   <div>
+        <div>
+            <img [src]="product.imgUrl" alt="{{product.name}}" class="img-responsive" style="max-height: 70px;">
+        </div>
+        <div>
+            <p class="h6">{{product.name}}</p>
+            <p class="h6">{{product.brand}}</p>
+            <p class="currency">{{product.price}}</p>
+        </div>
+    </div>
+
+</a>

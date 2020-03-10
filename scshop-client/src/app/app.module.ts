@@ -13,6 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { OrderComponent } from './order/order.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { MenubarComponent } from './menubar/menubar.component';
+import { ProductTileComponent } from './product-list/product-tile/product-tile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     ProfileComponent,
     OrderComponent,
     ProductListComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    MenubarComponent,
+    ProductTileComponent
   ],
   imports: [
     BrowserModule,
