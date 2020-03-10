@@ -3,3 +3,16 @@
 body {
     padding-top: 50px;
 }
+
+
+.currency:before{ 
+    content:'$'; 
+}
+.currency:after{ 
+    content: '.00'; 
+}
+
+.top-buffer { 
+    margin-top:10px; 
+    margin-bottom:10px;     
+}
