@@ -1,0 +1,25 @@
+<div class="card mt-2 mb-2">
+    <div class="row mx-auto">
+        <div class="col-md-4 mx-auto">
+            <div class="card-body mx-auto">
+                <div class="row">
+                    <div class="col-sm-8 mx-auto">
+                        <img [src]="cartItem.imgUrl" alt="{{cartItem.productName}}" class="img-responsive" style="max-height: 80px;">
+                    </div>
+                </div>
+               
+                <div class="row mt-2">
+                    <div class="col-sm-2 mx-auto">
+                        <input class="form-control text-center" type="number" value="{{cartItem.quantity}}" id="quantity">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h6 class="card-title font-weight-normal">{{cartItem.productName}}</h6>
+                <p class="h5 font-weight-bold mt-0 mb-3 currency">{{cartItem.price}}</p>
+            </div>
+        </div>
+    </div>
+</div>

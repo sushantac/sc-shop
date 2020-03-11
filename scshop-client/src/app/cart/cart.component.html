@@ -1,1 +1,13 @@
-<p>cart works!</p>
+<div class="row mt-2 mb-2">
+    <div class="col-lg-7">
+        <p class="h5 font-weight-bold">Cart (2)</p>
+        <hr>
+        <div *ngFor="let item of cartItems">
+            <app-cart-item [cartItem]="item"></app-cart-item>
+        </div>
+
+    </div>
+    <div class="col-lg-5">
+        
+    </div>
+</div>
