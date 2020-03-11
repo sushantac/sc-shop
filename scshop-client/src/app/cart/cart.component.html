@@ -1,1 +1,40 @@
-<p>cart works!</p>
+<div class="row mt-2 mb-2">
+    <div class="col-lg-8">
+         <p class="h5 font-weight-bold">Cart ({{cartItems.length}})</p>
+        <hr>
+        <div *ngFor="let item of cartItems">
+            <app-cart-item [cartItem]="item"></app-cart-item>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <p class="h5 font-weight-bold">Price Details</p>
+        
+        <hr>
+
+        <div class="row mb-3 ml-1">
+            <div class="col-sm-5">Price:</div>
+            <span class="col-sm-5 currency">{{cartPrice.price}}</span>
+        </div>
+        <div class="row ml-1">
+            <div class="col-sm-5">Delivery:</div>
+            <span class="col-sm-5 currency">{{cartPrice.delivery}}</span>
+        </div>
+    
+
+        <hr>
+
+        <div class="row ml-1">
+            <div class="h5 col-sm-5">Total Price:</div>
+            <span class="h5 col-sm-5 currency">{{cartPrice.totalPrice}}</span>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <button class="btn btn-info" [disabled]="cartPrice.totalPrice === 0" (click)="onPlaceOrder()">PLACE ORDER</button>
+        </div>
+
+       
+    </div>
+
+
+
+</div>

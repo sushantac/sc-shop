@@ -15,6 +15,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { ProductTileComponent } from './product-list/product-tile/product-tile.component';
+import { CartItemComponent } from './cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProductTileComponent } from './product-list/product-tile/product-tile.c
     ProductListComponent,
     ErrorPageComponent,
     MenubarComponent,
-    ProductTileComponent
+    ProductTileComponent,
+    CartItemComponent
   ],
   imports: [
     BrowserModule,
