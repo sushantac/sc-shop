@@ -16,6 +16,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { ProductTileComponent } from './product-list/product-tile/product-tile.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
+import { PlaceholderDirective } from './common/placeholder.directive';
+import { OrderSuccessComponent } from './order/order-success/order-success.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,20 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
     ErrorPageComponent,
     MenubarComponent,
     ProductTileComponent,
-    CartItemComponent
+    CartItemComponent,
+    PlaceholderDirective,
+    LoginComponent,
+    OrderSuccessComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
+  entryComponents: [
+    LoginComponent
+  ]
 })
 export class AppModule { }

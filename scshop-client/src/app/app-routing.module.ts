@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { OrderComponent } from './order/order.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { OrderSuccessComponent } from './order/order-success/order-success.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'order', component: OrderComponent },
+  { path: 'order-success', component: OrderSuccessComponent },
   { path: 'productlist', component: ProductListComponent },
   { path: "*", component: ErrorPageComponent}
 ];

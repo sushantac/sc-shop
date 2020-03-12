@@ -11,6 +11,8 @@ export class ProductComponent implements OnInit {
   @Input()
   product:Product = new Product();
 
+  isProductAdded: boolean = false;
+  
   constructor() { }
 
   ngOnInit() {

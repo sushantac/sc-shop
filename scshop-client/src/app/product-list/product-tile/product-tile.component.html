@@ -6,12 +6,12 @@
     
     >
    <div>
-        <div>
+        <div class="text-center">
             <img [src]="product.imgUrl" alt="{{product.name}}" class="img-responsive" style="max-height: 70px;">
         </div>
         <div>
             <p class="small font-weight-normal text-dark mt-0 mb-0">
-                {{product.name | slice:0:34}}{{product.name.length > 34 ? '...' : ''}}
+                {{product.name | slice:0:60}}{{product.name.length > 60 ? '...' : ''}}
             </p>
             <p class="small font-weight-bold text-black-50 mt-0 mb-0">{{product.brand}}</p>
             <p class="small font-weight-bold text-dark mt-0 mb-0 currency">{{product.price}}</p>

@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CartComponent implements OnInit {
 
   cartPrice: CartPriceDetails = new CartPriceDetails(0);
-  cartItems: Array<CartItem> = [new CartItem(), new CartItem(), new CartItem(), new CartItem(), new CartItem(), new CartItem(), new CartItem()];
+  cartItems: Array<CartItem> = [new CartItem(), new CartItem(), new CartItem()];
 
   constructor(private route: ActivatedRoute, private router:Router) {
 
