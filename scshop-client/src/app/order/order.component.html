@@ -1,1 +1,99 @@
-<p>order works!</p>
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-sm-8">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Login
+                        </button>
+                        </h5>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                        sushantc.developer@gmail.com
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Delivery Address
+                        </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Order Summary
+                        </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div *ngFor="let item of cartItems">
+                                <app-cart-item [cartItem]="item"></app-cart-item>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Payment
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <p>Total Available Credits: $100000 </p>
+
+                            <a routerLink="/order-success">
+                                <button class="btn btn-primary"> Pay ${{cartPrice.totalPrice}} </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <p class="h5 font-weight-bold">Price Details</p>
+            
+            <hr>
+    
+            <div class="row mb-3 ml-1">
+                <div class="col-sm-5">Price:</div>
+                <span class="col-sm-5 currency">{{cartPrice.price}}</span>
+            </div>
+            <div class="row ml-1">
+                <div class="col-sm-5">Delivery:</div>
+                <span class="col-sm-5 currency">{{cartPrice.delivery}}</span>
+            </div>
+        
+    
+            <hr>
+    
+            <div class="row ml-1">
+                <div class="h5 col-sm-5">Total Price:</div>
+                <span class="h5 col-sm-5 currency">{{cartPrice.totalPrice}}</span>
+            </div>
+               
+        </div>
+
+    </div>
+</div>
