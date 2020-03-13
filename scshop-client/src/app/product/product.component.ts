@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../common/product.model';
 import { CartItem } from '../cart/cart-item/cart-item.model';
 import { CartService } from '../cart/cart.service';
+import { ProductService } from './product.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -11,13 +13,23 @@ import { CartService } from '../cart/cart.service';
 export class ProductComponent implements OnInit {
 
   @Input()
-  product:Product = new Product();
+  product:Product;
 
   isProductAdded: boolean = false;
   
-  constructor(private cartService:CartService) { }
+  constructor(private cartService:CartService, 
+    private productService: ProductService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe((paramas: Params) =>
+    {
+      this.productService.getProduct(paramas['id']).toPromise().then( product =>{
+        this.product = product;
+      });;
+    });
+    
   }
 
   onAddToCart(product:Product){

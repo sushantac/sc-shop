@@ -21,21 +21,11 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 
+	@NotNull
 	private String name;
-	public Product(UUID id, String name, String brand, String category, String subCategory, BigDecimal price,
-			Currency currency, Integer availableInventory, URL imgUrl) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.brand = brand;
-		this.category = category;
-		this.subCategory = subCategory;
-		this.price = price;
-		this.currency = currency;
-		this.availableInventory = availableInventory;
-		this.imgUrl = imgUrl;
-	}
-
+	
+	private String description;
+	
 	@NotNull
 	private String brand;
 	
@@ -60,19 +50,24 @@ public class Product {
 	public Product() {
 		
 	}
-	
-	public Product(UUID id, String name, String brand, String category, String subCategory, BigDecimal price,
-			Currency currency, URL imgUrl) {
+
+
+	public Product(UUID id, @NotNull String name, String description, @NotNull String brand, @NotNull String category,
+			@NotNull String subCategory, @NotNull BigDecimal price, @NotNull Currency currency,
+			@NotNull Integer availableInventory, URL imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.brand = brand;
 		this.category = category;
 		this.subCategory = subCategory;
 		this.price = price;
 		this.currency = currency;
+		this.availableInventory = availableInventory;
 		this.imgUrl = imgUrl;
 	}
+
 
 	public UUID getId() {
 		return id;
@@ -221,6 +216,16 @@ public class Product {
 
 	public void setAvailableInventory(Integer availableInventory) {
 		this.availableInventory = availableInventory;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}	
 	
 	

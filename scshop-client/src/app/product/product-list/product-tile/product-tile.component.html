@@ -1,5 +1,5 @@
 <a 
-    routerLink="/product"
+    routerLink="/product/{{product.id}}"
     routerLinkActive="active"
     style="cursor: pointer;"
     class="card nav-link top-buffer"
@@ -7,9 +7,9 @@
     >
    <div>
         <div class="text-center">
-            <img [src]="product.imgUrl" alt="{{product.name}}" class="img-responsive" style="max-height: 70px;">
+            <img [src]="product.imgUrl" alt="{{product.name}}" class="img-responsive" style="max-height: 110px;">
         </div>
-        <div>
+        <div class="text-center">
             <p class="small font-weight-normal text-dark mt-0 mb-0">
                 {{product.name | slice:0:60}}{{product.name.length > 60 ? '...' : ''}}
             </p>

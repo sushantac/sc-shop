@@ -1,0 +1,7 @@
+{
+    "/products": {
+      "target": "http://localhost:8000/externalGateway/api/v1",
+      "secure": false,
+      "changeOrigin": true
+    }
+}

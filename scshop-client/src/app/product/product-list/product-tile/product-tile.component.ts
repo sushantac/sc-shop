@@ -9,7 +9,7 @@ import { Product } from 'src/app/common/product.model';
 export class ProductTileComponent implements OnInit {
 
   @Input()
-  product:Product = new Product();
+  product:Product;
 
   constructor() { }
 
