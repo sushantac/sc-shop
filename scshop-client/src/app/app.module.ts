@@ -11,13 +11,15 @@ import { ProductComponent } from './product/product.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OrderComponent } from './order/order.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { MenubarComponent } from './menubar/menubar.component';
-import { ProductTileComponent } from './product-list/product-tile/product-tile.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { PlaceholderDirective } from './common/placeholder.directive';
 import { OrderSuccessComponent } from './order/order-success/order-success.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { ErrorPageComponent } from './common/error-page/error-page.component';
+import { MenubarComponent } from './header/menubar/menubar.component';
+import { ProductTileComponent } from './product/product-list/product-tile/product-tile.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { OrderSuccessComponent } from './order/order-success/order-success.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

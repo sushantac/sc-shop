@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewContainerRef, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoginComponent } from '../login/login.component';
+import { CartService } from '../cart/cart.service';
+import { CartItem } from '../cart/cart-item/cart-item.model';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +12,14 @@ import { LoginComponent } from '../login/login.component';
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  cartSize: number;
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cartService: CartService) { }
 
   ngOnInit() {
-
-
+    this.cartSize = this.cartService.cart.size;
+    this.cartService.cartUpdated.subscribe((cartItems: CartItem[]) => {
+      this.cartSize = this.cartService.cart.size;
+    });
   }
 
   @ViewChild('place', {static: true, read: ViewContainerRef}) alertHost: ViewContainerRef;

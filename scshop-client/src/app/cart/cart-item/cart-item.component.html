@@ -6,7 +6,7 @@
                 <img [src]="cartItem.imgUrl" alt="{{cartItem.productName}}" class="img-responsive" style="max-height: 100px;">
                 <div class="row mt-3">
                     <div class="col-sm-8 mx-auto">
-                        <input class="form-control text-center" type="number" min="1" value="{{cartItem.quantity}}" id="quantity">
+                        <input class="form-control text-center" type="number" min="1" [(ngModel)]="cartItem.quantity" id="quantity" (change)="onQuanityChanged()">
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <p class="h5 font-weight-bold mt-0 mb-3 currency">{{cartItem.price}}</p>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-info align-self-end" (click)="removeItemFromCart(cartItem.id)">Remove</button>
+                <button class="btn btn-outline-info align-self-end" (click)="onRemoveItemFromCart(cartItem.productId)">Remove</button>
             </div>
         </div>
     </div>

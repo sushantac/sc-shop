@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../common/product.model';
 import { CartItem } from './cart-item/cart-item.model';
-import { CartPriceDetails } from './cart-price-details.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Cart } from './cart.model';
+import { CartService } from './cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -11,16 +12,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
-  cartPrice: CartPriceDetails = new CartPriceDetails(0);
-  cartItems: Array<CartItem> = [new CartItem(), new CartItem(), new CartItem()];
+  cart: Cart;
 
-  constructor(private route: ActivatedRoute, private router:Router) {
+  cartSubscription:Subscription;
 
+  constructor(private route: ActivatedRoute, private router:Router, private cartService: CartService) {
+    
   }
 
   ngOnInit() {
-    this.cartItems.forEach(element => {
-      this.cartPrice.price = this.cartPrice.price + (element.price * element.quantity); 
+    this.cart = new Cart();
+    this.cart.items = this.cartService.getCartItems();
+
+    this.cartSubscription = this.cartService.cartUpdated.subscribe((cartItems: CartItem[]) => {
+      this.cart.items = cartItems;
     });
   }
 

@@ -6,9 +6,9 @@ import { ProductComponent } from './product/product.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OrderComponent } from './order/order.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
 import { OrderSuccessComponent } from './order/order-success/order-success.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { ErrorPageComponent } from './common/error-page/error-page.component';
 
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'productlist', component: ProductListComponent },
-  { path: "*", component: ErrorPageComponent}
+  { path: "*", component: ErrorPageComponent }
 ];
 
 @NgModule({
