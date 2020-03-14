@@ -18,7 +18,7 @@
                 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body" *ngIf="isUserLoggedIn">
-                            sushantc.developer@gmail.com
+                            {{user.username}}
                         </div>
 
                         <div class="card-body" *ngIf="!isUserLoggedIn">
@@ -60,28 +60,28 @@
 
                                         <label for="name">Suburb</label>
                                         <input type="text"
-                                        id="adddress"
+                                        id="suburb"
                                         
                                         class="form-control">
 
                                         <span>
                                             <label for="name" class="mr-4">State
                                             <input type="text"
-                                            id="adddress"
+                                            id="state"
                                             
                                             class="form-control">
                                             </label>
 
                                             <label for="name" class="mr-4">Pin
                                                 <input type="text"
-                                                id="adddress"
+                                                id="pin"
                                                 
                                                 class="form-control">
                                             </label>
 
                                             <label for="name">Country
                                                 <input type="text"
-                                                id="adddress"
+                                                id="country"
                                                 
                                                 class="form-control">
                                             </label>
@@ -115,27 +115,29 @@
                                 <app-cart-item [cartItem]="item"></app-cart-item>
                             </div> 
                         </div>
-                    </div>
-                    <div class="row d-flex justify-content-end mr-3 mb-3">
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success" >Continue</button>
+                        <div class="row d-flex justify-content-end mr-3 mb-3">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-success" >Continue</button>
+                            </div>
                         </div>
                     </div>
+                    
  
                 </div>
 
                 <!-- Payment -->
                 <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header" id="headingFour">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" 
-                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                             Payment
                         </button>
                         <span class="align-middle" *ngIf="isPaymentValidated">
                             <i class="fa fa-check-circle-o text-success"></i>
                         </span>
                     </div>
-                    <div id="collapseThree" class='collapse {{showPaymentSection ? "show":""}}' aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseFour" class='collapse {{showPaymentSection ? "show":""}}' aria-labelledby="headingFour" 
+                    data-parent="#accordionExample">
                         <div class="card-body">
                             <p>Total Available Credits: $100000 </p>
 

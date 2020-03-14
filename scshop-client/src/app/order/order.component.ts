@@ -6,6 +6,7 @@ import { CartService } from '../cart/cart.service';
 import { Subscription } from 'rxjs';
 import { CartPriceDetails } from '../cart/cart-price-details.model';
 import { AuthService } from '../login/auth.service';
+import { User } from '../login/user.model';
 
 
 @Component({
@@ -16,23 +17,30 @@ import { AuthService } from '../login/auth.service';
 export class OrderComponent implements OnInit, OnDestroy {
 
   cart: Cart;
-
+  user: User = null;
   cartSubscription: Subscription;
 
-  isUserLoggedIn:boolean = true;
-  isAddressEntered:boolean = true;
-  isOrderValidated:boolean = true;
+  isUserLoggedIn:boolean = false;
+  isAddressEntered:boolean = false;
+  isOrderValidated:boolean = false;
   isPaymentValidated:boolean = false;
 
   constructor( 
     private componentFactoryResolver: ComponentFactoryResolver, 
-    private cartService: CartService) { 
+    private cartService: CartService,
+    private authService: AuthService) { 
 
   }
 
   ngOnInit() {
-    this.cart = this.cartService.getCart();
-                
+
+    this.authService.userSubject.subscribe( user => {
+      this.user = user; 
+      this.isUserLoggedIn = (user != null);
+    });
+
+    this.cart = new Cart(this.cartService.getCartItems());
+                    
     this.cartSubscription = this.cartService.cartUpdated.subscribe((cartItems: CartItem[]) => {
       this.cart.items = cartItems;
     });

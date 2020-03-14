@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'productlist', component: ProductListComponent },
-  { path: "*", component: ErrorPageComponent }
+  { path: "**", component: ErrorPageComponent }
 ];
 
 @NgModule({
