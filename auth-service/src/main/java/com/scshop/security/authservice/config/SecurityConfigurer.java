@@ -34,7 +34,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// don't authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate").permitAll()
+				.authorizeRequests().antMatchers("/api/v1/auth/token","/api/v1/auth/signup").permitAll()
 				// all other requests need to be authenticated
 				.anyRequest().authenticated()
 				// make sure we use state-less session; session won't be used to store user state.

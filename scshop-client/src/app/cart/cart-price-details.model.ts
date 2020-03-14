@@ -9,7 +9,7 @@ export class CartPriceDetails {
     }
 
     public get delivery(){
-        if(this.price == 0){
+        if(this.price === 0){
              return 0;
         }
         this._delivery = 20;
@@ -17,7 +17,7 @@ export class CartPriceDetails {
     }
 
     public get totalPrice(){
-       if(this.price == 0){
+       if(this.price === 0){
             return 0;
         }
         return this.price + this.delivery;

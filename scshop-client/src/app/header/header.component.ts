@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { LoginComponent } from '../login/login.component';
 import { CartService } from '../cart/cart.service';
 import { CartItem } from '../cart/cart-item/cart-item.model';
+import { AuthService } from '../login/auth.service';
+import { User } from '../login/user.model';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +14,13 @@ import { CartItem } from '../cart/cart-item/cart-item.model';
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  user: User = null;
   cartSize: number;
   
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cartService: CartService) { 
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver, 
+    private cartService: CartService,
+    private authService: AuthService) { 
 
   }
 
@@ -22,6 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.cartSize = this.cartService.cart.size;
     this.cartService.cartUpdated.subscribe((cartItems: CartItem[]) => {
       this.cartSize = this.cartService.cart.size;
+    });
+
+    this.authService.userSubject.subscribe( user => {
+      this.user = user; 
     });
   }
 
@@ -40,8 +50,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.closeSub.unsubscribe();
       hostContainerRef.clear();
     });
-
   }
+
+  logout(){
+    this.authService.logout();
+  }
+
 
   ngOnDestroy(){
     if(this.closeSub){

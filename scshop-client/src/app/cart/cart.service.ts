@@ -19,6 +19,10 @@ export class CartService {
     return this.cart.items.length;
   }
 
+  getCart(){
+    return this.cart;
+  }
+
   getCartItems(){
     return this.cart.items.slice();
   }

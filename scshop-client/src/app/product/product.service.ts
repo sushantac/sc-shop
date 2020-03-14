@@ -20,7 +20,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(){
-   this.http.get<Product[]>("/products").pipe(
+   this.http.get<Product[]>("/externalGateway/api/v1/products").pipe(
       map(products => {
             this.products =  products.map(product => {
                return Object.assign(new Product(), product);
@@ -40,7 +40,7 @@ export class ProductService {
 
 
   getProduct(productId: string){
-    return this.http.get<Product>("/products/" + productId);
+    return this.http.get<Product>("/externalGateway/api/v1/products/" + productId);
   }
  
   

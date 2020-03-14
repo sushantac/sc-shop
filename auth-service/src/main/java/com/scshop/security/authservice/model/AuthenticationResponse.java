@@ -2,15 +2,27 @@ package com.scshop.security.authservice.model;
 
 public class AuthenticationResponse {
 
-	private final String jwt;
+	private String username;
+	private final String token;
 	
-	public AuthenticationResponse(String jwt) {
+	public AuthenticationResponse(String username, String token) {
 		super();
-		this.jwt = jwt;
+		this.username = username;
+		this.token = token;
 	}
 
-	public String getJwt() {
-		return jwt;
+	public String getToken() {
+		return token;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	
 	
 }

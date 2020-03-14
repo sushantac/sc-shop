@@ -1,6 +1,7 @@
 package com.scshop.security.authservice.config.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -17,17 +18,29 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserIdentityRepository userIdentityRepository;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		UserIdentity userIdentity = userIdentityRepository.findByUsername(username);
-		
-		if(userIdentity == null) {
+
+		Optional<UserIdentity> optional = userIdentityRepository.findByUsername(username);
+
+		if (!optional.isPresent()) {
 			throw new UsernameNotFoundException("Username " + username + "not found!");
 		}
-		
-		return new User(username, userIdentity.getPassword(), new ArrayList<>());
+
+		return new User(username, optional.get().getPassword(), new ArrayList<>());
+	}
+
+	public void registerUser(UserIdentity user) {
+
+		// TODO user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+		user.setPassword(user.getPassword());
+		userIdentityRepository.save(user);
+	}
+
+	public boolean doesUserAlreadyExist(UserIdentity user) {
+		return userIdentityRepository.findByUsername(user.getUsername()).isPresent();
 	}
 
 }

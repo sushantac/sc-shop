@@ -23,7 +23,7 @@
 
                         <div class="card-body" *ngIf="!isUserLoggedIn">
                             <div class="col-xs-12">
-                                <button (click)="showLoginBox()" class="btn btn-success" [disabled]="!recipeForm.valid">Login</button>
+                                <button (click)="showLoginBox()" class="btn btn-success">Login</button>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                 
                                     <div class="row d-flex justify-content-end mr-2">
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Continue</button>
+                                            <button type="submit" class="btn btn-success" >Continue</button>
                                         </div>
                                     </div>
                             </form>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="row d-flex justify-content-end mr-3 mb-3">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success" [disabled]="!recipeForm.valid">Continue</button>
+                            <button type="submit" class="btn btn-success" >Continue</button>
                         </div>
                     </div>
  
