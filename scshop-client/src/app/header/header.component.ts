@@ -13,7 +13,10 @@ import { CartItem } from '../cart/cart-item/cart-item.model';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   cartSize: number;
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cartService: CartService) { }
+  
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cartService: CartService) { 
+
+  }
 
   ngOnInit() {
     this.cartSize = this.cartService.cart.size;
