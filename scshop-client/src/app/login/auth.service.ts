@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, flatMap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthInfo } from './auth.model';
+import { UserService } from './user.service';
 import { User } from './user.model';
 
 
 interface AuthenticationResponse{
+    userId: string,
     username: string,  
     token: string
 
@@ -18,13 +21,14 @@ interface AuthenticationResponse{
 @Injectable({providedIn: "root"})
 export class AuthService{
 
-    userSubject:BehaviorSubject<User> = new BehaviorSubject<User>(null);
+
+    authInfoSubject:BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(null);
 
     private loginUrl: string = "/externalGateway/api/v1/auth/token";
     private signUpUrl: string = "/externalGateway/api/v1/auth/signup";
 
 
-    constructor(private http: HttpClient, private router: Router){}
+    constructor(private http: HttpClient, private router: Router, private userService: UserService){}
 
     login(username: string, password: string){
         return this.http.post<AuthenticationResponse>(this.loginUrl, 
@@ -37,15 +41,12 @@ export class AuthService{
 
     signUp(username: string, password: string){
         return this.http.post<AuthenticationResponse>(this.signUpUrl, 
-            {
-                username: username,
-                password: password
-            }
+            new User(username, password)
         ).pipe(catchError(this.handleError), tap(this.handleSignUp.bind(this)));
     }
 
     logout(auto:boolean = false){
-        this.userSubject.next(null);
+        this.authInfoSubject.next(null);
 
         localStorage.removeItem('userData');
 
@@ -69,9 +70,9 @@ export class AuthService{
         }, expirationDuration);
     }
 
-    private handleSignUp(response: Object){
-        console.log(response);
-        
+    private handleSignUp(username: string){
+        console.log(username);
+
         //const user: User = new User(response.username, response.token);
         //this.userSubject.next(user);
         //localStorage.setItem('userData', JSON.stringify(user));
@@ -85,12 +86,12 @@ export class AuthService{
     private handleAuthentication(response: AuthenticationResponse){
         console.log(response);
         
-        const user: User = new User(response.username, response.token);
-        this.userSubject.next(user);
-        localStorage.setItem('userData', JSON.stringify(user));
+        const authInfo: AuthInfo = new AuthInfo(response.userId, response.username, response.token);
+        this.authInfoSubject.next(authInfo);
+        localStorage.setItem('userData', JSON.stringify(authInfo));
 
         //TODO: hard coded expiration for now
-        this.autoLogout(5 * 10000);
+        this.autoLogout(15 * 10000);
     }
     
     private handleError( errorResponse: HttpErrorResponse){

@@ -13,7 +13,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class ProductComponent implements OnInit {
 
   @Input()
-  product:Product;
+  product:Product = new Product();
 
   isProductAdded: boolean = false;
   
@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
     {
       this.productService.getProduct(paramas['id']).toPromise().then( product =>{
         this.product = product;
-      });;
+      });
     });
     
   }

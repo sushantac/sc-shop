@@ -4,7 +4,7 @@ import { LoginComponent } from '../login/login.component';
 import { CartService } from '../cart/cart.service';
 import { CartItem } from '../cart/cart-item/cart-item.model';
 import { AuthService } from '../login/auth.service';
-import { User } from '../login/user.model';
+import { AuthInfo } from '../login/auth.model';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +14,7 @@ import { User } from '../login/user.model';
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  user: User = null;
+  user: AuthInfo = null;
   cartSize: number;
   
   constructor(
@@ -27,10 +27,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.cartSize = this.cartService.cart.size;
     this.cartService.cartUpdated.subscribe((cartItems: CartItem[]) => {
-      this.cartSize = this.cartService.cart.size;
+      this.cartSize = cartItems.length;
     });
 
-    this.authService.userSubject.subscribe( user => {
+    this.authService.authInfoSubject.subscribe( user => {
       this.user = user; 
     });
   }

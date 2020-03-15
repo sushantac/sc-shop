@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.scshop.application.common.enums.InventoryStatus;
 import com.scshop.application.common.enums.OrderStatus;
+import com.scshop.application.common.enums.PaymentStatus;
 import com.scshop.application.common.model.FinalOrder;
 import com.scshop.orders.orderservice.entity.OrderRepository;
 import com.scshop.orders.orderservice.exception.OrderDetailsInvalidException;
@@ -75,7 +77,7 @@ public class OrderController {
 	}
 
 	@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> generateOrder(@RequestBody FinalOrder order) {
+	public UUID generateOrder(@RequestBody FinalOrder order) {
 
 		logger.info("Generating order : " + order);
 		
@@ -91,6 +93,8 @@ public class OrderController {
 		}
 		
 		order.setStatus(OrderStatus.CREATED);
+		order.setInventoryStatus(InventoryStatus.REDUCE_STOCK_UPDATE_INITIATED);
+		order.setPaymentStatus(PaymentStatus.INITIATED);
 		FinalOrder savedOrder = orderRepository.save(order);
 
 		orderService.processOrder(savedOrder);
@@ -99,7 +103,10 @@ public class OrderController {
 				.buildAndExpand(savedOrder.getId())
 				.toUri();
 
-		return ResponseEntity.created(location).build();
+		//TODO Change it later 
+		//return ResponseEntity.created(location).build();
+		
+		return savedOrder.getId();
 	}
 
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)

@@ -13,7 +13,11 @@ export class CartService {
    
   cartUpdated: Subject<CartItem[]> = new Subject<CartItem[]>();
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+   this.cartUpdated.subscribe((cartItems: CartItem[]) => {
+      this.cart.items = cartItems;
+    });
+  }
 
   getNumberOfCartItems(){
     return this.cart.items.length;

@@ -1,50 +1,21 @@
 package com.scshop.application.common.model;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
-
 import com.scshop.application.common.enums.Country;
 
-@Embeddable
 public class Address {
 
-	@NotNull
 	private String name;
 
-	@NotNull
 	private String addressLine1;
 
 	private String addressLine2;
 
-	@NotNull
 	private String city;
 
-	@NotNull
-	private Integer pin;
-	
-	@NotNull
 	private String state;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
 	private Country country;
 
-	public Address() {}
-	
-	public Address(@NotNull String name, @NotNull String addressLine1, String addressLine2, @NotNull String city,
-			@NotNull Integer pin, @NotNull String state, @NotNull Country country) {
-		super();
-		this.name = name;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.city = city;
-		this.pin = pin;
-		this.state = state;
-		this.country = country;
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -102,7 +73,6 @@ public class Address {
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((pin == null) ? 0 : pin.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
@@ -138,11 +108,7 @@ public class Address {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (pin == null) {
-			if (other.pin != null)
-				return false;
-		} else if (!pin.equals(other.pin))
-			return false;
+
 		if (state == null) {
 			if (other.state != null)
 				return false;
@@ -154,17 +120,7 @@ public class Address {
 	@Override
 	public String toString() {
 		return "Address [name=" + name + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", city="
-				+ city + ", pin=" + pin + ", state=" + state + ", country=" + country + "]";
+				+ city + ", state=" + state + ", country=" + country + "]";
 	}
-
-	public Integer getPin() {
-		return pin;
-	}
-
-	public void setPin(Integer pin) {
-		this.pin = pin;
-	}
-
-	
 
 }

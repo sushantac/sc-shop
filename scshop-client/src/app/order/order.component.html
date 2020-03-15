@@ -42,47 +42,73 @@
                     </div>
                     <div id="collapseTwo" class='collapse {{showAddressSection ? "show":""}}' aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
-                            <form >
+                            <form #addressForm="ngForm" id="addressForm">
                                 
                                     <div class="form-group mr-2">
                                         <label for="name">Name</label>
                                         <input type="text"
                                         id="name"
                                         
-                                        class="form-control">
+                                        name="name"
+                                        ngModel
+                                        required
+
+                                        class="form-control mb-2">
       
-                                        <label for="name">Address</label>
+                                        <label for="address">Address</label>
                                         <input type="text"
                                         id="adddress"
-                                        
-                                        class="form-control">
+
+                                        name="addressLine1"
+                                        ngModel
+                                        required
+
+                                        class="form-control mb-2">
 
 
-                                        <label for="name">Suburb</label>
+                                        <label for="city">Suburb</label>
                                         <input type="text"
-                                        id="suburb"
+                                        id="city"
                                         
-                                        class="form-control">
+                                        name="city"
+                                        ngModel
+                                        required
 
-                                        <span>
-                                            <label for="name" class="mr-4">State
+                                        class="form-control mb-2">
+
+                                        <span class="mb-2">
+                                            <label for="state" class="mr-4">State
                                             <input type="text"
                                             id="state"
+
+                                            name="state"
+                                            ngModel
+                                            required
                                             
                                             class="form-control">
                                             </label>
 
-                                            <label for="name" class="mr-4">Pin
+                                            <label for="pin" class="mr-4">Pin
                                                 <input type="text"
                                                 id="pin"
-                                                
+
+                                                name="pin"
+                                                type="text"
+                                                required
+                                                ngModel
+                                                max="999999"
+                                                pattern="[0-9]+"
                                                 class="form-control">
                                             </label>
 
-                                            <label for="name">Country
+                                            <label for="country">Country
                                                 <input type="text"
                                                 id="country"
                                                 
+                                                name="country"
+                                                ngModel
+                                                required
+
                                                 class="form-control">
                                             </label>
                                         </span>
@@ -90,7 +116,7 @@
                                 
                                     <div class="row d-flex justify-content-end mr-2">
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-success" >Continue</button>
+                                            <button type="submit" [disabled]="!addressForm.valid" class="btn btn-success" (click)="onAddressSave(addressForm)">Continue</button>
                                         </div>
                                     </div>
                             </form>
@@ -141,9 +167,8 @@
                         <div class="card-body">
                             <p>Total Available Credits: $100000 </p>
 
-                            <a routerLink="/order-success">
-                                <button class="btn btn-primary"> Pay ${{cart.priceDetails.totalPrice}} </button>
-                            </a>
+                            
+                            <button class="btn btn-primary" (click)="onPaySubmit()"> Pay ${{cart.priceDetails.totalPrice}} </button>
                             
                         </div>
                     </div>

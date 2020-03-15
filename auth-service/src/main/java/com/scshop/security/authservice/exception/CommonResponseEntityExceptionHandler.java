@@ -33,6 +33,15 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(UserRegistrationFailedException.class)
+	public final ResponseEntity<Object> handleUserRegistrationFailedException(UserRegistrationFailedException ex,
+			WebRequest request) {
+
+		ExceptionMessage exceptionResponse = new ExceptionMessage(HttpStatus.INTERNAL_SERVER_ERROR, new Date(), ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

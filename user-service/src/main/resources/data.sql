@@ -1,2 +1,2 @@
-INSERT INTO USER(id, first_name, last_name, birth_date, gender, credits) 
-VALUES ('14335d51265a4e01ad4d306be659a48f', 'Sushant', 'C', '19800101', 'Male', 100000);
+INSERT INTO USER(id, user_id, first_name, last_name, birth_date, gender, credits) 
+VALUES ('14335d51265a4e01ad4d306be659a38f', '14335d51265a4e01ad4d306be659a48f', 'Sushant', 'C', '19800101', 'Male', 100000);

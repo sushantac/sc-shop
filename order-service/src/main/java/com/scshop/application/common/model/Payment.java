@@ -32,7 +32,19 @@ public class Payment {
 	@Enumerated(EnumType.STRING)
 	private Currency currency;
 	
+	public Payment() {
+		
+	}
 	
+	public Payment(@NotNull BigDecimal subTotal, @NotNull BigDecimal shippingCharges, @NotNull BigDecimal total,
+			@NotNull BigDecimal grandTotal, @NotNull Currency currency) {
+		super();
+		this.subTotal = subTotal;
+		this.shippingCharges = shippingCharges;
+		this.total = total;
+		this.grandTotal = grandTotal;
+		this.currency = currency;
+	}
 	public BigDecimal getSubTotal() {
 		return subTotal;
 	}

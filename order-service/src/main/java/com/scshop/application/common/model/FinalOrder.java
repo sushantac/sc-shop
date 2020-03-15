@@ -1,7 +1,6 @@
 package com.scshop.application.common.model;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;

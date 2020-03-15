@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderSuccessComponent implements OnInit {
 
+  
+  submittedOrder: string;
+  
   constructor() { }
 
   ngOnInit() {
+    this.submittedOrder = history.state.orderId;
   }
 
 }

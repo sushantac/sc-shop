@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  domain: "localhost:8000",
-  serverUrl: "http://localhost:8000/externalGateway/api/v1/"
+  serverUrl: ""
+  //serverUrl: "http://localhost:8000"
 };
 
 /*

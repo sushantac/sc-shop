@@ -1,5 +1,7 @@
 package com.scshop.security.authservice.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.scshop.security.authservice.config.entity.UserIdentity;
+import com.scshop.security.authservice.config.entity.UserIdentityRepository;
 import com.scshop.security.authservice.config.service.UserDetailsServiceImpl;
 import com.scshop.security.authservice.exception.UserAlreadyExistsException;
 import com.scshop.security.authservice.exception.UserNotFoundException;
@@ -32,6 +35,10 @@ public class AuthController {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 
+	@Autowired
+	UserIdentityRepository userIdentityRepository;
+
+	//TODO Need to fix this big-time... Continuing for now 
 	@RequestMapping(value = "token", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
@@ -42,7 +49,10 @@ public class AuthController {
 
 		final String token = jwtConfig.generateToken(userDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(authenticationRequest.getUsername(), token));
+		//TODO Revisit this
+		Optional<UserIdentity> optional = userIdentityRepository.findByUsername(authenticationRequest.getUsername());
+		
+		return ResponseEntity.ok(new AuthenticationResponse(optional.get().getId(), authenticationRequest.getUsername(), token));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
@@ -54,7 +64,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public void signUp(@RequestBody UserIdentity user) {
+	public String signUp(@RequestBody UserIdentity user) {
 
 		boolean userAlreadyExists = userDetailsService.doesUserAlreadyExist(user);
 
@@ -63,6 +73,10 @@ public class AuthController {
 		}
 
 		userDetailsService.registerUser(user);
+
+		
+
+		return user.getUsername();
 	}
 
 	@RequestMapping(value = "/test")

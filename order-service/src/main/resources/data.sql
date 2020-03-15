@@ -1,7 +1,7 @@
-INSERT INTO FINAL_ORDER(id, user_id, name, address_line1, address_line2, city, state, country, status, 
+INSERT INTO FINAL_ORDER(id, user_id, name, address_line1, address_line2, city, state, pin, country, status, 
 sub_total,shipping_charges,total,grand_total,currency, payment_status, inventory_status) 
 VALUES('14335d51265a4e01ad4d306be659a48f', '34335d51265a4e01ad4d306be659a48f', 'Sushant Chanmanwar', '1 Street', null, 
-'Sydney', 'NSW', 'AUSTRALIA', 'INITIATED', 400, 20, 420, 420, 'AUD', 'INITIATED','REDUCE_STOCK_UPDATE_INITIATED');
+'Sydney', 'NSW', 2000, 'AUSTRALIA', 'INITIATED', 400, 20, 420, 420, 'AUD', 'INITIATED','REDUCE_STOCK_UPDATE_INITIATED');
 
 	
 	

@@ -50,7 +50,8 @@ public class OrderService {
 
 		OrderValidation orderValidation = new OrderValidation();
 
-		if (order.getItems() == null || order.getItems().isEmpty() || order.getPayment().getGrandTotal().equals(0)) {
+		if (order.getItems() == null || order.getItems().isEmpty() || order.getPayment() == null
+				|| order.getPayment().getGrandTotal() == null || order.getPayment().getGrandTotal().equals(0)) {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);
 		}
 
@@ -65,7 +66,7 @@ public class OrderService {
 					.retrieve().bodyToMono(Product.class).block();
 
 			if (product != null) {
-				if (!orderItem.getPrice().equals(product.getPrice())) {
+				if (orderItem.getPrice().floatValue() != product.getPrice().abs().floatValue()) {
 					orderValidation.setStatus(OrderValidationStatus.PRODUCT_PRICE_CHANGED);
 					orderValidation.getInvalidOrderItems().add(orderItem);
 				} else if (orderItem.getQuantity() > product.getAvailableInventory()) {
@@ -94,7 +95,7 @@ public class OrderService {
 
 		calculatedGrandTotalPrice = calculatedGrandTotalPrice.add(new BigDecimal(STANDARD_SHIPPING_CHARGES));
 
-		if (calculatedGrandTotalPrice.equals(order.getPayment().getGrandTotal())) {
+		if (calculatedGrandTotalPrice.floatValue() == order.getPayment().getGrandTotal().floatValue()) {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_VALID);
 		} else {
 			orderValidation.setStatus(OrderValidationStatus.ORDER_IS_INVALID);

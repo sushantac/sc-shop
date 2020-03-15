@@ -4,81 +4,29 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.scshop.application.common.enums.Gender;
 
-@Entity
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@NotNull
 	private UUID userId;
 
-	@NotNull
-	@Length(max = 40)
 	private String firstName;
-	
-	@NotNull
-	@Length(max = 40)
-	private String lastName;
-	
-	@NotNull
-	private LocalDate birthDate;
-	
-	@NotNull
-	@Enumerated(value = EnumType.STRING)
-	private Gender gender;
-	
-	private BigDecimal credits;
-	
-	public User() { }	
-	
 
-	public UUID getId() {
-		return id;
+	private String lastName;
+
+	private LocalDate birthDate;
+
+	private Gender gender;
+
+	private BigDecimal credits;
+
+	public User() {
 	}
-	public void setId(UUID id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-	public Gender getGender() {
-		return gender;
-	}
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	
-	public User(UUID id, @NotNull UUID userId, @NotNull @Length(max = 40) String firstName,
-			@NotNull @Length(max = 40) String lastName, @NotNull LocalDate birthDate, @NotNull Gender gender,
+
+
+	public User(UUID id, UUID userId, String firstName, String lastName, LocalDate birthDate, Gender gender,
 			BigDecimal credits) {
 		super();
 		this.id = id;
@@ -88,6 +36,47 @@ public class User {
 		this.birthDate = birthDate;
 		this.gender = gender;
 		this.credits = credits;
+	}
+
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	@Override
@@ -148,9 +137,6 @@ public class User {
 		return true;
 	}
 
-	
-
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
@@ -172,5 +158,5 @@ public class User {
 	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
-	
+
 }
