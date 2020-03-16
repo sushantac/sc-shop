@@ -90,7 +90,7 @@ export class AuthService{
         localStorage.setItem('userData', JSON.stringify(authInfo));
 
         //TODO: hard coded expiration for now
-        this.autoLogout(15 * 10000);
+        this.autoLogout(60 * 10000);
     }
     
     private handleError( errorResponse: HttpErrorResponse){
