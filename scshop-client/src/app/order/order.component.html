@@ -78,14 +78,14 @@
 
                                         <span class="mb-2">
                                             <label for="state" class="mr-4">State
-                                            <input type="text"
-                                            id="state"
 
-                                            name="state"
-                                            ngModel
-                                            required
+                                                <select class="custom-select" id="state"
+                                                name="state" ngModel>                                                   
+                                                    <option selected value="NSW">NSW</option>
+                                                    <option value="VIC">VIC</option>
+                                                    <option value="ACT">ACT</option>
+                                                </select>
                                             
-                                            class="form-control">
                                             </label>
 
                                             <label for="pin" class="mr-4">Pin
@@ -102,14 +102,13 @@
                                             </label>
 
                                             <label for="country">Country
-                                                <input type="text"
-                                                id="country"
-                                                
-                                                name="country"
-                                                ngModel
-                                                required
 
-                                                class="form-control">
+                                                <select class="custom-select" id="country"
+                                                name="country" ngModel>                                                   
+                                                    <option selected value="AUSTRALIA">Australia</option>
+                                                </select>
+
+                                                
                                             </label>
                                         </span>
                                     </div>
@@ -168,7 +167,7 @@
                             <p>Total Available Credits: $100000 </p>
 
                             
-                            <button class="btn btn-primary" (click)="onPaySubmit()"> Pay ${{cart.priceDetails.totalPrice}} </button>
+                            <button class="btn btn-primary" (click)="onPaySubmit()" [disabled]="cart.priceDetails && cart.priceDetails.totalPrice === 0"> Pay ${{cart.priceDetails.totalPrice}} </button>
                             
                         </div>
                     </div>

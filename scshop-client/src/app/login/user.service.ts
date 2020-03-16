@@ -8,16 +8,14 @@ import { User } from './user.model';
 })
 export class UserService {
 
-    serverUrl: string = environment.serverUrl;
-
     constructor(private http: HttpClient) { }
 
     createUser(user: User){
-        return this.http.post<Response>(this.serverUrl+"/externalGateway/api/v1/users/", user);
+        return this.http.post<Response>(environment.serverUrl+"/externalGateway/api/v1/users/", user);
     }
 
     getUser(userId: string){
-        return this.http.get<User>(this.serverUrl+"/externalGateway/api/v1/users/" + userId);
+        return this.http.get<User>(environment.serverUrl+"/externalGateway/api/v1/users/" + userId);
     }
  
   

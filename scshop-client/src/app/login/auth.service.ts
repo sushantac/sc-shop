@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthInfo } from './auth.model';
 import { UserService } from './user.service';
 import { User } from './user.model';
+import { environment } from 'src/environments/environment';
 
 
 interface AuthenticationResponse{
@@ -21,12 +22,10 @@ interface AuthenticationResponse{
 @Injectable({providedIn: "root"})
 export class AuthService{
 
-
     authInfoSubject:BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(null);
 
-    private loginUrl: string = "/externalGateway/api/v1/auth/token";
-    private signUpUrl: string = "/externalGateway/api/v1/auth/signup";
-
+    private loginUrl: string = environment.serverUrl + "/externalGateway/api/v1/auth/token";
+    private signUpUrl: string = environment.serverUrl + "/externalGateway/api/v1/auth/signup";
 
     constructor(private http: HttpClient, private router: Router, private userService: UserService){}
 
