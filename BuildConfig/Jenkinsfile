@@ -39,6 +39,7 @@ node{
 		sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/scshop-client:0.0.1 			--file scshop-client/Dockerfile .'
     }
     
     stage('Push to docker hub - base-services') {
@@ -62,6 +63,8 @@ node{
 		sh label: '', script: 'docker push sushantac/order-service:0.0.1'
 		
 		sh label: '', script: 'docker push sushantac/product-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/scshop-client:0.0.1'
 
     }
 
