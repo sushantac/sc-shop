@@ -49,7 +49,7 @@ services:
     auth:
         image: sushantac/auth-service:0.0.1
         ports:
-         - "8010:8010"
+         - "8001:8001"
         environment:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
@@ -66,7 +66,7 @@ services:
     user:
         image: sushantac/user-service:0.0.1
         ports:
-         - "8001:8001"
+         - "8002:8002"
         environment:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
@@ -83,7 +83,7 @@ services:
     product:
         image: sushantac/product-service:0.0.1
         ports:
-         - "8002:8002"
+         - "8003:8003"
         environment:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
@@ -100,7 +100,7 @@ services:
     cart:
         image: sushantac/cart-service:0.0.1
         ports:
-         - "8003:8003"
+         - "8004:8004"
         environment:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
@@ -117,7 +117,24 @@ services:
     order:
         image: sushantac/order-service:0.0.1
         ports:
-         - "8004:8004"
+         - "8005:8005"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+     
+    payment:
+        image: sushantac/payment-service:0.0.1
+        ports:
+         - "8006:8006"
         environment:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
@@ -192,7 +209,13 @@ services:
           - ALLOW_PLAINTEXT_LISTENER=yes
         depends_on:
           - zookeeper
-          
+     
+    scshop-client:
+        image: 'sushantac/scshop-client:0.0.1'
+        networks:
+          - shopnet
+        ports:
+          - '80:80'          
           
 networks:
   shopnet:

@@ -28,6 +28,7 @@ node{
 		sh label: '', script: "\"${mvnCMD}\" clean package -f cart-service/pom.xml"
 		sh label: '', script: "\"${mvnCMD}\" clean package -f order-service/pom.xml"
 		sh label: '', script: "\"${mvnCMD}\" clean package -f product-service/pom.xml"
+		sh label: '', script: "\"${mvnCMD}\" clean package -f payment-service/pom.xml"
     }
     
     stage('Build Docker Image - base-services') {
@@ -39,6 +40,7 @@ node{
 		sh label: '', script: 'docker build -t sushantac/cart-service:0.0.1 			--file cart-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/order-service:0.0.1 			--file order-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/product-service:0.0.1 			--file product-service/Dockerfile .'
+		sh label: '', script: 'docker build -t sushantac/payment-service:0.0.1 			--file payment-service/Dockerfile .'
 		sh label: '', script: 'docker build -t sushantac/scshop-client:0.0.1 			--file scshop-client/Dockerfile .'
     }
     
@@ -63,6 +65,8 @@ node{
 		sh label: '', script: 'docker push sushantac/order-service:0.0.1'
 		
 		sh label: '', script: 'docker push sushantac/product-service:0.0.1'
+		
+		sh label: '', script: 'docker push sushantac/payment-service:0.0.1'
 		
 		sh label: '', script: 'docker push sushantac/scshop-client:0.0.1'
 
