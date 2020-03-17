@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
 
       this.signUpInfo = loginForm.value;
       this.authService.signUp(this.signUpInfo.email, this.signUpInfo.password).subscribe(response => {
-        
+          this.errorMessage = null;
           this.successMessage = "You have signed up successfully! You can login now!";
           this.isLoading = false;
 

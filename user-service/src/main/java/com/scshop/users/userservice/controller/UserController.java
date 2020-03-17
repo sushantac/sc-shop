@@ -92,10 +92,10 @@ public class UserController {
 	}
 	
 	/**
-	 * 
+	 * //Disabling it for now: Not required - TODO 
 	 * @param id
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	//@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable UUID id) {
 
 		boolean is_present = userRepository.existsById(id);

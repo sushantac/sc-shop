@@ -167,7 +167,8 @@
                             <p>Total Available Credits: $100000 </p>
 
                             
-                            <button class="btn btn-primary" (click)="onPaySubmit()" [disabled]="cart.priceDetails && cart.priceDetails.totalPrice === 0"> Pay ${{cart.priceDetails.totalPrice}} </button>
+                            <button class="btn btn-primary" (click)="onPaySubmit()" [disabled]="(cart.priceDetails && cart.priceDetails.totalPrice === 0) || orderSubmitted">
+                                 Pay ${{cart.priceDetails.totalPrice}} <span *ngIf="orderSubmitted"><i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw align-middle"></i></span></button>
                             
                         </div>
                     </div>

@@ -33,6 +33,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   isOrderValidated:boolean = false;
   isPaymentValidated:boolean = false;
 
+  orderSubmitted:boolean = false;
+
   constructor( 
     private componentFactoryResolver: ComponentFactoryResolver, 
     private cartService: CartService,
@@ -75,6 +77,8 @@ export class OrderComponent implements OnInit, OnDestroy {
 
 
   onPaySubmit(){
+
+    this.orderSubmitted = true;
 
     this.finalOrder.items = [];
     this.cart.items.forEach(item => {

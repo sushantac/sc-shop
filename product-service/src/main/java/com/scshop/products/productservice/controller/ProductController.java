@@ -66,11 +66,13 @@ public class ProductController {
 	}
 
 	/**
-	 * Create product
+	 * //Disabling it for now: Not required - TODO 
+	 * 
+	 * Create product 
 	 * 
 	 * @param {@link Product}
 	 */
-	@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	//@RequestMapping(path = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createProduct(@RequestBody Product product) {
 
 		Product savedProduct = productRepository.save(product);
@@ -99,10 +101,10 @@ public class ProductController {
 	}
 
 	/**
-	 * 
+	 * //Disabling it for now: Not required - TODO 
 	 * @param id
 	 */
-	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+	//@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public void deleteProduct(@PathVariable UUID id) {
 
 		boolean is_present = productRepository.existsById(id);

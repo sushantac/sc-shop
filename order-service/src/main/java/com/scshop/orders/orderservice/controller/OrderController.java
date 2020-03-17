@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,7 +112,17 @@ public class OrderController {
 	public void cancelOrder(@PathVariable UUID id) {
 		logger.info("Cancelling order for : " + id);
 		
-		orderRepository.deleteById(id);
+		Optional<FinalOrder> optional = orderRepository.findById(id);
+
+		if (!optional.isPresent()) {
+			throw new RuntimeException("Order not found");
+		}
+
+		FinalOrder order = optional.get();
+		order.setStatus(OrderStatus.CANCELLED);
+		
+		orderRepository.save(order);
+		
 	}
 
 }
