@@ -64,7 +64,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public String signUp(@RequestBody UserIdentity user) {
+	public void signUp(@RequestBody UserIdentity user) {
 
 		boolean userAlreadyExists = userDetailsService.doesUserAlreadyExist(user);
 
@@ -76,7 +76,7 @@ public class AuthController {
 
 		
 
-		return user.getUsername();
+		//return user.getUsername();
 	}
 
 	@RequestMapping(value = "/test")
