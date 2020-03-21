@@ -11,7 +11,7 @@
   
   <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-    <file>/var/log/scshop/order-service.log</file>
+    <file>/var/log/scshop/gateway-service.log</file>
 
     <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
       <Pattern>
@@ -21,7 +21,7 @@
 
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
       <fileNamePattern>
-        ${LOG_PATH}/archived/order-service_%d{dd-MM-yyyy}_%i.log
+        ${LOG_PATH}/archived/gateway-service_%d{dd-MM-yyyy}_%i.log
       </fileNamePattern>
       <maxFileSize>5MB</maxFileSize>
       <maxHistory>1</maxHistory>
