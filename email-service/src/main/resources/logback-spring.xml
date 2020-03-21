@@ -21,7 +21,7 @@
 
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
       <fileNamePattern>
-        ${LOG_PATH}/archived/email-service_%d{dd-MM-yyyy}_%i.log
+        /var/log/scshop/archived/email-service_%d{dd-MM-yyyy}_%i.log
       </fileNamePattern>
       <maxFileSize>5MB</maxFileSize>
       <maxHistory>1</maxHistory>
