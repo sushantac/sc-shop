@@ -8,9 +8,9 @@
 	</appender>
   
 	<appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
-	    <syslogHost>127.0.0.1</syslogHost>
+		<syslogHost>{logstash host }</syslogHost>
+	    <port>{ logstash port 25826 }</port>
 	    <facility>LOCAL0</facility>
-	    <port>514</port>
 	    <throwableExcluded>true</throwableExcluded>
 	    <suffixPattern>order-service %m thread:%t priority:%p category:%c exception:%exception</suffixPattern> 
 	</appender>  
