@@ -257,6 +257,7 @@ services:
           - shopnet
         volumes:
             - ./elk-config:/elk-config
+            - /var/log/scshop:/var/log/scshop
         command: logstash -f /elk-config/logstash.config
         depends_on:
           elasticsearch:
