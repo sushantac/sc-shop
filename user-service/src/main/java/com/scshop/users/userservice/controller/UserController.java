@@ -45,13 +45,13 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable UUID id){
+	@RequestMapping(path = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getUser(@PathVariable UUID userId){
 		
-		Optional<User> optional = userRepository.findById(id);
+		Optional<User> optional = userRepository.findByUserId(userId);
 
 		if (!optional.isPresent()) {
-			throw new UserNotFoundException("User not found for id: " + id);
+			throw new UserNotFoundException("User not found for userId: " + userId);
 		}
 		User user = optional.get();
 		
@@ -69,7 +69,7 @@ public class UserController {
 		User savedUser = userRepository.save(user);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedUser.getId()).toUri();
+				.buildAndExpand(savedUser.getUserId()).toUri();
 
 		return ResponseEntity.created(location).build();
 	}
@@ -79,15 +79,15 @@ public class UserController {
 	 * @param id
 	 * @param user
 	 */
-	@RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void updateUser(@PathVariable UUID id, @RequestBody User user){
-		boolean is_present = userRepository.existsById(id);
+	@RequestMapping(path = "/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void updateUser(@PathVariable UUID userId, @RequestBody User user){
+		boolean is_present = userRepository.existsByUserId(userId);
 
 		if (!is_present) {
-			throw new UserNotFoundException("User not found for id: " + id);
+			throw new UserNotFoundException("User not found for userId: " + userId);
 		}
 
-		user.setId(id);
+		user.setId(userId);
 		userRepository.save(user);
 	}
 	
@@ -95,16 +95,16 @@ public class UserController {
 	 * //Disabling it for now: Not required - TODO 
 	 * @param id
 	 */
-	//@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable UUID id) {
+	//@RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable UUID userId) {
 
-		boolean is_present = userRepository.existsById(id);
+		boolean is_present = userRepository.existsByUserId(userId);
 
 		if (!is_present) {
-			throw new UserNotFoundException("User not found for id: " + id);
+			throw new UserNotFoundException("User not found for userId: " + userId);
 		}
 		
-		userRepository.deleteById(id);
+		userRepository.deleteById(userId);
 
 	}
 	
