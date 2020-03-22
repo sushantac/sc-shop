@@ -1,4 +1,4 @@
-//I know this is not efficient as it is building all projects. This is a Mono-Repo.
+//I know this is not efficient as it is building all projects. This is a Mono-Repository.
 //Hence need to add script to get the list of services for which code has changed anf build/deploy only those service
 //For now let's build everything. Also tried repo per microservice approach. Maybe will continue with it later. But this is good for overall developement for now
 
