@@ -29,7 +29,7 @@ services:
         networks:
          - shopnet        
         
-    api-gateway:
+    gateway:
         image: sushantac/api-gateway-service:0.0.1
         ports:
          - "8000:8000"
@@ -38,6 +38,8 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         depends_on:
           config:
             condition: service_healthy
@@ -55,11 +57,16 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         depends_on:
           config:
             condition: service_healthy
           eureka:
             condition: service_healthy
+          gateway:
+            condition: service_healthy
+            
         networks:
          - shopnet
          
@@ -73,12 +80,16 @@ services:
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         volumes:
             - /var/log/scshop:/var/log/scshop
         depends_on:
           config:
             condition: service_healthy
           eureka:
+            condition: service_healthy
+          auth:
             condition: service_healthy
         networks:
          - shopnet
@@ -93,12 +104,16 @@ services:
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         volumes:
             - /var/log/scshop:/var/log/scshop
         depends_on:
           config:
             condition: service_healthy
           eureka:
+            condition: service_healthy
+          user:
             condition: service_healthy
         networks:
           - shopnet
@@ -112,10 +127,14 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         depends_on:
           config:
             condition: service_healthy
           eureka:
+            condition: service_healthy
+          product:
             condition: service_healthy
         networks:
          - shopnet
@@ -130,12 +149,16 @@ services:
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         volumes:
             - /var/log/scshop:/var/log/scshop
         depends_on:
           config:
             condition: service_healthy
           eureka:
+            condition: service_healthy
+          cart:
             condition: service_healthy
         networks:
          - shopnet
@@ -150,12 +173,16 @@ services:
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         volumes:
             - /var/log/scshop:/var/log/scshop
         depends_on:
           config:
             condition: service_healthy
           eureka:
+            condition: service_healthy
+          order:
             condition: service_healthy
         networks:
          - shopnet
@@ -179,6 +206,11 @@ services:
          - '--web.console.templates=/etc/prometheus/consoles'
          - '--storage.tsdb.retention=24h'
          - '--web.enable-lifecycle'
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
         networks:
          - shopnet
          
@@ -189,6 +221,8 @@ services:
         user:
           root
         restart: on-failure
+        healthcheck:
+          test: "exit 0"
         volumes:
          - /var/local/sc-shop/graphana:/var/lib/grafana
         depends_on:
@@ -205,6 +239,9 @@ services:
           - '2181:2181'
         environment:
           - ALLOW_ANONYMOUS_LOGIN=yes
+        healthcheck:
+          test: "exit 0"
+        
     
     kafka:
         image: 'bitnami/kafka:latest'
@@ -220,7 +257,8 @@ services:
           - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=INTERNAL
           - ALLOW_PLAINTEXT_LISTENER=yes
         depends_on:
-          - zookeeper
+          zookeeper:
+            condition: service_healthy
      
     scshop-client:
         image: 'sushantac/scshop-client:0.0.1'
@@ -237,7 +275,12 @@ services:
             - '9200:9200'
             - '9300:9300'
         healthcheck:
-          test: "exit 0"            
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy          
 
     kibana:
         image: docker.elastic.co/kibana/kibana:6.6.0
