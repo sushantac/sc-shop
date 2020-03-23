@@ -117,3 +117,25 @@ ELK
 
 
 sudo sysctl -w vm.max_map_count=262144
+
+
+--------------------------------------------
+
+Resize GCP disk
+
+yum install cloud-utils-growpart
+
+growpart /dev/sda 1
+
+resize2fs /dev/sda1 will issue:
+resize2fs 1.42.9 (28-Dec-2013)
+resize2fs: Bad magic number in super-block while trying to open /dev/sda1
+Couldn't find valid filesystem superblock. 
+
+Do -
+
+mount /dev/sda1 /mnt
+
+xfs_growfs -d /mnt
+
+-----------------------------------------------
