@@ -72,6 +72,8 @@ services:
 
     key-postgres:
       image: postgres
+      ports:
+        - "5433:5432" 
       volumes:
         - /var/key-postgres/data:/var/lib/postgresql/data
       environment:
