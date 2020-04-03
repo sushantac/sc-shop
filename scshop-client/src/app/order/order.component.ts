@@ -4,7 +4,6 @@ import { CartItem } from '../cart/cart-item/cart-item.model';
 import { Cart } from '../cart/cart.model';
 import { CartService } from '../cart/cart.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../login/auth.service';
 import { AuthInfo } from '../login/auth.model';
 import { NgForm } from '@angular/forms';
 import { FinalOrder } from './final-order.model';
@@ -13,6 +12,7 @@ import { OrderService } from './order.service';
 import { Router } from '@angular/router';
 import { OrderItem } from './order-item.model';
 import { Payment } from './payment.model';
+import { KeycloakService } from '../common/keycloak.service';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver, 
     private cartService: CartService,
     private orderService: OrderService, 
-    private authService: AuthService,
+    private authService: KeycloakService,
     private router:Router) { 
 
   }
@@ -50,7 +50,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.user = user; 
 
       if(user != null){
-        this.finalOrder.userId = user.userId;
+        this.finalOrder.userId = user.emailId;
       }
       this.isUserLoggedIn = (user !== null);
     });

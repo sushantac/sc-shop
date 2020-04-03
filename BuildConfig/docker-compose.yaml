@@ -304,7 +304,34 @@ services:
         command: logstash -f /elk-config/logstash.config
         depends_on:
           elasticsearch:
-            condition: service_healthy         
+            condition: service_healthy      
+            
+    key-postgres:
+      image: postgres
+      volumes:
+        - /var/key-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+      networks:
+        - shopnet  
+        
+    key:
+      image: quay.io/keycloak/keycloak:9.0.2
+      ports:
+        - "7999:8080" 
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: key-postgres
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_SCHEMA: public
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+      networks:
+        - shopnet     
           
 networks:
   shopnet:

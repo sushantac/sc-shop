@@ -1,0 +1,102 @@
+version: "2.1"
+
+services:
+    
+    config:
+        image: sushantac/config-service:0.0.1
+        ports:
+         - "8011:8011"
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        networks:
+         - shopnet
+  
+    eureka:
+        image: sushantac/eureka-discovery-service:0.0.1
+        ports:
+         - "8012:8012"
+        restart: on-failure
+        environment:
+          - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+        networks:
+         - shopnet        
+        
+    gateway:
+        image: sushantac/api-gateway-service:0.0.1
+        ports:
+         - "8000:8000"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    auth:
+        image: sushantac/auth-service:0.0.1
+        ports:
+         - "8001:8001"
+        environment:
+         - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+          gateway:
+            condition: service_healthy
+            
+        networks:
+         - shopnet
+
+    key-postgres:
+      image: postgres
+      volumes:
+        - /var/key-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+      networks:
+        - shopnet  
+        
+    key:
+      image: quay.io/keycloak/keycloak:9.0.2
+      ports:
+        - "7999:8080" 
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: key-postgres
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_SCHEMA: public
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+      networks:
+        - shopnet  
+       
+networks:
+  shopnet:
+    driver: bridge

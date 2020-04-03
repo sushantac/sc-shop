@@ -1,0 +1,64 @@
+{
+    "realm": "sc-shop",
+    "enabled": true,
+    "sslRequired": "external",
+    "registrationAllowed": true,
+    "privateKey": "MIIEowIBAAKCAQEA7hzUJXYV5I830mFpQBEFQzTRxAnfFg6C3G+r+Zf3McJQf14Z99qUrCi5E0o+2gCFsZQAHDVPv9QA2erBgCRcIqXwNzi3KadodUab9THodFHFncdH6MvkwDtzEs3vs6JUPYf37jaCPE6RjInpAx1QLE8JuREYVTak6Ks5vtWBfw0FmX4g7HfO+K/emW5XPcQjxuzEzDEW/tnM1KCdkWI3S+W6LAz5g4qtZyQesu1Ji6poZ9pIIwQ7mRWb69M9LBv82CPaVUSf7sKf5L7GsLsnuycXuDtZTlwZtmQpeCcEyCdJoBbUUNmtdty2hmX6yEPxsBlW2/QuDlaog0diiJdUWQIDAQABAoIBAEDmnLBlQkxc+QMfx/dNbFjIIdDEPAkgBW0eBwrt79OhOh2tQXi8HD/cja2DVCRJdidTxr/pjAYmO+Epynop7u8GubXjgJEa7y7gAwxPASQLUcjSk3gRcxUuXwwmE4qr2Tg4QkyskMztQWDECj3uFHcvR+Aol7BKR6KfYQrx2O0O0er3BRTvJZ/28tOHlgidPZcE+L/Mjb0o/KrVe1lbbea0tR+fm0DgTt95zDa8EYzo0X5s0llXeL1KX4rJzKw0HtP5HynkVNPg1dcHqe7jEpSKPuQCk+9tTq9wtRooe8hcoRiBwbk04uDkNpJrVYEwmf2w6hfy/ufTJ9WQ8rFNMG0CgYEA/rIKMW/jsvXTsHmPgH7n3iEJXO35qdkyRJtdFaGB+Xmt6BPrkQ9Ktm9zAs5CbJ3ebL37JsE59eK1g6IOFSSeY7WHSzNODxE5/OtLS9q0mmmFLUXSdojnm60Ol+YiIchcT8RTJVGGhd2U9fRujxHCxII3BDHDxWsIIQ57/0DUfjcCgYEA71ULkwWRczrYIJ4YOkYHgbTtmT4eAl5hsruegONpMAv+PW5So0b0dOoCmeaVcq1M+Sqa6qmqBpYg2m6VFSP79PCumap9hxpNo4GxCIWOJejm3zF0G6b0XnCHP1qIw6FUUhR5t2kNatgqKnDVeJMtKe+or32WvH4wFHrucD8e+e8CgYACMB9cS1zGZcw6wOCVtwFg7CG7daPmbKI86qTDEc8fCIeQ7dLhPSNkK9LuHD1/119Yyc0FiTVpQlhS2CqMzfK6Yo3V/IvYH0rDPHY6IZfZl7x4JhhnwkdTFAqDDYwPhDwex037jRa9waiM8FueyQVGUOQOGitXX9MDDa/NAo6QwwKBgAf2CECHuuLeXjoXiC7IDY/e+NhUHKNviEhtvUQETIdwnrBkbxNHVPJepl+AMBB0e07+f9C2fBVkAQvDCep+G+914hjyduJ7mYGK2tyxtJzGNofOGVKiJxbNH3KYDFyVjTx9ud7D+9JGBoEK587u9l2ivzW3M8BpYigMPso1D065AoGBAI0iFfdUoiBmtmV0bWCBIhvvTTagt1TrAiKC6CE07QKS4jTXuKKi8vT7V2Ta4lxFh9tNUmCtY2shVvQGp4IK4/rB41z8YEKwd/SdeAnergm4P4adMp9W+XCE3zHDzVAFGCHauh8heaz9/PEFJh0H+0LUj70P6tO5NZ052LpjlGFq",
+    "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7hzUJXYV5I830mFpQBEFQzTRxAnfFg6C3G+r+Zf3McJQf14Z99qUrCi5E0o+2gCFsZQAHDVPv9QA2erBgCRcIqXwNzi3KadodUab9THodFHFncdH6MvkwDtzEs3vs6JUPYf37jaCPE6RjInpAx1QLE8JuREYVTak6Ks5vtWBfw0FmX4g7HfO+K/emW5XPcQjxuzEzDEW/tnM1KCdkWI3S+W6LAz5g4qtZyQesu1Ji6poZ9pIIwQ7mRWb69M9LBv82CPaVUSf7sKf5L7GsLsnuycXuDtZTlwZtmQpeCcEyCdJoBbUUNmtdty2hmX6yEPxsBlW2/QuDlaog0diiJdUWQIDAQAB",
+    "requiredCredentials": [ "password" ],
+    "users" : [
+        {
+            "username" : "user",
+            "enabled": true,
+            "email" : "sample-user@example",
+            "firstName": "Sample",
+            "lastName": "User",
+            "credentials" : [
+                { "type" : "password",
+                  "value" : "password" }
+            ],
+            "realmRoles": [ "user" ],
+            "clientRoles": {
+                "account": ["view-profile", "manage-account"]
+            }
+        }
+    ],
+    "roles" : {
+        "realm" : [
+            {
+                "name": "user",
+                "description": "User privileges"
+            },
+            {
+                "name": "admin",
+                "description": "Administrator privileges"
+            }
+        ]
+    },
+    "scopeMappings": [
+        {
+            "client": "js-console",
+            "roles": ["user"]
+        }
+    ],
+    "clients": [
+        {
+            "clientId": "js-console",
+            "enabled": true,
+            "publicClient": true,
+            "baseUrl": "/js-console",
+            "redirectUris": [
+                "/js-console/*"
+            ],
+            "webOrigins": []
+        }
+    ],
+    "clientScopeMappings": {
+        "account": [
+            {
+                "client": "js-console",
+                "roles": ["view-profile"]
+            }
+        ]
+    }
+}

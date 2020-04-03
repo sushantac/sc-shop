@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ApplicationRef, DoBootstrap } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,8 +18,17 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ErrorPageComponent } from './common/error-page/error-page.component';
 import { MenubarComponent } from './header/menubar/menubar.component';
 import { ProductTileComponent } from './product/product-list/product-tile/product-tile.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthGuard } from './common/auth-guard';
+import { AuthInterceptor } from './common/auth.interceptor';
+import { KeycloakService } from './common/keycloak.service';
+
+// export function kcFactory(keycloakService: KeycloakService) {
+//   return () => keycloakService.init();
+// }
+
+const keycloakService = new KeycloakService();
 
 @NgModule({
   declarations: [
@@ -46,11 +55,44 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    KeycloakService,
+    AuthGuard,
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: kcFactory,
+    //   deps: [KeycloakService],
+    //   multi: true
+    // }
+    {
+      provide: KeycloakService,
+      useValue: keycloakService
+    }
+  ],
+  //bootstrap: [AppComponent],
 
   entryComponents: [
-    LoginComponent
+    LoginComponent,
+    AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule implements DoBootstrap {
+  ngDoBootstrap(appRef: ApplicationRef) {
+    keycloakService
+      .init()
+      .then((data) => {
+        console.log('[ngDoBootstrap] bootstrap app =====> : ' + data);
+
+        appRef.bootstrap(AppComponent);
+
+        keycloakService.loadUserData(data);
+        //resolve();
+      })
+      .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));
+  }
+}

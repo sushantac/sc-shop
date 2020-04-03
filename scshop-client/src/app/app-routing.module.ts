@@ -9,19 +9,20 @@ import { OrderComponent } from './order/order.component';
 import { OrderSuccessComponent } from './order/order-success/order-success.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ErrorPageComponent } from './common/error-page/error-page.component';
+import { AuthGuard } from './common/auth-guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'product', component: ProductComponent },
-  { path: 'product/:id', component: ProductComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'order', component: OrderComponent },
-  { path: 'order-success', component: OrderSuccessComponent },
-  { path: 'productlist', component: ProductListComponent },
+  { path: 'productlist', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'product', component: ProductComponent, canActivate: [AuthGuard] },
+  { path: 'product/:id', component: ProductComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'order', component: OrderComponent, canActivate: [AuthGuard] },
+  { path: 'order-success', component: OrderSuccessComponent},
   { path: "**", component: ErrorPageComponent }
 ];
 

@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { LoginComponent } from '../login/login.component';
 import { CartService } from '../cart/cart.service';
 import { CartItem } from '../cart/cart-item/cart-item.model';
-import { AuthService } from '../login/auth.service';
 import { AuthInfo } from '../login/auth.model';
+import { KeycloakService } from '../common/keycloak.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver, 
     private cartService: CartService,
-    private authService: AuthService) { 
+    private authService: KeycloakService) { 
 
   }
 

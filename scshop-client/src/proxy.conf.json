@@ -1,7 +1,23 @@
 {
-    "*": {
-      "target": "http://localhost:8000/",
+    
+    "/externalGateway": {
+      "target": "http://localhost:8000",
       "secure": false,
       "changeOrigin": true
-    }  
+    },
+    "/auth": {
+      "target": "http://localhost:7999",
+      "secure": false,
+      "changeOrigin": true
+    },
+    "/auth/*": {
+      "target": "http://localhost:7999",
+      "secure": false,
+      "changeOrigin": true
+    },
+    "http://localhost:4200/auth/*": {
+      "target": "http://localhost:7999",
+      "secure": false,
+      "changeOrigin": true
+    }
 }
