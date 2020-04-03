@@ -39,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
 constructor(private kcService: KeycloakService) {}
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  const allowedOrigins = ['http://localhost:8000','http://sushantc.com:8000','/externalGateway/api/v1/'];
+  const allowedOrigins = ['http://sushantc.com', 'http://localhost:8000','http://sushantc.com:8000','/externalGateway/api/v1/'];
   if (this.kcService.getToken() && allowedOrigins.some(url => request.urlWithParams.includes(url))) {
     const authToken = this.kcService.getToken() || '';
     request = request.clone({

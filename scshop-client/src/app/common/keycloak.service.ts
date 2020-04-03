@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthInfo } from '../login/auth.model';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 declare var Keycloak: any;
 
@@ -19,7 +20,7 @@ export class KeycloakService{
 
     return new Promise((resolve, reject) => {
         const config = {
-          'url': '/auth',
+          'url': environment.authUrl + '/auth',
           'realm': 'sc-shop',
           'clientId': 'js-console'
         };
