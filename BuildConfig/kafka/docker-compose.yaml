@@ -29,7 +29,7 @@ services:
         networks:
          - shopnet  
         
-    zookeeper-server:
+    zookeeper:
         image: 'bitnami/zookeeper:latest'
         networks:
           - shopnet
@@ -38,21 +38,21 @@ services:
         environment:
           - ALLOW_ANONYMOUS_LOGIN=yes
     
-    kafka-server:
+    kafka:
         image: 'bitnami/kafka:latest'
         networks:
           - shopnet    
         ports:
           - '9072:9092'
         environment:
-          - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
+          - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
           - KAFKA_CFG_LISTENERS=INTERNAL://:9093,EXTERNAL://:9092
-          - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka-server:9093,EXTERNAL://localhost:9072
+          - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka:9093,EXTERNAL://localhost:9072
           - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
           - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=INTERNAL
           - ALLOW_PLAINTEXT_LISTENER=yes
         depends_on:
-          - zookeeper-server
+          - zookeeper
     
              
 networks:

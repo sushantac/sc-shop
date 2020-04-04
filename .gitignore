@@ -1,7 +1,11 @@
 **/scshop-client/node_modules
 
+**/scshop-client/.vs
+
 **/BuildConfig/elbk/elasticsearch
 **/BuildConfig/elbk/filebeat
 **/BuildConfig/elbk/logstash
 
 **/order-service/target
+
+**/BuildConfig/doNotCommit
