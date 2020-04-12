@@ -323,6 +323,7 @@ services:
       ports:
         - "7999:8080" 
       environment:
+        JAVA_TOOL_OPTIONS: "-Dkeycloak.profile=preview -Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled -Dkeycloak.profile.feature.docker=enabled"
         DB_VENDOR: POSTGRES
         DB_ADDR: key-postgres
         DB_DATABASE: keycloak

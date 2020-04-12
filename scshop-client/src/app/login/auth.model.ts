@@ -2,6 +2,7 @@
 export class AuthInfo {
    
     constructor(
+        public userId: string,
         public firstName: string,
         public lastName: string,
         public emailId: string,

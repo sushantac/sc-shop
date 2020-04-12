@@ -91,7 +91,6 @@ export class AppModule implements DoBootstrap {
         appRef.bootstrap(AppComponent);
 
         keycloakService.loadUserData(data);
-        //resolve();
       })
       .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));
   }

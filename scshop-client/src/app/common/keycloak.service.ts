@@ -15,26 +15,34 @@ export class KeycloakService{
   public keycloakAuth: any;
 
   init(): Promise<any> {
-    const token = null;//localStorage.getItem('kc_token');
-    const refreshToken = null;//localStorage.getItem('kc_refreshToken');
+    //const idToken = localStorage.getItem('kc_idToken');
+    //const token = localStorage.getItem('kc_token');
 
     return new Promise((resolve, reject) => {
         const config = {
-          'url': environment.authUrl + '/auth',
-          'realm': 'sc-shop',
-          'clientId': 'js-console'
+          
+          /** IMPLICIT AUTH FLOW **/
+          //url: environment.authUrl + '/auth',
+          //realm: 'sc-shop',
+          //clientId: 'js-console'
+          
+          /** AUTHORIZATION_CODE AUTH FLOW **/
+          url: environment.authUrl + '/auth',
+          realm: 'sc-shop',
+          clientId: 'js-console',
+          //clientSecret: '2e0d9739-db5c-4a51-8272-034dd0bb6fcf',
+          redirectUri: 'http://localhost:4200/home',
+          scope: 'openid',
+          responseType: 'code'
         };
 
         this.keycloakAuth = new Keycloak(config);
-
-        this.keycloakAuth.init({ onLoad: 'login-required', token, refreshToken }) //
+        this.keycloakAuth.init({ onLoad: 'login-required' /*, token */})
           .then(() => {
-            localStorage.setItem('kc_token', this.keycloakAuth.token);
-            localStorage.setItem('kc_refreshToken', this.keycloakAuth.refreshToken);
+            //localStorage.setItem('kc_idToken', this.keycloakAuth.idToken);
+            //localStorage.setItem('kc_token', this.keycloakAuth.token);
             this.keycloakAuth.loggedIn = true;
-            //this.keycloakAuth.authz = this.keycloakAuth;
 
-            //this.keycloakAuth.loadUserInfo().then(data => this.test(data))
             resolve(this.keycloakAuth);
           })
           .catch(() => {
@@ -44,15 +52,22 @@ export class KeycloakService{
   }
 
   loadUserData(authData:any){
-   
-    let token = authData.token;
-    this.loadProfile(authData).then((userData) => {
-      const authInfo: AuthInfo = new AuthInfo(userData.firstName, userData.lastName, userData.email, userData.username, token);
+
+    //let token = authData.idTokenParsed.sub;
+    //this.loadProfile(authData).then((userData) => {
+      const authInfo: AuthInfo = new AuthInfo(
+        authData.idTokenParsed.sub,
+        authData.idTokenParsed.given_name, 
+        authData.idTokenParsed.family_name, 
+        authData.idTokenParsed.email, 
+        authData.idTokenParsed.preferred_username, 
+        authData.token
+        );
       this.authInfoSubject.next(authInfo);
-    });
+   // });
   }
 
-  loadProfile(authData): Promise<any>{ 
+  loadProfile(authData:any): Promise<any>{ 
      return new Promise<any>((resolve, reject) => {
       if (authData && authData.token) {
           authData.loadUserProfile()
