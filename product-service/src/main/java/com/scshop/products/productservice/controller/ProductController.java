@@ -9,6 +9,9 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +40,9 @@ public class ProductController {
 	 * 
 	 * @return
 	 */
+	@PreAuthorize("hasAuthority('SCOPE_product')")  
 	@RequestMapping(path = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Product> getProducts() {
-
+	public List<Product> getProducts(final @AuthenticationPrincipal Jwt jwt) {
 		List<Product> products = productRepository.findAll();
 		
 		logger.info("######### Products loaded from here....");
@@ -52,6 +55,7 @@ public class ProductController {
 	 * @param id
 	 * @return
 	 */
+	@PreAuthorize("hasAuthority('SCOPE_product')")  
 	@RequestMapping(path = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Product getProduct(@PathVariable UUID id) {
 
@@ -88,6 +92,7 @@ public class ProductController {
 	 * @param id
 	 * @param product
 	 */
+	@PreAuthorize("hasAuthority('SCOPE_product')")  
 	@RequestMapping(path = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		boolean is_present = productRepository.existsById(id);
