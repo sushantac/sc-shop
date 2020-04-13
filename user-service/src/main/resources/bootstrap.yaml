@@ -4,11 +4,17 @@ server:
 spring:
   application:
     name: user-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5002/user}
+    username: user
+    password: user
   jpa:
     show-sql: true
-  h2:
-    console:
-      enabled: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: create
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}

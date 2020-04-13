@@ -2,6 +2,7 @@ package com.scshop.application.common.enums;
 
 public enum OrderEventType {
 
+	ORDER_INITIATED_BY_NEW_USER,
 	ORDER_INITIATED,
 	ORDER_CANCELLED,
 	ORDER_PAYMENT_FAILED,

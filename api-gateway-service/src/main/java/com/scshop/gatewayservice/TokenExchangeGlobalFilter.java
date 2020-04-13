@@ -8,6 +8,8 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,6 +24,9 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 
 	@Autowired
 	WebClient.Builder webClientBuilder;
+	
+	@Autowired
+	JwtDecoder jwtDecoder;
 
 	@Value("${application.security.authorizationServer.host}")
 	private String AUTHORIZATION_SERVER_HOST; 
@@ -31,11 +36,16 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 	
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
+		
 		String bearerToken = exchange.getRequest().getHeaders().getFirst("Authorization");
 		if (bearerToken == null || bearerToken.isEmpty()) {
 			return chain.filter(exchange);
 		}
+		
+		String accessToken = bearerToken.substring(7, bearerToken.length());
+		Jwt jwt = jwtDecoder.decode(accessToken);
+		String clientId = (String) jwt.getClaims().get("azp");
+		String newScope = "product"; //cart order payment
 
 		return webClientBuilder.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 				.build().post()
@@ -43,9 +53,10 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 						.path("/auth/realms/sc-shop/protocol/openid-connect/token").build())
 
 				.body(BodyInserters.fromFormData("grant_type", "urn:ietf:params:oauth:grant-type:token-exchange")
-						.with("client_id", "js-console").with("scope", "product")
-						.with("subject_token", bearerToken.substring(7, bearerToken.length())))
-
+						.with("subject_token", accessToken)
+						.with("client_id", clientId)
+						.with("scope", newScope))
+				
 				.retrieve().bodyToMono(AccessToken.class).flatMap(s -> {
 					logger.trace("Exchanged Access Token: " + s.getAccess_token());
 

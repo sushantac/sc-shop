@@ -47,7 +47,8 @@ services:
             condition: service_healthy
         networks:
          - shopnet
-         
+
+# Replaced this by Keycloak server         
 #    auth:
 #        image: sushantac/auth-service:0.0.1
 #        ports:
@@ -92,7 +93,20 @@ services:
 
         networks:
          - shopnet
-        
+    
+    user-db:
+      image: postgres
+      ports:
+        - "5002:5432" 
+      volumes:
+        - /var/user-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: user
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: user
+      networks:
+        - shopnet  
+            
     product:
         image: sushantac/product-service:0.0.1
         ports:
@@ -116,6 +130,19 @@ services:
             condition: service_healthy
         networks:
           - shopnet
+    
+    product-db:
+      image: postgres
+      ports:
+        - "5003:5432" 
+      volumes:
+        - /var/product-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: product
+        POSTGRES_USER: product
+        POSTGRES_PASSWORD: product
+      networks:
+        - shopnet  
          
     cart:
         image: sushantac/cart-service:0.0.1
@@ -161,7 +188,20 @@ services:
             condition: service_healthy
         networks:
          - shopnet
-     
+    
+    order-db:
+      image: postgres
+      ports:
+        - "5005:5432" 
+      volumes:
+        - /var/order-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: order
+        POSTGRES_USER: order
+        POSTGRES_PASSWORD: order
+      networks:
+        - shopnet 
+         
     payment:
         image: sushantac/payment-service:0.0.1
         ports:
@@ -185,6 +225,20 @@ services:
             condition: service_healthy
         networks:
          - shopnet
+         
+        
+    payment-db:
+      image: postgres
+      ports:
+        - "5006:5432" 
+      volumes:
+        - /var/payment-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: payment
+        POSTGRES_USER: payment
+        POSTGRES_PASSWORD: payment
+      networks:
+        - shopnet  
          
     prometheus:
         image: prom/prometheus

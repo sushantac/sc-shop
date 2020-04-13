@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
@@ -38,8 +39,11 @@ public class OrderService {
 	@Autowired
 	private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
+	//@Autowired
+	//WebClient.Builder loadBalancedWebClientBuilder;
+	
 	@Autowired
-	WebClient.Builder loadBalancedWebClientBuilder;
+	WebClient loadBalancedWebClient;
 
 	@Autowired
 	OrderRepository orderRepository;
@@ -60,10 +64,16 @@ public class OrderService {
 		BigDecimal calculatedGrandTotalPrice = new BigDecimal(0);
 
 		for (OrderItem orderItem : orderItems) {
-			Product product = loadBalancedWebClientBuilder
-					.build().get().uri(uriBuilder -> uriBuilder.scheme("http").host("product-service")
-							.path("/api/v1/products/{id}").build(orderItem.getProductId().toString()))
-					.retrieve().bodyToMono(Product.class).block();
+			
+			Product product = loadBalancedWebClient.get()
+					//loadBalancedWebClientBuilder.build().get()
+					.uri(uriBuilder -> uriBuilder.scheme("http").host("product-service").path("/api/v1/products/{id}")
+							.build(orderItem.getProductId().toString()))
+					.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId("order-service"))
+					//.headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
+					//.header("Authorization", "Bearer " + jwt.getTokenValue())
+					.retrieve()
+					.bodyToMono(Product.class).block();
 
 			if (product != null) {
 				if (orderItem.getPrice().floatValue() != product.getPrice().abs().floatValue()) {

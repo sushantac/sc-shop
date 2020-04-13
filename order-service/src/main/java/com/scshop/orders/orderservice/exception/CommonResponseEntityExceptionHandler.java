@@ -38,7 +38,8 @@ public class CommonResponseEntityExceptionHandler extends ResponseEntityExceptio
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
 		
-		logger.error(ex.getStackTrace());
+		logger.error(ex);
+		ex.printStackTrace();
 		
 		ExceptionMessage exceptionMessage = new ExceptionMessage(HttpStatus.INTERNAL_SERVER_ERROR, new Date(),
 				ex.getLocalizedMessage(), request.getDescription(false));

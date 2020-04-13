@@ -50,7 +50,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.user = user; 
 
       if(user != null){
-        this.finalOrder.userId = user.emailId;
+        this.finalOrder.userId = user.userId;
       }
       this.isUserLoggedIn = (user !== null);
     });

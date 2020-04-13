@@ -40,7 +40,7 @@ export class KeycloakService{
         this.keycloakAuth.init({ onLoad: 'login-required' /*, token */})
           .then(() => {
             //localStorage.setItem('kc_idToken', this.keycloakAuth.idToken);
-            //localStorage.setItem('kc_token', this.keycloakAuth.token);
+            localStorage.setItem('kc_token', this.keycloakAuth.token);
             this.keycloakAuth.loggedIn = true;
 
             resolve(this.keycloakAuth);

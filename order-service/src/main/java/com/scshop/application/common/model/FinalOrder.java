@@ -26,9 +26,8 @@ public class FinalOrder {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@NotNull
 	private UUID userId;
-	
+
 	@Embedded
 	private Address shippingAddress;
 		
@@ -54,7 +53,7 @@ public class FinalOrder {
 	
 	public FinalOrder() { }
 	
-	public FinalOrder(UUID id, @NotNull UUID userId, Address shippingAddress, Payment payment,
+	public FinalOrder(UUID id, UUID userId,Address shippingAddress, Payment payment,
 			@NotNull OrderStatus status, @NotNull PaymentStatus paymentStatus, @NotNull InventoryStatus inventoryStatus,
 			List<OrderItem> items) {
 		super();
@@ -171,13 +170,15 @@ public class FinalOrder {
 				return false;
 		} else if (!userId.equals(other.userId))
 			return false;
+
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", shippingAddress=" + shippingAddress + ", items=" + items
-				+ ", payment=" + payment + ", status=" + status + "]";
+		return "FinalOrder [id=" + id + ", userId=" + userId + ", shippingAddress="
+				+ shippingAddress + ", payment=" + payment + ", status=" + status + ", paymentStatus=" + paymentStatus
+				+ ", inventoryStatus=" + inventoryStatus + ", items=" + items + "]";
 	}
 
 	public PaymentStatus getPaymentStatus() {
@@ -195,9 +196,6 @@ public class FinalOrder {
 	public void setInventoryStatus(InventoryStatus inventoryStatus) {
 		this.inventoryStatus = inventoryStatus;
 	}
-	
-	
-	
-	
+
 	
 }
