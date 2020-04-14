@@ -31,7 +31,7 @@ export class KeycloakService{
           realm: 'sc-shop',
           clientId: 'js-console',
           //clientSecret: '2e0d9739-db5c-4a51-8272-034dd0bb6fcf',
-          redirectUri: 'http://localhost:4200/home',
+          //redirectUri: 'http://localhost:4200/home',
           scope: 'openid',
           responseType: 'code'
         };
