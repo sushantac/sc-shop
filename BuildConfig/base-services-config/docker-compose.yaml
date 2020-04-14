@@ -1,0 +1,242 @@
+version: "2.1"
+
+services:
+    
+    config:
+        image: sushantac/config-service:0.0.1
+        ports:
+         - "8011:8011"
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        networks:
+         - shopnet
+  
+    eureka:
+        image: sushantac/eureka-discovery-service:0.0.1
+        ports:
+         - "8012:8012"
+        restart: on-failure
+        environment:
+          - JAVA_OPTS=
+           -DEUREKA_SERVER=http://eureka:8012/eureka
+           -DCONFIG_SERVER=http://config:8011
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+        networks:
+         - shopnet        
+        
+    user-db:
+      image: postgres
+      ports:
+        - "5001:5432" 
+      volumes:
+        - /var/user-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: user
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: user
+      networks:
+        - shopnet  
+            
+    product-db:
+      image: postgres
+      ports:
+        - "5002:5432" 
+      volumes:
+        - /var/product-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: product
+        POSTGRES_USER: product
+        POSTGRES_PASSWORD: product
+      networks:
+        - shopnet  
+         
+    cart-db:
+      image: postgres
+      ports:
+        - "5003:5432" 
+      volumes:
+        - /var/cart-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: cart
+        POSTGRES_USER: cart
+        POSTGRES_PASSWORD: cart
+      networks:
+        - shopnet
+         
+    order-db:
+      image: postgres
+      ports:
+        - "5004:5432" 
+      volumes:
+        - /var/order-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: order
+        POSTGRES_USER: order
+        POSTGRES_PASSWORD: order
+      networks:
+        - shopnet 
+         
+        
+    payment-db:
+      image: postgres
+      ports:
+        - "5005:5432" 
+      volumes:
+        - /var/payment-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: payment
+        POSTGRES_USER: payment
+        POSTGRES_PASSWORD: payment
+      networks:
+        - shopnet  
+         
+    prometheus:
+        image: prom/prometheus
+        ports:
+         - "9090:9090"
+        restart: on-failure
+        user:
+          root
+        healthcheck:
+          test: "exit 0"
+        volumes:
+         - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+         - /var/local/sc-shop/prometheus/data:/prometheus
+        command: 
+         - '--config.file=/etc/prometheus/prometheus.yml'
+         - '--storage.tsdb.path=/prometheus'
+         - '--web.console.libraries=/etc/prometheus/console_libraries'
+         - '--web.console.templates=/etc/prometheus/consoles'
+         - '--storage.tsdb.retention=24h'
+         - '--web.enable-lifecycle'
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy
+        networks:
+         - shopnet
+         
+    grafana:
+        image: grafana/grafana
+        ports:
+         - "3000:3000"
+        user:
+          root
+        restart: on-failure
+        healthcheck:
+          test: "exit 0"
+        volumes:
+         - /var/local/sc-shop/graphana:/var/lib/grafana
+        depends_on:
+          prometheus:
+           condition: service_healthy
+        networks:
+         - shopnet
+      
+    zookeeper:
+        image: 'bitnami/zookeeper:latest'
+        networks:
+          - shopnet
+        ports:
+          - '2181:2181'
+        environment:
+          - ALLOW_ANONYMOUS_LOGIN=yes
+        healthcheck:
+          test: "exit 0"
+        
+    
+    kafka:
+        image: 'bitnami/kafka:latest'
+        networks:
+          - shopnet    
+        ports:
+          - '9072:9092'
+        environment:
+          - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+          - KAFKA_CFG_LISTENERS=INTERNAL://:9093,EXTERNAL://:9092
+          - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka:9093,EXTERNAL://35.189.38.162:9072
+          - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+          - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=INTERNAL
+          - ALLOW_PLAINTEXT_LISTENER=yes
+        depends_on:
+          zookeeper:
+            condition: service_healthy
+     
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+        networks:
+          - shopnet
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        healthcheck:
+          test: "exit 0"
+        depends_on:
+          config:
+            condition: service_healthy
+          eureka:
+            condition: service_healthy          
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:6.6.0
+        networks:
+          - shopnet
+        ports:
+            - '5601:5601'
+        depends_on:
+          elasticsearch:
+            condition: service_healthy
+
+    logstash:
+        image: docker.elastic.co/logstash/logstash:6.6.0
+        ports:
+            - '25826:25826'
+        networks:
+          - shopnet
+        volumes:
+            - ./elk-config:/elk-config
+            - /var/log/scshop:/var/log/scshop
+        command: logstash -f /elk-config/logstash.config
+        depends_on:
+          elasticsearch:
+            condition: service_healthy      
+            
+    key-postgres:
+      image: postgres
+      ports:
+        - "5433:5432" 
+      volumes:
+        - /var/key-postgres/data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+      networks:
+        - shopnet  
+        
+    key:
+      image: quay.io/keycloak/keycloak:9.0.2
+      ports:
+        - "7999:8080" 
+      environment:
+        JAVA_TOOL_OPTIONS: "-Dkeycloak.profile=preview -Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled -Dkeycloak.profile.feature.docker=enabled"
+        DB_VENDOR: POSTGRES
+        DB_ADDR: key-postgres
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_SCHEMA: public
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+      networks:
+        - shopnet     
+          
+networks:
+  shopnet:
+    driver: bridge
