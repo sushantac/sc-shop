@@ -1,18 +1,110 @@
 server:
   port: ${port:8000}
   
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 spring:
   application:
     name: api-gateway-service
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${ISSUER_URI:http://localhost:7999/auth/realms/sc-shop}
+        registration:
+          api-gateway:
+            provider: keycloak
+            client-id: spring-cloud-gateway-client
+            client-secret: 58b06d2c-c33a-41ec-82f0-9e6222e4eed3
+            scope: openid,profile,email,product
   cloud:
     config:
-      uri: ${CONFIG_SERVER:http://localhost:8011}
-
+        uri: ${CONFIG_SERVER:http://localhost:8011}
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+              - HEAD
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+          - Path=/externalGateway/api/*/auth/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+          - Path=/externalGateway/api/*/users/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+          - Path=/externalGateway/api/*/products/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+          - Path=/externalGateway/api/*/carts/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+          - Path=/externalGateway/api/*/orders/**
+          filters:
+          - StripPrefix=1
+          - name: Retry
+            args: 
+              rerties: 3
+         
 eureka:
   client:
-    registerWithEureka: true
-    fetchRegistry: true
     serviceUrl:
       defaultZone: ${EUREKA_SERVER:http://localhost:8012/eureka/}
     healthcheck:
       enabled: true
+      
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework: DEBUG
+    
+application:
+  security:
+    authorizationServer:
+      host: ${AUTH_SERVER_HOST:localhost}
+      port: ${AUTH_SERVER_PORT:7999}
