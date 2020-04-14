@@ -1,11 +1,11 @@
 server:
-  port: ${port:8006}
+  port: ${port:8005}
 
 spring:
   application:
     name: payment-service
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5006/payment}
+    url: ${DB_URL:jdbc:postgresql://localhost:5005/payment}
     username: payment
     password: payment
   jpa:
@@ -13,8 +13,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      ddl-auto: create
+    hibernate:
+      ddl-auto: create
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}

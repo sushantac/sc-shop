@@ -4,11 +4,17 @@ server:
 spring:
   application:
     name: cart-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5003/cart}
+    username: cart
+    password: cart
   jpa:
     show-sql: true
-  h2:
-    console:
-      enabled: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}

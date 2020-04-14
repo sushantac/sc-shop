@@ -1,11 +1,11 @@
 server:
-  port: ${port:8005}
+  port: ${port:8004}
 
 spring:
   application:
     name: order-service
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5005/order}
+    url: ${DB_URL:jdbc:postgresql://localhost:5004/order}
     username: order
     password: order
   jpa:
