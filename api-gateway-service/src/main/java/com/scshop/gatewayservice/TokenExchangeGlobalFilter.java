@@ -37,15 +37,21 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		
+		logger.info("\n\n Inside..... ");
+		
 		String bearerToken = exchange.getRequest().getHeaders().getFirst("Authorization");
 		if (bearerToken == null || bearerToken.isEmpty()) {
 			return chain.filter(exchange);
 		}
-		
+
+		logger.info("\n\n Exchanging token..... ");
+
 		String accessToken = bearerToken.substring(7, bearerToken.length());
 		Jwt jwt = jwtDecoder.decode(accessToken);
 		String clientId = (String) jwt.getClaims().get("azp");
 		String newScope = "product"; //cart order payment
+
+		logger.info(" Exchanging token..... for: " + clientId);
 
 		return webClientBuilder.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 				.build().post()
@@ -58,7 +64,7 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 						.with("scope", newScope))
 				
 				.retrieve().bodyToMono(AccessToken.class).flatMap(s -> {
-					logger.trace("Exchanged Access Token: " + s.getAccess_token());
+					logger.info("Exchanged Access Token: " + s.getAccess_token());
 
 					String authorizationHeaderWithExchangedToken = "Bearer " + s.getAccess_token();
 					exchange.getRequest().mutate().header("Authorization", authorizationHeaderWithExchangedToken);
