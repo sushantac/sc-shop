@@ -37,6 +37,9 @@ services:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
+           -DAUTH_SERVER_HOST=key
+           -DAUTH_SERVER_PORT=8080
         restart: on-failure
         healthcheck:
           test: "exit 0"
@@ -80,6 +83,8 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
+           -DDB_URL=jdbc:postgresql://user-db:5432/user
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
         restart: on-failure
         healthcheck:
           test: "exit 0"
@@ -90,7 +95,6 @@ services:
             condition: service_healthy
           eureka:
             condition: service_healthy
-
         networks:
          - shopnet
     
@@ -116,6 +120,8 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
+           -DDB_URL=jdbc:postgresql://product-db:5432/product
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
         restart: on-failure
         healthcheck:
           test: "exit 0"
@@ -152,6 +158,8 @@ services:
          - JAVA_OPTS=
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
+           -DDB_URL=jdbc:postgresql://cart-db:5432/cart
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
         restart: on-failure
         healthcheck:
           test: "exit 0"
@@ -187,6 +195,8 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
+           -DDB_URL=jdbc:postgresql://order-db:5432/order
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
         restart: on-failure
         healthcheck:
           test: "exit 0"
@@ -224,6 +234,8 @@ services:
            -DEUREKA_SERVER=http://eureka:8012/eureka
            -DCONFIG_SERVER=http://config:8011
            -DKAFKA_SERVER=35.189.38.162:9072
+           -DDB_URL=jdbc:postgresql://payment-db:5432/payment
+           -DISSUER_URI=http://key:8080/auth/realms/sc-shop
         restart: on-failure
         healthcheck:
           test: "exit 0"
