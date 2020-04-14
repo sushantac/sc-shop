@@ -18,6 +18,11 @@ spring:
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${ISSUER_URI:http://localhost:7999/auth/realms/sc-shop}
   kafka:
     consumer:
       bootstrap-servers: ${KAFKA_SERVER:localhost:9072}
