@@ -65,7 +65,10 @@ node{
 
     stage('Stop all docker containers'){
  
- 		try{	sh label: '', script: '/usr/local/bin/docker-compose -f BuildConfig/docker-compose.yaml down'
+ 		try{	
+ 		
+ 		   sh label: '', script: '/usr/local/bin/docker-compose -f BuildConfig/docker-compose.yaml down'
+		
 		} catch(all) {        }
 		
     }
