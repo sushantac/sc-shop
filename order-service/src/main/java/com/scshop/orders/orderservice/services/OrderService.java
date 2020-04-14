@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
@@ -26,6 +27,7 @@ import com.scshop.orders.orderservice.validation.OrderValidation;
 import com.scshop.orders.orderservice.validation.OrderValidationStatus;
 
 @Service
+@DependsOn({"loadBalancedWebClient","kafkaTemplate"})
 public class OrderService {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
