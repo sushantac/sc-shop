@@ -15,6 +15,22 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${ISSUER_URI:http://localhost:7999/auth/realms/sc-shop}
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${ISSUER_URI:http://localhost:7999/auth/realms/sc-shop}
+        registration:
+          order-service:
+            provider: keycloak
+            client-id: order-service
+#            client-secret: ae2b3843-edfe-48c0-9f08-26a3ffa8a5b9
+            client-secret: 70ccbeea-a414-4612-84e2-9f33515f5986
+            authorization-grant-type: client_credentials
   cloud:
     config:
       uri: ${CONFIG_SERVER:http://localhost:8011}
