@@ -18,5 +18,7 @@ http://sushantc.com:3000    - Grafana
 
 http://sushantc.com:9090    - Prometheus
 
+http://sushantc.com:8080    - Jenkins
+
 # Overall Architecture
 ![Services](https://github.com/sushantac/sc-shop/blob/master/Project%20Documents/Microservices-connection-diagram.png)
