@@ -47,7 +47,7 @@ public class OrderController {
 	@RequestMapping(path = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FinalOrder> getOrders() {
 		
-		logger.info("Fetching orders.....");
+		logger.info("Fetching orders......");
 		
 		return orderRepository.findAll();
 
