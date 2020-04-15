@@ -45,16 +45,35 @@ public class TokenExchangeGlobalFilter implements GlobalFilter {
 			return chain.filter(exchange);
 		}
 
-		logger.info("\n\n Exchanging token..... ");
-		System.out.println("\n\n Exchanging token..... ");
-
-		String accessToken = bearerToken.substring(7, bearerToken.length());
-		Jwt jwt = jwtDecoder.decode(accessToken);
-		String clientId = (String) jwt.getClaims().get("azp");
+		Jwt jwt = null;
+		String clientId = null;
+		String accessToken = null;
 		String newScope = "product"; //cart order payment
+		
+		try {
+			logger.info("\n\n Exchanging token..... bearerToken:" + bearerToken);
+			System.out.println("\n\n Exchanging token..... bearerToken:" + bearerToken);
+	
+			accessToken = bearerToken.substring(7, bearerToken.length());
+			logger.info("\n\n Exchanging token..... accessToken: " + accessToken);
+			System.out.println("\n\n Exchanging token..... accessToken: " + accessToken);
 
-		logger.info("\n\n  Exchanging token..... for: " + clientId);
-		System.out.println("\n\n  Exchanging token..... for: " + clientId);
+			jwt = jwtDecoder.decode(accessToken);
+			logger.info("\n\n Exchanging token..... jwt: " + jwt);
+			System.out.println("\n\n Exchanging token..... jwt: " + jwt);
+
+			clientId = (String) jwt.getClaims().get("azp");
+			logger.info("\n\n Exchanging token..... clientId: " + clientId);
+			System.out.println("\n\n Exchanging token..... clientId: " + clientId);
+			
+	
+			logger.info("\n\n  Exchanging token..... for: " + clientId);
+			System.out.println("\n\n  Exchanging token..... for: " + clientId);
+			
+		}catch(Exception ex) {
+			logger.error("Exception: " + ex);
+			ex.printStackTrace();
+		}
 
 		return webClientBuilder.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 				.build().post()
