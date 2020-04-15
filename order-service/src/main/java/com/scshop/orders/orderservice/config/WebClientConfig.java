@@ -1,9 +1,11 @@
 package com.scshop.orders.orderservice.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
@@ -16,6 +18,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
+	
+	@Autowired
+	public WebClient.Builder lbWebClientBuilder;
+	
+	
 	@Bean
 	@Qualifier("webClient")
 	public WebClient webClient(ClientRegistrationRepository clientRegistrationRepository,
@@ -28,7 +35,7 @@ public class WebClientConfig {
 	}
 
 	@Bean
-	@LoadBalanced
+	@DependsOn({"lbWebClientBuilder"})
 	@Qualifier("loadBalancedWebClient")
 	public WebClient loadBalancedWebClient(ClientRegistrationRepository clientRegistrationRepository,
 			OAuth2AuthorizedClientRepository authorizedClientRepository) {
@@ -36,8 +43,10 @@ public class WebClientConfig {
 		ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(
 				clientRegistrationRepository, authorizedClientRepository);
 
-		return WebClient.builder().apply(oauth2.oauth2Configuration()).build();
+		//return WebClient.builder().filter(oauth2).build();
+		return lbWebClientBuilder.apply(oauth2.oauth2Configuration()).build();
 	}
+
 
 //	@Bean
 //	@Qualifier("webClient")
@@ -45,12 +54,12 @@ public class WebClientConfig {
 //		return WebClient.builder();
 //	}
 //
-//	@Bean
-//	@LoadBalanced
-//	@Qualifier("loadBalancedWebClient")
-//	WebClient.Builder loadBalancedWebClientBuilder() {
-//		return WebClient.builder();
-//	}
+	@Bean
+	@LoadBalanced
+	@Qualifier("loadBalancedWebClient")
+	WebClient.Builder lbWebClientBuilder() {
+		return WebClient.builder();
+	}
 
 //	@Bean
 //	@LoadBalanced
