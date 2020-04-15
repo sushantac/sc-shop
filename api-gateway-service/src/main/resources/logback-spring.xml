@@ -33,5 +33,7 @@
   <root level="INFO" additivity="false">
     <appender-ref ref="SAVE-TO-FILE"/>
   </root>
+  
+  <logger name="com.scshop.gatewayservice" level="debug"/>
  
 </configuration>
